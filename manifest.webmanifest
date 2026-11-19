@@ -1,0 +1,26 @@
+{
+ "name": "Trödel & Törtchen",
+ "short_name": "Trödel & Törtchen",
+ "start_url": "./index.html",
+ "scope": "./",
+ "display": "standalone",
+ "orientation": "portrait",
+ "background_color": "#24473c",
+ "theme_color": "#24473c",
+ "lang": "de",
+ "description": "Sortiere Omas Trödel, bediene die Gäste und richte dein gemütliches Café ein.",
+ "icons": [
+  {
+   "src": "icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any maskable"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any maskable"
+  }
+ ]
+}
