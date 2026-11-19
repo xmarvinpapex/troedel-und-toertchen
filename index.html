@@ -624,6 +624,63 @@ a.btn { display: block; text-decoration: none; text-align: center; }
 .sec .si { font-size: 28px; line-height: 1.1; } .sec small { font-size: 10.5px; font-weight: 800; line-height: 1.2; text-align: center; }
 .sec.locked { box-shadow: none; opacity: .6; }
 .mclue { border: 0; background: var(--brass); border-radius: 999px; width: 28px; height: 28px; padding: 0; font-size: 16px; vertical-align: middle; margin-left: 4px; }
+/* Startseite als Spielbrett */
+.screen.homemap { gap: 0; margin: -10px calc(-1 * max(16px, env(safe-area-inset-right, 0px))) -10px calc(-1 * max(16px, env(safe-area-inset-left, 0px))); position: relative; background: #8fbf74; }
+.hhud { position: absolute; top: 0; left: 0; right: 0; z-index: 5; display: flex; align-items: center; gap: 6px; padding: max(10px, env(safe-area-inset-top, 0px)) 14px 22px;
+  background: linear-gradient(rgba(40,70,40,.35), transparent); pointer-events: none; }
+.hhud > * { pointer-events: auto; } .hhud .hsp { flex: 1; }
+.hhud .pill { background: #fffaf0; color: var(--ink); box-shadow: 0 3px 0 rgba(0,0,0,.15); font-size: 15px; white-space: nowrap; padding: 6px 11px; }
+.hround { position: relative; width: 40px; height: 40px; flex: 0 0 40px; border-radius: 50%; border: 0; background: #fffaf0; display: grid; place-items: center; font-size: 22px; box-shadow: 0 3px 0 rgba(0,0,0,.18); padding: 0; }
+.hround.bonus { background: linear-gradient(135deg, #7a3fa0, #d9506f); animation: glowPulse 1s ease-in-out infinite alternate; }
+.hround .badge, .hnav .badge { position: absolute; top: -4px; right: -4px; background: var(--raspberry); color: #fff; border-radius: 999px; font: 800 11px/17px var(--body); min-width: 17px; padding: 0 4px; text-align: center; }
+.bwrap { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; }
+.bwrap::-webkit-scrollbar { display: none; }
+.board2 { position: relative; overflow: hidden; flex-shrink: 0; margin-top: auto; }
+.bcell .bflag { position: absolute; top: -20px; left: -18px; background: #8a5530; color: #f7ecd6; font: 800 11px/1 var(--display); padding: 4px 7px; border-radius: 5px; box-shadow: 0 2px 0 #5a3318; white-space: nowrap; display: flex; align-items: center; gap: 3px; transform: rotate(-6deg); }
+.bcell .bflag .mclue { width: 18px; height: 18px; font-size: 11px; display: inline-grid; place-items: center; font-style: normal; margin: 0; }
+.hplay { display: grid; gap: 1px; } .hplay small { font-family: var(--body); font-size: 12px; font-weight: 800; opacity: .7; }
+.bzone { position: absolute; left: 0; right: 0; }
+.board2::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .35;
+  background-image: radial-gradient(circle at 20% 30%, rgba(60,110,40,.5) 0 1.5px, transparent 2px), radial-gradient(circle at 70% 60%, rgba(60,110,40,.45) 0 1.5px, transparent 2px);
+  background-size: 37px 31px, 53px 41px; }
+.bpath { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.bpath path { fill: none; stroke: #f4ead2; stroke-width: 10; stroke-dasharray: 2 15; stroke-linecap: round; opacity: .9; }
+.bcell { position: absolute; transform: translate(-50%, -50%); width: 52px; height: 42px; border-radius: 50%; border: 0; padding: 0; display: grid; place-items: center;
+  background: #efe7d6; color: #8a7e68; box-shadow: 0 5px 0 #c9bea8, 0 8px 10px rgba(0,0,0,.2); font-family: var(--display); font-weight: 800; font-size: 16px; z-index: 2; }
+.bcell.done { background: radial-gradient(circle at 40% 30%, #fbe2a0, #e2b04a); color: var(--ink); box-shadow: 0 5px 0 #a87a1f, 0 8px 10px rgba(0,0,0,.2); }
+.bcell.cur { background: radial-gradient(circle at 40% 30%, #f6a3b6, #d9506f); color: #fff; box-shadow: 0 5px 0 #a33a52, 0 0 0 6px rgba(255,255,255,.45), 0 8px 12px rgba(0,0,0,.25); width: 58px; height: 46px; font-size: 18px; }
+.bcell.boss { width: 62px; height: 50px; } .bcell.boss .bn { font-size: 24px; }
+.bcell .bst { position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); display: flex; font-size: 13px; white-space: nowrap; }
+.bcell .bst i { font-style: normal; } .bcell .bst i.off img { filter: grayscale(1) opacity(.4); }
+.bcell .bms { position: absolute; top: -12px; right: -12px; width: 26px; height: 26px; border-radius: 50%; background: #fffaf0; display: grid; place-items: center; font-size: 15px; box-shadow: 0 2px 4px rgba(0,0,0,.2); }
+.bsign { position: absolute; z-index: 3; display: grid; justify-items: center; pointer-events: none; }
+.bsign span, .bsign small { pointer-events: auto; }
+.bsign span { font-family: var(--display); font-weight: 800; font-size: 13px; color: #f7ecd6; background: #8a5530; padding: 4px 10px; border-radius: 6px; box-shadow: 0 3px 0 #5a3318; white-space: nowrap; display: flex; align-items: center; gap: 4px; }
+.bsign small { font-size: 11px; font-weight: 800; color: #4a3a22; background: rgba(255,250,240,.85); padding: 1px 7px; border-radius: 999px; margin-top: 3px; white-space: nowrap; }
+.bsign i { width: 5px; height: 14px; background: #5a3318; }
+.bsign .mclue { width: 24px; height: 24px; font-size: 14px; margin-left: 2px; }
+.bdeco { position: absolute; font-size: 30px; transform: translateX(-50%); pointer-events: none; opacity: .95; filter: drop-shadow(0 3px 2px rgba(0,0,0,.2)); }
+.btoken { position: absolute; z-index: 4; transform: translate(-50%, -100%); margin-top: -14px; font-size: 46px; pointer-events: none; transition: left .38s ease-in-out, top .38s ease-in-out; filter: drop-shadow(0 6px 4px rgba(0,0,0,.35)); }
+.btoken span { display: block; animation: tokBob 1.6s ease-in-out infinite; }
+.btoken.hop span { animation: tokHop .38s ease-out; }
+@keyframes tokBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+@keyframes tokHop { 0% { transform: translateY(0); } 50% { transform: translateY(-26px) scale(1.05, .95); } 100% { transform: translateY(0); } }
+.hsheet { position: relative; z-index: 5; background: #fffaf0; color: var(--ink); border-radius: 24px 24px 0 0; padding: 12px 14px 12px; box-shadow: 0 -8px 20px rgba(0,0,0,.18); display: grid; gap: 10px; margin-top: -18px; }
+.hroom { display: flex; gap: 12px; align-items: center; cursor: pointer; border-radius: 14px; }
+.hroom:focus-visible { outline: 3px solid var(--brass); outline-offset: 3px; }
+.hmini { width: 112px; flex: 0 0 112px; border-radius: 12px; overflow: hidden; box-shadow: 0 0 0 3px var(--brass); }
+.hmini .scene { border-radius: 0; box-shadow: none; } .hmini .scene .pethot, .hmini .scene .seathot { pointer-events: none; }
+.hrt { flex: 1; min-width: 0; display: grid; gap: 3px; }
+.hrt b { font-family: var(--display); font-size: 18px; } .hrt small { color: #7a6552; font-weight: 700; font-size: 13px; }
+.hrt .gbar { height: 7px; border-radius: 4px; background: #efe3c8; overflow: hidden; } .hrt .gbar i { display: block; height: 100%; background: var(--brass); }
+.hrt em { font-style: normal; font-weight: 800; font-size: 13px; color: #a97a1f; } .hrt em.ready { color: #1d6b46; }
+.hplay { font-size: 21px; padding: 9px 0 8px; }
+.hnav { position: relative; z-index: 5; display: grid; grid-template-columns: repeat(5, 1fr); background: #24473c; padding: 6px 4px max(8px, env(safe-area-inset-bottom, 0px)); }
+.hnav button { position: relative; border: 0; background: none; color: #f7ecd6; display: grid; justify-items: center; gap: 1px; font-size: 24px; padding: 4px 0; opacity: .75; }
+.hnav button span { font-size: 11px; font-weight: 800; } .hnav button.on { opacity: 1; color: var(--brass); }
+.hnav .badge { top: 0; right: calc(50% - 22px); }
+.morelist { display: grid; gap: 8px; }
+@media (max-height: 700px) { .hmini { width: 90px; flex-basis: 90px; } .hplay { padding: 10px 0; font-size: 19px; } .hrt b { font-size: 16px; } }
 @keyframes pop { 40% { transform: scale(1.3); } 100% { transform: scale(0); opacity: 0; } }
 @keyframes drop { from { transform: translateY(-14px); } to { transform: none; } }
 @keyframes reveal { from { transform: scale(.5); opacity: .3; } to { transform: none; opacity: 1; } }
@@ -4825,7 +4882,7 @@ function openWeek() {
 const VERSION = "1.5";
 const vnum = v => v.split(".").map(Number).reduce((a, x) => a * 1000 + x, 0);
 const CHANGES = [
-  { v: "1.5", items: ["🗝️ Omas Geheimnis: Am Ende jedes Kapitels wartet ein Hinweis auf dich. Was hat Oma versteckt?"] },
+  { v: "1.5", items: ["🗺️ Neue Startseite: Dein Weg durch die Level ist jetzt das Spielbrett. Mit jedem geschafften Level hüpft dein Törtchen ein Feld weiter.", "🗝️ Omas Geheimnis: Am Ende jedes Kapitels wartet ein Hinweis auf dich. Was hat Oma versteckt?"] },
   { v: "1.4", items: ["🌸 Zwei neue Saison-Events: der Frühlingsmarkt und das Herbstfest, mit eigenen Orten, Tieren und Gegenständen",
     "⚡ Bonusrunden: 75 Sekunden Zeit, alle Münzen zählen doppelt", "📅 Wochenziele: jeden Montag drei neue Aufgaben mit Belohnung", "✨ Dieses Fenster zeigt dir ab jetzt, was neu ist"] },
   { v: "1.3", items: ["📲 Als App installierbar und offline spielbar", "🗺️ Levelkarte mit Kapiteln", "🌴 Neuer Ort: Omas Wintergarten",
@@ -5005,43 +5062,126 @@ Object.assign(EN, {
   [SECRET[7].t]: "Now the time has come.\n\nThe heart tartlet was never a secret because it tastes so special. It was a secret because it's meant for the person you entrust with the dearest place in the world.\n\nThe shop, the terrace, the bakehouse, the garden – all of it is yours now. And my recipe too. Bake it for your guests. Henri would be proud. I have been for a long time.\n\nWith love,\nyour Grandma Hilde"
 });
 
+function openMore() {
+  const a = achClaimable();
+  const o = overlay(`<div class="card">
+    <h2>${tx("Mehr")}</h2>
+    <div class="morelist">
+      <button class="btn alt" id="mAch">🏅 ${tx("Erfolge")}${a ? ` <span class="nbadge">${a}</span>` : ""}</button>
+      <button class="btn alt" id="mFb">💬 ${tx("Feedback geben")}</button>
+      <button class="btn alt" id="mNews">✨ ${tx("Was ist neu?")}</button>
+      <button class="btn alt" id="mSet">⚙️ ${tx("Einstellungen")}</button>
+    </div>
+    <p style="font-size:12px">${tx("Prototyp 1.5 · Werbung und Käufe sind nur simuliert")}</p>
+    <button class="btn" id="mClose">${tx("Schließen")}</button>
+  </div>`);
+  o.querySelector("#mAch").onclick = () => { closeOverlay(); renderAch(); };
+  o.querySelector("#mFb").onclick = () => { closeOverlay(); openFeedback(false); };
+  o.querySelector("#mNews").onclick = () => { closeOverlay(); showNews("1.1"); };
+  o.querySelector("#mSet").onclick = () => { closeOverlay(); openSettings(); };
+  o.querySelector("#mClose").onclick = closeOverlay;
+}
+Object.assign(EN, { "🗺️ Neue Startseite: Dein Weg durch die Level ist jetzt das Spielbrett. Mit jedem geschafften Level hüpft dein Törtchen ein Feld weiter.": "🗺️ New home screen: your path through the levels is now the game board. Your tartlet hops one space further with every level you complete.", "Kap.": "Ch.", "Karte": "Map", "Mehr": "More", "Nächstes:": "Next:", "Alles eingerichtet!": "All furnished!", "{} von {} eingerichtet": "{} of {} furnished" });
+
 /* ================= Darstellung: Start ================= */
+/* ================= Startseite: Spielbrett mit Café-Karte ================= */
+const ROWN = 4, ROWH = 96, BPAD = 70;
+const COLS = [20, 40, 60, 80];
+// Jedes Kapitel bekommt eine eigene Farbe und eigene Deko, damit das Brett abwechslungsreich bleibt
+const ZONES = [
+  { c1: "#bfe0a0", c2: "#a6d18a", d: ["☕", "🧁", "🌷"] }, { c1: "#b4dca8", c2: "#97c98e", d: ["🌳", "💬", "🌻"] },
+  { c1: "#d6e2a0", c2: "#bfd385", d: ["🍰", "🫖", "🌼"] }, { c1: "#b8d8c4", c2: "#9cc6ae", d: ["🗝️", "📚", "🕯️"] },
+  { c1: "#c8d6a8", c2: "#adc48c", d: ["🕰️", "🔒", "🌿"] }, { c1: "#e0d8a8", c2: "#cdc28a", d: ["📷", "🎩", "🧭"] },
+  { c1: "#e6d0b8", c2: "#d6b896", d: ["🎉", "🎀", "🍓"] }, { c1: "#c4d8e0", c2: "#a8c4d0", d: ["🍂", "❄️", "🌸"] }
+];
+const zoneOf = n => ZONES[Math.floor((n - 1) / 10) % ZONES.length];
+function boardPos(n, H) {
+  const i = n - 1, r = Math.floor(i / ROWN), k = i % ROWN;
+  return { x: COLS[r % 2 ? ROWN - 1 - k : k], y: H - BPAD - r * ROWH };
+}
+const homeIcon = (id, ico, label, badge, cls = "") => `<button class="hround ${cls}" id="${id}" aria-label="${label}">${ico}${badge ? `<span class="badge">${badge}</span>` : ""}</button>`;
 function renderHome() {
   G = null;
   const room = currentRoom();
   setScreenAudio(room.id);
   const done = room.ups.filter(u => save.owned.includes(u.id)).length;
   const g = nextGoal();
-  app.innerHTML = `<div class="screen scroll">
-    <div class="home-head">
-      <button class="iconbtn gear" id="hSet" aria-label="${tx("Einstellungen")}">⚙️</button>
-      <h1 class="logo">${logoHTML("amp")}</h1>
-      <p class="tag">${tx(GREET[todNow()])} ${tx("Sortiere Omas Trödel, bediene die Gäste, richte dein Café ein.")}</p>
+  const cur = save.level, maxN = Math.max(24, Math.ceil((cur + 8) / ROWN) * ROWN);
+  const rows = Math.ceil(maxN / ROWN), H = BPAD * 2 + (rows - 1) * ROWH + 40;
+  const from = Math.min(save.mapPos || cur, cur);
+  // Felder, Schilder, Deko
+  let cells = "", zones = "", deco = "";
+  for (let c = 0; c * 10 < maxN; c++) {
+    const top = boardPos(Math.min(maxN, c * 10 + 10), H).y - ROWH * .55, bot = c ? boardPos(c * 10 + 1, H).y + ROWH * .45 : H;
+    const z = ZONES[c % ZONES.length];
+    zones += `<div class="bzone" style="top:${Math.max(0, top)}px;height:${bot - Math.max(0, top)}px;background:linear-gradient(${z.c1},${z.c2})"></div>`;
+  }
+  for (let n = 1; n <= maxN; n++) {
+    const p = boardPos(n, H), st = save.best[n] || 0, boss = n % 10 === 0, ms = MILESTONES[n];
+    const cls = n < cur || st ? "done" : n === cur ? "cur" : "locked";
+    cells += `<button class="bcell ${cls} ${boss ? "boss" : ""}" data-lv="${n}" style="left:${p.x}%;top:${p.y}px" aria-label="Level ${n}">
+      <span class="bn">${boss ? (cls === "locked" ? "🔒" : "🏅") : n}</span>${st ? `<span class="bst">${[1, 2, 3].map(i => `<i class="${i <= st ? "" : "off"}">⭐</i>`).join("")}</span>` : ""}
+      ${ms && cls !== "done" ? `<span class="bms" title="${tx(ms[1])}">${ms[0]}</span>` : ""}
+      ${(n - 1) % 10 === 0 ? `<span class="bflag">${tx("Kap.")} ${(n - 1) / 10 + 1}${(n - 1) / 10 < SECRET.length && secretFound((n - 1) / 10) ? ` <i class="mclue" data-sec="${(n - 1) / 10}">${SECRET[(n - 1) / 10].e}</i>` : ""}</span>` : ""}</button>`;
+    if (n % ROWN === 2) { const z = zoneOf(n); deco += `<span class="bdeco" style="top:${p.y - 30}px;left:${Math.floor((n - 1) / ROWN) % 2 ? 3 : 91}%">${z.d[(n >> 2) % z.d.length]}</span>`; }
+  }
+  const fp = boardPos(from, H);
+  const e = curEvent(), wk = save.level >= WEEK_FROM ? weekClaimable() : 0;
+  const affordable = room.ups.filter(u => !save.owned.includes(u.id) && u.c <= freeStars()).length;
+  app.innerHTML = `<div class="screen homemap">
+    <div class="hhud">
+      <span class="pill">⭐ ${freeStars()}</span><span class="pill" id="hCoins">🪙 ${save.coins}</span><span class="hsp"></span>
+      ${save.bonusReady ? homeIcon("hBonus", "⚡", tx("Bonusrunde bereit!"), "!", "bonus") : ""}
+      ${puzzleUnlocked() ? homeIcon("hPuzzle", "🧩", tx("Tagesrätsel"), puzzleSolved() ? "" : "1") : ""}
+      ${e ? homeIcon("hEvent", e.icon, tx(e.n), "") : ""}
+      ${save.level >= WEEK_FROM ? homeIcon("hWeek", "📅", tx("Wochenziele"), wk) : ""}
     </div>
-    <div class="stats"><span class="pill">${TX`⭐ ${freeStars()} frei`}</span><span class="pill" id="hCoins">🪙 ${save.coins}</span><span class="pill">${tx(room.n)} ${done}/${room.ups.length}</span>${save.trophies ? `<span class="pill">🏆 ${save.trophies}</span>` : ""}</div>
-    ${sceneHTML(room)}
-    ${goalHTML(g, "hGoal")}
-    <div class="home-actions">
-      ${puzzleBanner()}
-      ${save.bonusReady ? `<button class="evbanner bonusb" id="hBonus"><span class="eico">⚡</span><span><b>${tx("Bonusrunde bereit!")}</b><small>${tx("75 Sekunden · alle Münzen doppelt")}</small></span></button>` : ""}
-      ${(e => e ? `<button class="evbanner ev-${e.scene}" id="hEvent"><span class="eico">${e.icon}</span><span><b>${tx(e.n)}</b><small>${TX`Saison-Event · noch ${daysLeft(e)} Tage`} · ${flakesFree(e)} ${e.cur}</small></span></button>` : "")(curEvent())}
-      ${weekButton()}
-      <div class="playrow"><button class="btn" id="hPlay">${TX`Level ${save.level} spielen`}</button><button class="btn alt mapbtn" id="hMap" aria-label="${tx("Levelkarte")}">🗺️</button></div>
-      <div class="row2"><button class="btn alt" id="hShop">${tx("Einrichten")}${freeStars() ? ` · ${freeStars()} ⭐` : ""}</button><button class="btn alt" id="hAlbum">📖 ${tx("Album")}</button></div>
-      <div class="row3"><button class="btn alt small" id="hAch">🏅 ${tx("Erfolge")}${achClaimable() ? ` <span class="nbadge">${achClaimable()}</span>` : ""}</button><button class="btn alt small" id="hStore">${tx("Shop (Demo)")}${offerLeft() ? ` <span class="nbadge">1</span>` : ""}</button><button class="btn alt small" id="hFeedback">💬 ${tx("Feedback")}</button></div>
+    <div class="bwrap" id="bwrap"><div class="board2" style="height:${H}px">${zones}
+      <svg class="bpath" aria-hidden="true"><path/></svg>${deco}${cells}
+      <div class="btoken" id="bTok" style="left:${fp.x}%;top:${fp.y}px"><span>🧁</span></div></div></div>
+    <div class="hsheet">
+      <div class="hroom" id="hRoom" role="button" tabindex="0">
+        <span class="hmini">${sceneHTML(room)}</span>
+        <span class="hrt"><b>${tx(room.n)}</b><small>${TX`${done} von ${room.ups.length} eingerichtet`}</small>
+          <span class="gbar"><i style="width:${done / room.ups.length * 100}%"></i></span>
+          ${g ? `<em class="${g.have >= g.u.c ? "ready" : ""}">${g.have >= g.u.c ? tx("Jetzt einrichten!") + " " : tx("Nächstes:") + " "}${tx(g.u.n)} · ⭐ ${g.u.c}</em>` : `<em>${tx("Alles eingerichtet!")} 🎉</em>`}</span>
+      </div>
+      <button class="btn hplay" id="hPlay">${TX`Level ${save.level} spielen`}<small>${tx("Kapitel")} ${Math.floor((cur - 1) / 10) + 1} · ${chapterName(Math.floor((cur - 1) / 10))}</small></button>
     </div>
-    <p class="footnote">${tx("Prototyp 1.5 · Werbung und Käufe sind nur simuliert")}</p>
+    <nav class="hnav">
+      <button class="on" id="nMap">🗺️<span>${tx("Karte")}</span></button>
+      <button id="hShop">🛋️<span>${tx("Einrichten")}</span>${affordable ? `<b class="badge">${affordable}</b>` : ""}</button>
+      <button id="hAlbum">📖<span>${tx("Album")}</span></button>
+      <button id="hStore">🎁<span>Shop</span>${offerLeft() ? `<b class="badge">1</b>` : ""}</button>
+      <button id="hMore">⚙️<span>${tx("Mehr")}</span>${achClaimable() ? `<b class="badge">${achClaimable()}</b>` : ""}</button>
+    </nav>
   </div>`;
+  // Weg zwischen den Feldern in Bildschirmpunkten
+  const bw = app.querySelector(".board2").clientWidth, X = x => x * bw / 100;
+  const pts = range(maxN).map(i => boardPos(i + 1, H));
+  const d = pts.map((p, i) => { if (!i) return `M ${X(p.x)} ${p.y}`; const q = pts[i - 1]; return q.y === p.y ? `L ${X(p.x)} ${p.y}` : `C ${X(q.x) + (q.x > 50 ? 50 : -50)} ${q.y}, ${X(p.x) + (p.x > 50 ? 50 : -50)} ${p.y}, ${X(p.x)} ${p.y}`; }).join(" ");
+  const sv = app.querySelector(".bpath"); sv.setAttribute("viewBox", `0 0 ${bw} ${H}`); sv.querySelector("path").setAttribute("d", d);
+  // zum aktuellen Feld scrollen
+  const wrap = $("#bwrap"), cp = boardPos(cur, H);
+  wrap.scrollTop = Math.max(0, cp.y - wrap.clientHeight * .6);
+  // Spielfigur hüpft ein Feld weiter, wenn ein neues Level geschafft wurde
+  if (from < cur) {
+    save.mapPos = cur; persist();
+    let n = from;
+    const hop = () => { n++; const p = boardPos(n, H), t = $("#bTok"); if (!t) return; t.style.left = p.x + "%"; t.style.top = p.y + "px"; t.classList.remove("hop"); void t.offsetWidth; t.classList.add("hop"); sfx("pick"); if (n < cur) setTimeout(hop, 420); };
+    setTimeout(hop, 500);
+  } else if (!save.mapPos) { save.mapPos = cur; persist(); }
   $("#hPlay").onclick = () => preLevel(save.level);
+  $("#hRoom").onclick = () => renderShop(null, g && g.have >= g.u.c ? g.u.id : null);
+  $("#hRoom").onkeydown = ev => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); $("#hRoom").click(); } };
   $("#hShop").onclick = () => renderShop(null, g && g.have >= g.u.c ? g.u.id : null);
   $("#hAlbum").onclick = renderAlbum;
   $("#hStore").onclick = openStore;
-  $("#hFeedback").onclick = () => openFeedback(false);
-  $("#hAch").onclick = renderAch;
-  $("#hMap").onclick = renderMap;
+  $("#hMore").onclick = openMore;
+  $("#nMap").onclick = () => { wrap.scrollTo({ top: Math.max(0, cp.y - wrap.clientHeight * .6), behavior: "smooth" }); };
+  app.querySelectorAll(".bcell").forEach(b => b.onclick = () => { const n = +b.dataset.lv; if (n > cur) { sfx("tap"); return toast(TX`Schaff zuerst Level ${cur}.`); } preLevel(n); });
+  app.querySelectorAll("[data-sec]").forEach(b => b.onclick = ev => { ev.stopPropagation(); showSecret(+b.dataset.sec, null, true); });
   const hp = $("#hPuzzle"); if (hp) hp.onclick = openPuzzle;
-  $("#hSet").onclick = openSettings;
-  const hg = $("#hGoal"); if (hg) hg.onclick = () => renderShop(null, g.u.id);
   const he = $("#hEvent"); if (he) he.onclick = () => {
     const e = curEvent(), ev = evSave(e);
     if (!ev.introSeen) { ev.introSeen = true; persist(); showLetter(e.letter, { title: tx(e.n), icon: e.icon, btn: tx("Los geht's") }, () => renderEvent()); }
