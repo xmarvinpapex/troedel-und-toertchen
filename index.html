@@ -619,6 +619,11 @@ a.btn { display: block; text-decoration: none; text-align: center; }
 .wrow.ok { box-shadow: inset 0 0 0 2px var(--brass); } .wrow.allb { background: #fff1cf; } .wrow .btn.small { white-space: nowrap; }
 .news { text-align: left; background: #efe3c8; border-radius: 12px; padding: 10px 12px; } .news b { font-family: var(--display); font-size: 15px; }
 .news ul { margin: 6px 0 0; padding-left: 4px; list-style: none; display: grid; gap: 4px; font-size: 14px; font-weight: 700; }
+.secrets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.sec { border: 0; border-radius: 14px; padding: 8px 4px; background: var(--wall-2); display: grid; justify-items: center; gap: 3px; box-shadow: inset 0 0 0 2px var(--brass); }
+.sec .si { font-size: 28px; line-height: 1.1; } .sec small { font-size: 10.5px; font-weight: 800; line-height: 1.2; text-align: center; }
+.sec.locked { box-shadow: none; opacity: .6; }
+.mclue { border: 0; background: var(--brass); border-radius: 999px; width: 28px; height: 28px; padding: 0; font-size: 16px; vertical-align: middle; margin-left: 4px; }
 @keyframes pop { 40% { transform: scale(1.3); } 100% { transform: scale(0); opacity: 0; } }
 @keyframes drop { from { transform: translateY(-14px); } to { transform: none; } }
 @keyframes reveal { from { transform: scale(.5); opacity: .3; } to { transform: none; opacity: 1; } }
@@ -2708,7 +2713,7 @@ Object.assign(EN, {
   "Für jeden Erfolg gibt es eine Belohnung. Tippe auf „Holen“, sobald einer geschafft ist.": "Every achievement comes with a reward. Tap “Claim” once you've earned one.",
   // Startseite, Tagesbonus, Einstellungen, Shop
   "Einstellungen": "Settings", "Sortiere Omas Trödel, bediene die Gäste, richte dein Café ein.": "Sort Grandma's trinkets, serve the guests, furnish your café.",
-  "⭐ {} frei": "⭐ {} free", "Album": "Album", "Shop (Demo)": "Shop (demo)", "Prototyp 1.4 · Werbung und Käufe sind nur simuliert": "Prototype 1.2 · Ads and purchases are only simulated",
+  "⭐ {} frei": "⭐ {} free", "Album": "Album", "Shop (Demo)": "Shop (demo)", "Prototyp 1.5 · Werbung und Käufe sind nur simuliert": "Prototype 1.2 · Ads and purchases are only simulated",
   "Tag {}": "Day {}", "Tagesbonus": "Daily bonus", "Komm jeden Tag wieder. Am 7. Tag gibt es einen Extra-Stern.": "Come back every day. On day 7 you get an extra star.",
   "{} 🪙 abholen": "Collect {} 🪙", "+{} 🪙{}. Bis morgen!": "+{} 🪙{}. See you tomorrow!", " und 1 ⭐": " and 1 ⭐",
   "Sprache": "Language", "Musik": "Music", "Umgebungsgeräusche": "Ambient sounds", "Soundeffekte": "Sound effects", "Vibration": "Vibration",
@@ -2734,7 +2739,7 @@ const clone = o => JSON.parse(JSON.stringify(o));
 
 /* ================= Grafiken (Fluent Emoji 3D, MIT-Lizenz) ================= */
 // Ersetzt jedes Emoji im Text automatisch durch das passende Bild, damit es auf jedem Handy gleich aussieht.
-const EMO = {"☕":"img/2615.webp","🕰️":"img/1f570-fe0f.webp","🏺":"img/1f3fa.webp","📚":"img/1f4da.webp","🕯️":"img/1f56f-fe0f.webp","🧸":"img/1f9f8.webp","🎩":"img/1f3a9.webp","🫖":"img/1fad6.webp","🧁":"img/1f9c1.webp","🍰":"img/1f370.webp","🥐":"img/1f950.webp","🍪":"img/1f36a.webp","📻":"img/1f4fb.webp","🗝️":"img/1f5dd-fe0f.webp","🪆":"img/1fa86.webp","🎻":"img/1f3bb.webp","🧣":"img/1f9e3.webp","🧤":"img/1f9e4.webp","🎄":"img/1f384.webp","⛄":"img/26c4.webp","🛷":"img/1f6f7.webp","🔔":"img/1f514.webp","🦌":"img/1f98c.webp","🌟":"img/1f31f.webp","👵":"img/1f475.webp","👴":"img/1f474.webp","🧑‍🎨":"img/1f9d1-200d-1f3a8.webp","👩‍🍳":"img/1f469-200d-1f373.webp","🧔":"img/1f9d4.webp","👨‍🦳":"img/1f468-200d-1f9b3.webp","👩‍🦱":"img/1f469-200d-1f9b1.webp","🧓":"img/1f9d3.webp","🧑‍🦰":"img/1f9d1-200d-1f9b0.webp","🧐":"img/1f9d0.webp","🧑‍💼":"img/1f9d1-200d-1f4bc.webp","👧":"img/1f467.webp","🕵️":"img/1f575-fe0f.webp","🤵":"img/1f935.webp","💬":"img/1f4ac.webp","❤️":"img/2764-fe0f.webp","🪙":"img/1fa99.webp","🏆":"img/1f3c6.webp","⭐":"img/2b50.webp","🔒":"img/1f512.webp","🎀":"img/1f380.webp","❄️":"img/2744-fe0f.webp","👨‍🦱":"img/1f468-200d-1f9b1.webp","👩‍🦳":"img/1f469-200d-1f9b3.webp","💑":"img/1f491.webp","💍":"img/1f48d.webp","👦":"img/1f466.webp","👨‍⚕️":"img/1f468-200d-2695-fe0f.webp","🕸️":"img/1f578-fe0f.webp","📦":"img/1f4e6.webp","🧹":"img/1f9f9.webp","🎂":"img/1f382.webp","💡":"img/1f4a1.webp","🖼️":"img/1f5bc-fe0f.webp","🪴":"img/1fab4.webp","🛋️":"img/1f6cb-fe0f.webp","🐈":"img/1f408.webp","💐":"img/1f490.webp","🍂":"img/1f342.webp","⛱️":"img/26f1-fe0f.webp","🪑":"img/1fa91.webp","🌷":"img/1f337.webp","🏮":"img/1f3ee.webp","🪧":"img/1faa7.webp","🍦":"img/1f366.webp","🚲":"img/1f6b2.webp","⛲":"img/26f2.webp","🐕":"img/1f415.webp","🔥":"img/1f525.webp","🥖":"img/1f956.webp","🥣":"img/1f963.webp","🥧":"img/1f967.webp","🍓":"img/1f353.webp","🍯":"img/1f36f.webp","🫙":"img/1fad9.webp","🍵":"img/1f375.webp","🐁":"img/1f401.webp","🧳":"img/1f9f3.webp","🗺️":"img/1f5fa-fe0f.webp","🎠":"img/1f3a0.webp","🪞":"img/1fa9e.webp","🧵":"img/1f9f5.webp","🧶":"img/1f9f6.webp","🔭":"img/1f52d.webp","🎶":"img/1f3b6.webp","🦉":"img/1f989.webp","🌿":"img/1f33f.webp","🏡":"img/1f3e1.webp","🌳":"img/1f333.webp","🌹":"img/1f339.webp","🌻":"img/1f33b.webp","🐝":"img/1f41d.webp","🦆":"img/1f986.webp","🐇":"img/1f407.webp","🦋":"img/1f98b.webp","🧺":"img/1f9fa.webp","💝":"img/1f49d.webp","🍷":"img/1f377.webp","📷":"img/1f4f7.webp","✨":"img/2728.webp","💔":"img/1f494.webp","🤍":"img/1f90d.webp","↩️":"img/21a9-fe0f.webp","🔍":"img/1f50d.webp","🔀":"img/1f500.webp","☀️":"img/2600-fe0f.webp","⚙️":"img/2699-fe0f.webp","🚫":"img/1f6ab.webp","🎁":"img/1f381.webp","👛":"img/1f45b.webp","💌":"img/1f48c.webp","📖":"img/1f4d6.webp","⏳":"img/23f3.webp","🎨":"img/1f3a8.webp","👇":"img/1f447.webp","👆":"img/1f446.webp","🧩":"img/1f9e9.webp","🏅":"img/1f3c5.webp","🧭":"img/1f9ed.webp","🎺":"img/1f3ba.webp","🖋️":"img/1f58b-fe0f.webp","👓":"img/1f453.webp","🌴":"img/1f334.webp","🌸":"img/1f338.webp","🌵":"img/1f335.webp","🍋":"img/1f34b.webp","🐤":"img/1f424.webp","👀":"img/1f440.webp","📊":"img/1f4ca.webp","🎃":"img/1f383.webp","📲":"img/1f4f2.webp","🎉":"img/1f389.webp","💰":"img/1f4b0.webp","🐣":"img/1f423.webp","🥚":"img/1f95a.webp","🐰":"img/1f430.webp","🌼":"img/1f33c.webp","🍫":"img/1f36b.webp","🪺":"img/1faba.webp","🍬":"img/1f36c.webp","🍎":"img/1f34e.webp","🍐":"img/1f350.webp","🍄":"img/1f344.webp","🌰":"img/1f330.webp","🌽":"img/1f33d.webp","🍇":"img/1f347.webp","👑":"img/1f451.webp","🐑":"img/1f411.webp","🌾":"img/1f33e.webp","🧃":"img/1f9c3.webp","👒":"img/1f452.webp","🦔":"img/1f994.webp","⚡":"img/26a1.webp","⏱️":"img/23f1-fe0f.webp","📅":"img/1f4c5.webp","🌍":"img/1f30d.webp"};
+const EMO = {"☕":"img/2615.webp","🕰️":"img/1f570-fe0f.webp","🏺":"img/1f3fa.webp","📚":"img/1f4da.webp","🕯️":"img/1f56f-fe0f.webp","🧸":"img/1f9f8.webp","🎩":"img/1f3a9.webp","🫖":"img/1fad6.webp","🧁":"img/1f9c1.webp","🍰":"img/1f370.webp","🥐":"img/1f950.webp","🍪":"img/1f36a.webp","📻":"img/1f4fb.webp","🗝️":"img/1f5dd-fe0f.webp","🪆":"img/1fa86.webp","🎻":"img/1f3bb.webp","🧣":"img/1f9e3.webp","🧤":"img/1f9e4.webp","🎄":"img/1f384.webp","⛄":"img/26c4.webp","🛷":"img/1f6f7.webp","🔔":"img/1f514.webp","🦌":"img/1f98c.webp","🌟":"img/1f31f.webp","👵":"img/1f475.webp","👴":"img/1f474.webp","🧑‍🎨":"img/1f9d1-200d-1f3a8.webp","👩‍🍳":"img/1f469-200d-1f373.webp","🧔":"img/1f9d4.webp","👨‍🦳":"img/1f468-200d-1f9b3.webp","👩‍🦱":"img/1f469-200d-1f9b1.webp","🧓":"img/1f9d3.webp","🧑‍🦰":"img/1f9d1-200d-1f9b0.webp","🧐":"img/1f9d0.webp","🧑‍💼":"img/1f9d1-200d-1f4bc.webp","👧":"img/1f467.webp","🕵️":"img/1f575-fe0f.webp","🤵":"img/1f935.webp","💬":"img/1f4ac.webp","❤️":"img/2764-fe0f.webp","🪙":"img/1fa99.webp","🏆":"img/1f3c6.webp","⭐":"img/2b50.webp","🔒":"img/1f512.webp","🎀":"img/1f380.webp","❄️":"img/2744-fe0f.webp","👨‍🦱":"img/1f468-200d-1f9b1.webp","👩‍🦳":"img/1f469-200d-1f9b3.webp","💑":"img/1f491.webp","💍":"img/1f48d.webp","👦":"img/1f466.webp","👨‍⚕️":"img/1f468-200d-2695-fe0f.webp","🕸️":"img/1f578-fe0f.webp","📦":"img/1f4e6.webp","🧹":"img/1f9f9.webp","🎂":"img/1f382.webp","💡":"img/1f4a1.webp","🖼️":"img/1f5bc-fe0f.webp","🪴":"img/1fab4.webp","🛋️":"img/1f6cb-fe0f.webp","🐈":"img/1f408.webp","💐":"img/1f490.webp","🍂":"img/1f342.webp","⛱️":"img/26f1-fe0f.webp","🪑":"img/1fa91.webp","🌷":"img/1f337.webp","🏮":"img/1f3ee.webp","🪧":"img/1faa7.webp","🍦":"img/1f366.webp","🚲":"img/1f6b2.webp","⛲":"img/26f2.webp","🐕":"img/1f415.webp","🔥":"img/1f525.webp","🥖":"img/1f956.webp","🥣":"img/1f963.webp","🥧":"img/1f967.webp","🍓":"img/1f353.webp","🍯":"img/1f36f.webp","🫙":"img/1fad9.webp","🍵":"img/1f375.webp","🐁":"img/1f401.webp","🧳":"img/1f9f3.webp","🗺️":"img/1f5fa-fe0f.webp","🎠":"img/1f3a0.webp","🪞":"img/1fa9e.webp","🧵":"img/1f9f5.webp","🧶":"img/1f9f6.webp","🔭":"img/1f52d.webp","🎶":"img/1f3b6.webp","🦉":"img/1f989.webp","🌿":"img/1f33f.webp","🏡":"img/1f3e1.webp","🌳":"img/1f333.webp","🌹":"img/1f339.webp","🌻":"img/1f33b.webp","🐝":"img/1f41d.webp","🦆":"img/1f986.webp","🐇":"img/1f407.webp","🦋":"img/1f98b.webp","🧺":"img/1f9fa.webp","💝":"img/1f49d.webp","🍷":"img/1f377.webp","📷":"img/1f4f7.webp","✨":"img/2728.webp","💔":"img/1f494.webp","🤍":"img/1f90d.webp","↩️":"img/21a9-fe0f.webp","🔍":"img/1f50d.webp","🔀":"img/1f500.webp","☀️":"img/2600-fe0f.webp","⚙️":"img/2699-fe0f.webp","🚫":"img/1f6ab.webp","🎁":"img/1f381.webp","👛":"img/1f45b.webp","💌":"img/1f48c.webp","📖":"img/1f4d6.webp","⏳":"img/23f3.webp","🎨":"img/1f3a8.webp","👇":"img/1f447.webp","👆":"img/1f446.webp","🧩":"img/1f9e9.webp","🏅":"img/1f3c5.webp","🧭":"img/1f9ed.webp","🎺":"img/1f3ba.webp","🖋️":"img/1f58b-fe0f.webp","👓":"img/1f453.webp","🌴":"img/1f334.webp","🌸":"img/1f338.webp","🌵":"img/1f335.webp","🍋":"img/1f34b.webp","🐤":"img/1f424.webp","👀":"img/1f440.webp","📊":"img/1f4ca.webp","🎃":"img/1f383.webp","📲":"img/1f4f2.webp","🎉":"img/1f389.webp","💰":"img/1f4b0.webp","🐣":"img/1f423.webp","🥚":"img/1f95a.webp","🐰":"img/1f430.webp","🌼":"img/1f33c.webp","🍫":"img/1f36b.webp","🪺":"img/1faba.webp","🍬":"img/1f36c.webp","🍎":"img/1f34e.webp","🍐":"img/1f350.webp","🍄":"img/1f344.webp","🌰":"img/1f330.webp","🌽":"img/1f33d.webp","🍇":"img/1f347.webp","👑":"img/1f451.webp","🐑":"img/1f411.webp","🌾":"img/1f33e.webp","🧃":"img/1f9c3.webp","👒":"img/1f452.webp","🦔":"img/1f994.webp","⚡":"img/26a1.webp","⏱️":"img/23f1-fe0f.webp","📅":"img/1f4c5.webp","🌍":"img/1f30d.webp","📜":"img/1f4dc.webp","🧰":"img/1f9f0.webp","🔑":"img/1f511.webp","❔":"img/2754.webp"};
 const EMO_RE = new RegExp(Object.keys(EMO).sort((a, b) => b.length - a.length)
   .map(k => k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|"), "gu");
 function emojify(root) {
@@ -3501,6 +3506,11 @@ function win() {
         btn: last ? TX`Geschichte beendet · +${STORY_FINAL} 🪙` : TX`Weiter · +${STORY_COINS} 🪙` }, win);
     }
   }
+  // Am Ende eines Kapitels: ein Hinweis zu Omas Geheimnis
+  if (!G.ev && !G.daily && !G.bonus && G.n % 10 === 0 && !G.secretShown) {
+    const c = G.n / 10 - 1;
+    if (c < SECRET.length && !secretFound(c)) { G.secretShown = true; G.over = true; return showSecret(c, win); }
+  }
   G.over = true; statEnd("w");
   const st = starsFor();
   const news = mergeAlbum();
@@ -3911,6 +3921,7 @@ function renderAlbum() {
       <span class="pill">📖 ${got}/${ITEMS.length}</span>
     </div>
     ${ba}
+    ${secretRow()}
     <h3 class="ah">${tx("Stammgäste")}</h3>
     <div class="regs">${REGULARS.map(r => { const st = save.regulars[r.id] || 0; return `<button class="reg" data-reg="${r.id}">
       <span class="rf ${st ? "" : "locked"}">${r.g}</span><b>${st ? tx(r.n) : "???"}</b><small>${st}/${r.s.length}</small></button>`; }).join("")}</div>
@@ -3929,6 +3940,7 @@ function renderAlbum() {
     const upd = () => { const v = +baIn.value; $("#baB").style.clipPath = `inset(0 ${100 - v}% 0 0)`; $("#baL").style.left = v + "%"; };
     baIn.oninput = upd; upd();
   }
+  app.querySelectorAll("[data-sec]").forEach(b => b.onclick = () => { const c = +b.dataset.sec; secretFound(c) ? showSecret(c, null, true) : toast(TX`Schaff Level ${(c + 1) * 10}, um diesen Hinweis zu finden.`); });
   app.querySelectorAll("[data-reg]").forEach(b => b.onclick = () => {
     const r = REGULARS.find(x => x.id === b.dataset.reg), st = save.regulars[r.id] || 0;
     if (!st) return toast(tx("Diesen Stammgast hast du noch nicht kennengelernt. Ab Level 6 kommen sie vorbei!"));
@@ -4444,7 +4456,7 @@ function renderMap() {
   const ROW = 92;
   let nodes = "", path = "", y = 0, pts = [];
   for (let n = 1; n <= last; n++) {
-    if ((n - 1) % 10 === 0) { const c = (n - 1) / 10; nodes += `<div class="mchap" style="top:${y}px"><b>${tx("Kapitel")} ${c + 1}</b><span>${chapterName(c)}</span></div>`; y += 62; }
+    if ((n - 1) % 10 === 0) { const c = (n - 1) / 10; nodes += `<div class="mchap" style="top:${y}px"><b>${tx("Kapitel")} ${c + 1}</b><span>${chapterName(c)}${c < SECRET.length && secretFound(c) ? ` <button class="mclue" data-sec="${c}" aria-label="${tx("Omas Geheimnis")}">${SECRET[c].e}</button>` : ""}</span></div>`; y += 62; }
     const x = pos(n), st = save.best[n] || 0, done = st > 0, isCur = n === cur, locked = n > cur, boss = n % 10 === 0, ms = MILESTONES[n];
     pts.push([x, y + 30]);
     nodes += `<button class="mnode ${done ? "done" : ""} ${isCur ? "cur" : ""} ${locked ? "locked" : ""} ${boss ? "boss" : ""}" data-lv="${n}" style="left:${x}%;top:${y}px" aria-label="Level ${n}">
@@ -4467,6 +4479,7 @@ function renderMap() {
     </div>
   </div>`;
   $("#mBack").onclick = renderHome;
+  app.querySelectorAll("[data-sec]").forEach(b => b.onclick = () => showSecret(+b.dataset.sec, null, true));
   // Weg zwischen den Levels in Bildschirmpunkten zeichnen
   const mw = app.querySelector(".map").clientWidth, X = x => (x * mw / 100).toFixed(1);
   const d = pts.map(([x, py], i) => i ? `C ${X(pts[i - 1][0])} ${pts[i - 1][1] + ROW * .5}, ${X(x)} ${py - ROW * .5}, ${X(x)} ${py}` : `M ${X(x)} ${py}`).join(" ");
@@ -4688,7 +4701,7 @@ Object.assign(EN, {
   "iPhone/iPad: Tippe in Safari unten auf „Teilen“ und dann auf „Zum Home-Bildschirm“.": "iPhone/iPad: In Safari, tap “Share” at the bottom and then “Add to Home Screen”.",
   "Android: Tippe in Chrome oben rechts auf ⋮ und dann auf „App installieren“ oder „Zum Startbildschirm hinzufügen“.": "Android: In Chrome, tap ⋮ at the top right and then “Install app” or “Add to Home screen”.",
   "Danach hat das Spiel ein eigenes Symbol, startet im Vollbild und läuft auch ohne Internet.": "Then the game gets its own icon, starts in full screen and works without internet too.",
-  "Prototyp 1.4 · Werbung und Käufe sind nur simuliert": "Prototype 1.3 · Ads and purchases are only simulated",
+  "Prototyp 1.5 · Werbung und Käufe sind nur simuliert": "Prototype 1.3 · Ads and purchases are only simulated",
   "{} gehört dir! Die neuen Farben findest du beim Einrichten.": "{} is yours! You'll find the new colours when furnishing."
 });
 
@@ -4809,9 +4822,10 @@ function openWeek() {
 }
 
 /* ================= Was ist neu? ================= */
-const VERSION = "1.4";
+const VERSION = "1.5";
 const vnum = v => v.split(".").map(Number).reduce((a, x) => a * 1000 + x, 0);
 const CHANGES = [
+  { v: "1.5", items: ["🗝️ Omas Geheimnis: Am Ende jedes Kapitels wartet ein Hinweis auf dich. Was hat Oma versteckt?"] },
   { v: "1.4", items: ["🌸 Zwei neue Saison-Events: der Frühlingsmarkt und das Herbstfest, mit eigenen Orten, Tieren und Gegenständen",
     "⚡ Bonusrunden: 75 Sekunden Zeit, alle Münzen zählen doppelt", "📅 Wochenziele: jeden Montag drei neue Aufgaben mit Belohnung", "✨ Dieses Fenster zeigt dir ab jetzt, was neu ist"] },
   { v: "1.3", items: ["📲 Als App installierbar und offline spielbar", "🗺️ Levelkarte mit Kapiteln", "🌴 Neuer Ort: Omas Wintergarten",
@@ -4937,7 +4951,58 @@ Object.assign(EN, {
   "🌍 Englische Version": "🌍 English version", "🧩 Tagesrätsel": "🧩 Daily puzzle", "🏅 Erfolge": "🏅 Achievements",
   "🕸️ Neue Hindernisse ab Level 25": "🕸️ New obstacles from level 25", "🐈 Gäste und Tiere in den Räumen": "🐈 Guests and animals in the rooms",
   "Eine neue Version ist da. Starte das Spiel neu, um sie zu sehen.": "A new version is available. Restart the game to see it.",
-  "Prototyp 1.4 · Werbung und Käufe sind nur simuliert": "Prototype 1.4 · Ads and purchases are only simulated"
+  "Prototyp 1.5 · Werbung und Käufe sind nur simuliert": "Prototype 1.5 · Ads and purchases are only simulated",
+  "🗝️ Omas Geheimnis: Am Ende jedes Kapitels wartet ein Hinweis auf dich. Was hat Oma versteckt?": "🗝️ Grandma's secret: a clue awaits you at the end of every chapter. What did Grandma hide?"
+});
+
+
+/* ================= Omas Geheimnis (Geschichte über die Kapitel) ================= */
+// Am Ende jedes Kapitels (Level 10, 20 … 80) gibt es einen Hinweis
+const SECRET = [
+  { e: "🗝️", n: "Der Messingschlüssel", coins: 50, t: "Mein liebes Enkelkind,\n\nin der Kassenschublade klemmt ganz hinten ein kleiner Messingschlüssel mit einem Herz. Wenn du ihn gefunden hast, hast du den Laden schon ein bisschen lieb gewonnen.\n\nEr gehört zu etwas, das ich sehr gut versteckt habe. Such weiter – ich lege dir Spuren." },
+  { e: "💌", n: "Eine Postkarte aus Paris", coins: 60, t: "Hinter dem Ölgemälde steckt eine Postkarte aus Paris, 1965. Unterschrieben mit „Henri“.\n\nBevor ich Opa kannte, habe ich ein Jahr in Paris in einer Backstube gearbeitet. Henri war der Bäcker. Er hat mir alles beigebracht, was ich übers Backen weiß.\n\nUnd er hat mir ein Versprechen abgenommen." },
+  { e: "📜", n: "Die fehlende Rezeptseite", coins: 70, t: "Ist dir aufgefallen, dass in meinem Rezeptbuch eine Seite fehlt? Seite 68. Dort stand mein bestes Rezept.\n\nIch habe sie herausgerissen, damit sie niemand zufällig findet. Auf den Rand habe ich geschrieben:\n\n„Sie liegt dort, wo Opa mir die Sterne gezeigt hat.“" },
+  { e: "🗺️", n: "Die Karte mit dem Kreuz", coins: 80, t: "Du hast unter dem Fernrohr auf dem Dachboden nachgesehen? Gut gemacht!\n\nDort liegt keine Rezeptseite, sondern eine kleine Karte von unserem Garten. Mit einem roten Kreuz unter dem Rosenbogen.\n\nOpa hat sie gezeichnet. Er konnte nie gerade Linien ziehen, aber das Kreuz ist eindeutig." },
+  { e: "🧰", n: "Das Kästchen mit zwei Schlössern", coins: 90, t: "Unter dem Rosenbogen ist ein Blechkästchen vergraben. Ich weiß, du hast es gefunden.\n\nEs hat zwei Schlösser. Der Messingschlüssel passt nur in eins. Das andere habe ich mit Absicht jemandem anvertraut, der gut auf Dinge aufpasst.\n\nWer könnte das sein? Jemand, der schon sehr lange gegenüber wohnt …" },
+  { e: "🔑", n: "Frau Krügers Schlüssel", coins: 100, t: "Frau Krüger hat dir den zweiten Schlüssel gegeben, nicht wahr?\n\nIch habe ihr vor 30 Jahren gesagt: „Gib ihn nur dem, der den Laden wieder zum Leuchten bringt.“ Sie hat drei Jahrzehnte gewartet – und dann dich gesehen.\n\nJetzt hast du beide Schlüssel. Fast geschafft." },
+  { e: "🎁", n: "Was im Kästchen lag", coins: 120, t: "Im Kästchen liegt die Seite 68: das Rezept für mein Herztörtchen. Henri hat es nur mir verraten, und ich habe ihm versprochen, es eines Tages an jemanden weiterzugeben, der mit dem Herzen backt.\n\nDarunter liegt noch ein Brief. Lies ihn erst, wenn das Café ganz fertig ist." },
+  { e: "❤️", n: "Hildes Herztörtchen", coins: 300, stars: 2, t: "Jetzt ist es so weit.\n\nDas Herztörtchen war nie ein Geheimnis, weil es so besonders schmeckt. Es war ein Geheimnis, weil es für den Menschen ist, dem man den liebsten Ort der Welt anvertraut.\n\nDer Laden, die Terrasse, die Backstube, der Garten – das alles gehört jetzt dir. Und mein Rezept auch. Back es für deine Gäste. Henri wäre stolz. Ich bin es schon lange.\n\nIn Liebe,\ndeine Oma Hilde" }
+];
+const secretFound = c => (save.secret || []).includes(c);
+// Hinweis zeigen und Belohnung geben (nur beim ersten Mal)
+function showSecret(c, onDone, reread = false) {
+  const x = SECRET[c]; if (!x) return onDone && onDone();
+  if (!reread && !secretFound(c)) {
+    save.secret = (save.secret || []).concat(c);
+    save.coins += x.coins; if (x.stars) save.bonus = (save.bonus || 0) + x.stars; persist();
+  }
+  sfx("win");
+  showLetter(x.t, { title: `${tx("Omas Geheimnis")} · ${c + 1}/${SECRET.length}`, icon: x.e, sign: false,
+    btn: reread ? tx("Schließen") : `${tx(x.n)} · +${x.coins} 🪙${x.stars ? ` · +${x.stars} ⭐` : ""}` }, onDone);
+}
+// Hinweise, die man schon „verdient“ hat (z. B. bei älteren Spielständen), nachreichen
+const secretDue = () => SECRET.findIndex((x, c) => !secretFound(c) && save.best[(c + 1) * 10]);
+function secretRow() {
+  return `<h3 class="ah">${tx("Omas Geheimnis")}</h3>
+    <p class="tag">${tx("Am Ende jedes Kapitels findest du einen Hinweis. Tippe auf einen gefundenen, um ihn nochmal zu lesen.")}</p>
+    <div class="secrets">${SECRET.map((x, c) => `<button class="sec ${secretFound(c) ? "" : "locked"}" data-sec="${c}"><span class="si">${secretFound(c) ? x.e : "❔"}</span><small>${secretFound(c) ? tx(x.n) : TX`Kapitel ${c + 1}`}</small></button>`).join("")}</div>`;
+}
+
+Object.assign(EN, {
+  "Omas Geheimnis": "Grandma's secret",
+  "Am Ende jedes Kapitels findest du einen Hinweis. Tippe auf einen gefundenen, um ihn nochmal zu lesen.": "At the end of each chapter you find a clue. Tap one you've found to read it again.",
+  "Schaff Level {}, um diesen Hinweis zu finden.": "Complete level {} to find this clue.",
+  "Der Messingschlüssel": "The brass key", "Eine Postkarte aus Paris": "A postcard from Paris", "Die fehlende Rezeptseite": "The missing recipe page",
+  "Die Karte mit dem Kreuz": "The map with the cross", "Das Kästchen mit zwei Schlössern": "The box with two locks", "Frau Krügers Schlüssel": "Mrs. Krüger's key",
+  "Was im Kästchen lag": "What was in the box", "Hildes Herztörtchen": "Hilde's heart tartlet",
+  [SECRET[0].t]: "My dear grandchild,\n\nright at the back of the till drawer there's a small brass key with a heart on it. If you've found it, you've already grown a little fond of the shop.\n\nIt belongs to something I hid very well. Keep looking – I'm leaving you a trail.",
+  [SECRET[1].t]: "Behind the oil painting there's a postcard from Paris, 1965. Signed “Henri”.\n\nBefore I met Grandpa, I worked in a Paris bakery for a year. Henri was the baker. He taught me everything I know about baking.\n\nAnd he made me promise him something.",
+  [SECRET[2].t]: "Have you noticed a page is missing from my recipe book? Page 68. My best recipe was on it.\n\nI tore it out so nobody would find it by accident. In the margin I wrote:\n\n“It lies where Grandpa showed me the stars.”",
+  [SECRET[3].t]: "You looked under the telescope in the attic? Well done!\n\nThere's no recipe page there, but a little map of our garden. With a red cross under the rose arch.\n\nGrandpa drew it. He could never draw straight lines, but the cross is unmistakable.",
+  [SECRET[4].t]: "There's a tin box buried under the rose arch. I know you've found it.\n\nIt has two locks. The brass key only fits one. I deliberately entrusted the other to someone who looks after things well.\n\nWho could that be? Someone who has lived across the street for a very long time …",
+  [SECRET[5].t]: "Mrs. Krüger gave you the second key, didn't she?\n\nThirty years ago I told her: “Only give it to the one who makes the shop shine again.” She waited three decades – and then she saw you.\n\nNow you have both keys. Almost there.",
+  [SECRET[6].t]: "Page 68 is in the box: the recipe for my heart tartlet. Henri shared it only with me, and I promised him that one day I'd pass it on to someone who bakes with their heart.\n\nUnderneath there's another letter. Only read it once the café is completely finished.",
+  [SECRET[7].t]: "Now the time has come.\n\nThe heart tartlet was never a secret because it tastes so special. It was a secret because it's meant for the person you entrust with the dearest place in the world.\n\nThe shop, the terrace, the bakehouse, the garden – all of it is yours now. And my recipe too. Bake it for your guests. Henri would be proud. I have been for a long time.\n\nWith love,\nyour Grandma Hilde"
 });
 
 /* ================= Darstellung: Start ================= */
@@ -4965,7 +5030,7 @@ function renderHome() {
       <div class="row2"><button class="btn alt" id="hShop">${tx("Einrichten")}${freeStars() ? ` · ${freeStars()} ⭐` : ""}</button><button class="btn alt" id="hAlbum">📖 ${tx("Album")}</button></div>
       <div class="row3"><button class="btn alt small" id="hAch">🏅 ${tx("Erfolge")}${achClaimable() ? ` <span class="nbadge">${achClaimable()}</span>` : ""}</button><button class="btn alt small" id="hStore">${tx("Shop (Demo)")}${offerLeft() ? ` <span class="nbadge">1</span>` : ""}</button><button class="btn alt small" id="hFeedback">💬 ${tx("Feedback")}</button></div>
     </div>
-    <p class="footnote">${tx("Prototyp 1.4 · Werbung und Käufe sind nur simuliert")}</p>
+    <p class="footnote">${tx("Prototyp 1.5 · Werbung und Käufe sind nur simuliert")}</p>
   </div>`;
   $("#hPlay").onclick = () => preLevel(save.level);
   $("#hShop").onclick = () => renderShop(null, g && g.have >= g.u.c ? g.u.id : null);
@@ -4990,6 +5055,7 @@ function renderHome() {
     const prev = save.seenVer || (save.level > 1 ? "1.3" : VERSION); save.seenVer = VERSION; persist();
     if (prev !== VERSION) { setTimeout(() => { if (!$("#ov") && !G) showNews(prev); }, 450); return; }
   }
+  { const c = secretDue(); if (c >= 0) { setTimeout(() => { if (!$("#ov") && !G) showSecret(c, renderHome); }, 450); return; } }
   if (!save.offer && save.level > 10) { save.offer = { until: Date.now() + OFFER_HOURS * 36e5 }; persist(); }
   if (save.offer && !save.offer.shown && offerLeft()) { save.offer.shown = true; persist(); setTimeout(() => { if (!$("#ov") && !G) openOffer(); }, 450); return; }
   if (puzzleUnlocked() && !save.puzzle.intro) { save.puzzle.intro = true; persist(); setTimeout(() => toast(tx("Neu: Das Tagesrätsel 🧩 ist freigeschaltet!")), 500); }
@@ -5046,7 +5112,7 @@ function openSettings() {
     <button class="btn alt" id="tSeason">${tx("Jahreszeit:")} ${save.seasonOverride ? tx(SEASON_NAMES[save.seasonOverride]) : TX`automatisch (${tx(SEASON_NAMES[seasonNow()])})`}</button>
     <button class="btn alt" id="tReset">${tx("Fortschritt löschen")}</button>
     <button class="btn" id="tClose">${tx("Fertig")}</button>
-    <p style="font-size:12px">${tx("Prototyp 1.4 · Werbung und Käufe sind nur simuliert")}<br>${tx("Grafiken: Fluent Emoji von Microsoft (MIT-Lizenz)")}</p>
+    <p style="font-size:12px">${tx("Prototyp 1.5 · Werbung und Käufe sind nur simuliert")}<br>${tx("Grafiken: Fluent Emoji von Microsoft (MIT-Lizenz)")}</p>
   </div>`);
   o.querySelectorAll("[data-lang]").forEach(b => b.onclick = () => { if (b.dataset.lang === LANG) return; setLang(b.dataset.lang); closeOverlay(); renderHome(); openSettings(); });
   o.querySelector("#tMusic").onclick = e => { save.music = !save.music; persist(); e.currentTarget.setAttribute("aria-checked", save.music); save.music ? musicStart() : musicStop(); };
