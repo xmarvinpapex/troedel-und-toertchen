@@ -523,7 +523,7 @@ a.btn { display: block; text-decoration: none; text-align: center; }
 .ach.ok:not(.got) { box-shadow: 0 0 0 2.5px var(--brass); }
 .ach.got { opacity: .6; }
 .ach .btn.small { white-space: nowrap; }
-.achpop { position: fixed; left: 50%; top: max(14px, env(safe-area-inset-top, 0px)); transform: translateX(-50%); z-index: 80; display: flex; align-items: center; gap: 10px;
+.achpop { position: fixed; left: 50%; top: calc(max(14px, env(safe-area-inset-top, 0px)) + 58px); transform: translateX(-50%); z-index: 80; display: flex; align-items: center; gap: 10px;
   background: var(--paper); color: var(--ink); border-radius: 16px; padding: 8px 16px 8px 10px; box-shadow: 0 0 0 3px var(--brass), 0 8px 20px rgba(0,0,0,.45);
   animation: achIn .5s cubic-bezier(.3,1.5,.5,1), achOut .4s ease-in 3.2s forwards; max-width: calc(100vw - 32px); pointer-events: none; }
 .achpop .ai { font-size: 32px; } .achpop small { display: block; font-weight: 800; color: #a97a1f; font-size: 12px; } .achpop b { font-size: 15px; } .achpop em { font-style: normal; color: #7a6552; font-size: 12px; }
@@ -3467,6 +3467,14 @@ function findHint() {
   }
   for (let t = 0; t < F.length; t++) if (emp(F[t]) === 3)
     for (let s = 0; s < F.length; s++) if (s !== t) { const k = F[s].findIndex(x => x !== null && x >= 0); if (k >= 0) return { s, k, t, kt: 0 }; }
+  // Ein fast leeres Fach ganz leeren, damit die hintere Reihe nachrückt
+  for (let s = 0; s < F.length; s++) {
+    if (G.shelves[s].layers.length < 2 || emp(F[s]) !== 2) continue;
+    const k = F[s].findIndex(x => x !== null && x >= 0); if (k < 0) continue;
+    for (let t = 0; t < F.length; t++) if (t !== s && emp(F[t])) return { s, k, t, kt: F[t].indexOf(null) };
+  }
+  // Sonst irgendein erlaubter Zug
+  for (let t = 0; t < F.length; t++) if (emp(F[t])) for (let s = 0; s < F.length; s++) if (s !== t) { const k = F[s].findIndex(x => x !== null && x >= 0); if (k >= 0) return { s, k, t, kt: F[t].indexOf(null) }; }
   return null;
 }
 function spend(cost) {
@@ -3642,7 +3650,7 @@ function layout() {
   const availH = innerHeight - (innerHeight < 700 ? 250 : 330);
   const byH = (availH / rows - 26) / 1.12;
   const max = cols === 1 ? 86 : 74;
-  return { cols, slot: Math.max(36, Math.floor(Math.min(byW, byH, max))) };
+  return { cols, slot: Math.max(innerHeight < 600 ? 26 : 36, Math.floor(Math.min(byW, byH, max))) };
 }
 function renderGame() {
   if (!G) return;
