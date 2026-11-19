@@ -681,6 +681,18 @@ a.btn { display: block; text-decoration: none; text-align: center; }
 .hnav .badge { top: 0; right: calc(50% - 22px); }
 .morelist { display: grid; gap: 8px; }
 @media (max-height: 700px) { .hmini { width: 90px; flex-basis: 90px; } .hplay { padding: 10px 0; font-size: 19px; } .hrt b { font-size: 16px; } }
+.confetti { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 1; }
+.confetti i { position: absolute; top: -20px; width: 9px; height: 14px; border-radius: 2px; animation: confFall linear infinite; opacity: .9; }
+@keyframes confFall { from { transform: translateY(-20px) rotate(0); } to { transform: translateY(110vh) rotate(720deg); } }
+.card.roomdone { position: relative; z-index: 2; gap: 10px; }
+.roomdone .rdstar { font-size: 40px; animation: tokHop 1.2s ease-in-out infinite; }
+.polaroid { background: #fff; padding: 8px 8px 10px; box-shadow: 0 8px 18px rgba(0,0,0,.25); transform: rotate(-2deg); display: grid; gap: 6px; margin: 4px 6px; animation: polaIn .7s cubic-bezier(.3,1.4,.5,1); }
+.polaroid .pshot .scene { border-radius: 2px; box-shadow: none; } .polaroid .pshot .scene button { pointer-events: none; }
+.polaroid span { font-family: var(--hand); font-size: 20px; color: #2a3a5c; text-align: center; }
+@keyframes polaIn { from { transform: rotate(-12deg) scale(.6); opacity: 0; } to { transform: rotate(-2deg) scale(1); opacity: 1; } }
+.roomdone .rdtext { font-family: var(--hand); font-size: 22px !important; line-height: 1.25; color: #2a3a5c !important; text-align: left; margin: 0; }
+.roomdone .lsign { font-family: var(--hand); font-size: 21px; color: #8a3b2b !important; text-align: right; margin: 0; align-self: end; }
+@media (prefers-reduced-motion: reduce) { .confetti { display: none; } .polaroid, .roomdone .rdstar { animation: none; } }
 @keyframes pop { 40% { transform: scale(1.3); } 100% { transform: scale(0); opacity: 0; } }
 @keyframes drop { from { transform: translateY(-14px); } to { transform: none; } }
 @keyframes reveal { from { transform: scale(.5); opacity: .3; } to { transform: none; opacity: 1; } }
@@ -2437,7 +2449,7 @@ const fresh = () => ({ level: 1, best: {}, coins: 100, spent: 0, owned: [], noAd
   ev: { level: 1, best: {}, spent: 0, owned: [], premium: false, claimed: [] }, variants: {}, varOwned: {}, pets: {}, regulars: {}, todOverride: null, seasonOverride: null,
   puzzle: { last: 0, streak: 0, total: 0, maxStreak: 0 }, stats: { sets: 0, guests: 0, combo: 0, nohelp: 0, dust: 0, critic: 0 }, ach: { claimed: [], seen: [] }, seenOb: {},
   packs: [], decoOff: {}, inv: {}, offer: null, tstats: { lv: {}, time: 0, sess: 0 },
-  evs: {}, evOverride: null, week: null, bonusReady: false, bonusNo: 0, seenVer: null });
+  evs: {}, evOverride: null, week: null, bonusReady: false, bonusNo: 0, seenVer: null, roomsDone: [] });
 let save = fresh();
 try { const raw = localStorage.getItem(KEY); if (raw) { const f = fresh(); save = Object.assign(f, JSON.parse(raw)); ["puzzle", "stats", "ach"].forEach(k => save[k] = Object.assign(fresh()[k], save[k]));
   // Alter Wintermarkt-Fortschritt wandert in die neue Event-Ablage
@@ -3874,11 +3886,13 @@ function renderShop(newId, focusId) {
     renderShop(u.id); achCheck();
     sparks(document.querySelector(".scene"));
     const next = ROOMS.filter(roomUnlocked).length > before ? ROOMS[before] : null;
-    setTimeout(() => showLetter(MEMORIES[u.id] || "", { title: tx(u.n), icon: u.e }, () => {
+    const finished = roomDone(room) && !(save.roomsDone || []).includes(room.id);
+    const nextRoom = () => {
       if (!next) return;
       sfx("win");
       showLetter(ROOM_LETTERS[next.id], { title: TX`Neu: ${tx(next.n)}!`, icon: next.ups[1].e, btn: TX`${tx(next.n)} ansehen` }, () => { shopRoom = next.id; renderShop(); });
-    }), 650);
+    };
+    setTimeout(() => showLetter(MEMORIES[u.id] || "", { title: tx(u.n), icon: u.e }, () => finished ? celebrateRoom(room, nextRoom) : nextRoom()), 650);
   });
 }
 
@@ -4890,7 +4904,7 @@ function openWeek() {
 const VERSION = "1.5";
 const vnum = v => v.split(".").map(Number).reduce((a, x) => a * 1000 + x, 0);
 const CHANGES = [
-  { v: "1.5", items: ["🗺️ Neue Startseite: Dein Weg durch die Level ist jetzt das Spielbrett. Mit jedem geschafften Level hüpft dein Törtchen ein Feld weiter.", "🗝️ Omas Geheimnis: Am Ende jedes Kapitels wartet ein Hinweis auf dich. Was hat Oma versteckt?", "⏳ Ab Level 25 haben die Gäste mehr Geduld (35 Sekunden)."] },
+  { v: "1.5", items: ["🗺️ Neue Startseite: Dein Weg durch die Level ist jetzt das Spielbrett. Mit jedem geschafften Level hüpft dein Törtchen ein Feld weiter.", "🗝️ Omas Geheimnis: Am Ende jedes Kapitels wartet ein Hinweis auf dich. Was hat Oma versteckt?", "⏳ Ab Level 25 haben die Gäste mehr Geduld (35 Sekunden).", "🎉 Feier, wenn ein Raum fertig eingerichtet ist – mit Foto, Brief von Oma und Belohnung."] },
   { v: "1.4", items: ["🌸 Zwei neue Saison-Events: der Frühlingsmarkt und das Herbstfest, mit eigenen Orten, Tieren und Gegenständen",
     "⚡ Bonusrunden: 75 Sekunden Zeit, alle Münzen zählen doppelt", "📅 Wochenziele: jeden Montag drei neue Aufgaben mit Belohnung", "✨ Dieses Fenster zeigt dir ab jetzt, was neu ist"] },
   { v: "1.3", items: ["📲 Als App installierbar und offline spielbar", "🗺️ Levelkarte mit Kapiteln", "🌴 Neuer Ort: Omas Wintergarten",
@@ -5090,6 +5104,45 @@ function openMore() {
   o.querySelector("#mClose").onclick = closeOverlay;
 }
 Object.assign(EN, { "⏳ Ab Level 25 haben die Gäste mehr Geduld (35 Sekunden).": "⏳ From level 25 on, guests are more patient (35 seconds).", "🗺️ Neue Startseite: Dein Weg durch die Level ist jetzt das Spielbrett. Mit jedem geschafften Level hüpft dein Törtchen ein Feld weiter.": "🗺️ New home screen: your path through the levels is now the game board. Your tartlet hops one space further with every level you complete.", "Kap.": "Ch.", "Karte": "Map", "Mehr": "More", "Nächstes:": "Next:", "Alles eingerichtet!": "All furnished!", "{} von {} eingerichtet": "{} of {} furnished" });
+
+/* ================= Feier, wenn ein Raum fertig ist ================= */
+const ROOM_DONE = { coins: 150, stars: 1 };
+const ROOM_DONE_LETTERS = {
+  laden: "Schau dich um: Genau so sah mein Laden an seinen schönsten Tagen aus. Nein – noch schöner. Weil du ihn eingerichtet hast.",
+  terrasse: "Die Terrasse ist wieder ein Ort für laue Abende. Ich sehe Opa vor mir, wie er hier mit seinem Kaffee sitzt und allen zuwinkt.",
+  backstube: "Es duftet wieder nach frischem Brot. Eine Backstube ohne Duft ist nur eine Küche – deine ist jetzt ein Zuhause.",
+  dachboden: "All meine Erinnerungen haben wieder ihren Platz. Danke, dass du sie so behutsam ausgepackt hast.",
+  garten: "Mein Rosengarten blüht! Wenn du an einem Sommerabend hier sitzt, bin ich ganz nah bei dir.",
+  wintergarten: "Jetzt ist alles fertig. Jeder Raum erzählt wieder eine Geschichte – und die schönste davon ist deine."
+};
+function celebrateRoom(room, onDone) {
+  save.roomsDone = (save.roomsDone || []).concat(room.id);
+  save.coins += ROOM_DONE.coins; save.bonus = (save.bonus || 0) + ROOM_DONE.stars; persist();
+  sfx("win"); setTimeout(() => sfx("bell"), 700); buzz(60);
+  const d = new Date(), date = d.toLocaleDateString(LANG === "de" ? "de-DE" : "en-GB", { day: "numeric", month: "long", year: "numeric" });
+  const colors = ["#d9506f", "#e2b04a", "#3d8a65", "#3b6fa8", "#f2a6c0", "#f6d33c"];
+  const confetti = R(60).map(i => `<i style="left:${(i * 37) % 100}%;background:${colors[i % 6]};animation-delay:${((i * 7) % 20) / 10}s;animation-duration:${2.4 + (i % 5) * .35}s;transform:rotate(${i * 29}deg)"></i>`).join("");
+  const o = overlay(`<div class="confetti" aria-hidden="true">${confetti}</div><div class="card roomdone">
+    <div class="rdstar">✨</div>
+    <h2>${TX`Fertig eingerichtet: ${tx(room.n)}`}</h2>
+    <div class="polaroid"><div class="pshot">${sceneHTML(room)}</div><span>${tx(room.n)} · ${date}</span></div>
+    <p class="ltext rdtext">„${esc(tx(ROOM_DONE_LETTERS[room.id] || ""))}“</p>
+    <p class="lsign">– ${tx("Oma Hilde")}</p>
+    <p class="bigcoins">+${ROOM_DONE.coins} 🪙 · +${ROOM_DONE.stars} ⭐</p>
+    <button class="btn" id="rdOk">${tx("Wunderschön!")}</button>
+  </div>`);
+  o.querySelector("#rdOk").onclick = () => { closeOverlay(); achCheck(); if (onDone) onDone(); };
+}
+Object.assign(EN, {
+  "Fertig eingerichtet: {}": "Fully furnished: {}", "Wunderschön!": "Beautiful!",
+  [ROOM_DONE_LETTERS.laden]: "Look around: this is exactly how my shop looked on its best days. No – even lovelier. Because you furnished it.",
+  [ROOM_DONE_LETTERS.terrasse]: "The terrace is a place for balmy evenings again. I can picture Grandpa sitting here with his coffee, waving to everyone.",
+  [ROOM_DONE_LETTERS.backstube]: "It smells of fresh bread again. A bakehouse without that smell is just a kitchen – yours is a home now.",
+  [ROOM_DONE_LETTERS.dachboden]: "All my memories have their place again. Thank you for unpacking them so gently.",
+  [ROOM_DONE_LETTERS.garten]: "My rose garden is in bloom! When you sit here on a summer evening, I'm very close to you.",
+  [ROOM_DONE_LETTERS.wintergarten]: "Now everything is finished. Every room tells a story again – and the most beautiful one is yours.",
+  "🎉 Feier, wenn ein Raum fertig eingerichtet ist – mit Foto, Brief von Oma und Belohnung.": "🎉 A celebration when a room is fully furnished – with a photo, a letter from Grandma and a reward."
+});
 
 /* ================= Darstellung: Start ================= */
 /* ================= Startseite: Spielbrett mit Café-Karte ================= */
