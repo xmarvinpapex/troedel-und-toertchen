@@ -708,6 +708,33 @@ a.btn { display: block; text-decoration: none; text-align: center; }
 </head>
 <body>
 <div class="app" id="app"></div>
+<script>
+/* Notfall-Hilfe: Wenn das Spiel nicht startet, statt weißem Bild eine Meldung mit Reparatur-Knopf zeigen */
+(function () {
+  var errs = [];
+  window.addEventListener("error", function (e) { errs.push((e.message || "Fehler") + (e.lineno ? " (Zeile " + e.lineno + ")" : "")); });
+  window.addEventListener("unhandledrejection", function (e) { errs.push(String(e.reason && e.reason.message || e.reason)); });
+  function repair() {
+    var jobs = [];
+    try { if (navigator.serviceWorker) jobs.push(navigator.serviceWorker.getRegistrations().then(function (rs) { return Promise.all(rs.map(function (r) { return r.unregister(); })); })); } catch (e) {}
+    try { if (window.caches) jobs.push(caches.keys().then(function (ks) { return Promise.all(ks.map(function (k) { return caches.delete(k); })); })); } catch (e) {}
+    Promise.all(jobs).then(go, go);
+    function go() { location.replace(location.pathname.replace(/[^/]*$/, "") + "index.html?r=" + Date.now()); }
+  }
+  setTimeout(function () {
+    if (window.__ttOK) return;
+    var en = !/^de/i.test(navigator.language || "de");
+    var d = document.createElement("div");
+    d.setAttribute("style", "position:fixed;inset:0;z-index:99999;background:#1d3a33;color:#fff;font:16px/1.45 system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px;text-align:center");
+    d.innerHTML = "<div style='font-size:48px'>🧁</div><b style='font-size:20px'>" + (en ? "The game could not start." : "Das Spiel konnte nicht starten.") + "</b>" +
+      "<span>" + (en ? "Tap the button. The game will be reloaded fresh – your progress stays." : "Tippe auf den Knopf. Das Spiel wird frisch geladen – dein Spielstand bleibt erhalten.") + "</span>" +
+      "<button id='ttFix' style='font:inherit;font-weight:700;padding:12px 22px;border:0;border-radius:14px;background:#e2b04a;color:#2a2116'>" + (en ? "Repair & reload" : "Reparieren & neu laden") + "</button>" +
+      "<small style='opacity:.7;max-width:340px;word-break:break-word'>" + (errs.length ? errs.slice(0, 3).join("<br>").replace(/</g, "&lt;").replace(/&lt;br>/g, "<br>") : (en ? "No error message" : "Keine Fehlermeldung")) + " · " + navigator.userAgent.replace(/</g, "") + "</small>";
+    document.body.appendChild(d);
+    document.getElementById("ttFix").onclick = repair;
+  }, 6000);
+})();
+</script>
 
 <script>
 (() => {
@@ -5378,6 +5405,7 @@ function openStore() {
 }
 
 renderSplash();
+window.__ttOK = true;
 })();
 </script>
 </body>
