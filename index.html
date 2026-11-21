@@ -21,9 +21,67 @@ img { max-width: 100%; }
 </style>
 <title>Trödel & Törtchen</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Grandstander:wght@600;800&family=Nunito:wght@600;700;800&display=swap">
+<link rel="preload" href="fonts/caveat-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/grandstander-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/nunito-600.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(fonts/caveat-500.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(fonts/caveat-500.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Grandstander';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(fonts/grandstander-600.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Grandstander';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url(fonts/grandstander-600.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(fonts/nunito-600.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(fonts/nunito-600.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url(fonts/nunito-600.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
 <style>
 /* Layout: one-screen phone game. Bottle-green shop wall, oak shelves, brass trim, raspberry for café accents. Deliberately single-theme (evening shop interior). */
 :root {
@@ -2838,10 +2896,18 @@ const clone = o => JSON.parse(JSON.stringify(o));
 const EMO = {"☕":"img/2615.webp","🕰️":"img/1f570-fe0f.webp","🏺":"img/1f3fa.webp","📚":"img/1f4da.webp","🕯️":"img/1f56f-fe0f.webp","🧸":"img/1f9f8.webp","🎩":"img/1f3a9.webp","🫖":"img/1fad6.webp","🧁":"img/1f9c1.webp","🍰":"img/1f370.webp","🥐":"img/1f950.webp","🍪":"img/1f36a.webp","📻":"img/1f4fb.webp","🗝️":"img/1f5dd-fe0f.webp","🪆":"img/1fa86.webp","🎻":"img/1f3bb.webp","🧣":"img/1f9e3.webp","🧤":"img/1f9e4.webp","🎄":"img/1f384.webp","⛄":"img/26c4.webp","🛷":"img/1f6f7.webp","🔔":"img/1f514.webp","🦌":"img/1f98c.webp","🌟":"img/1f31f.webp","👵":"img/1f475.webp","👴":"img/1f474.webp","🧑‍🎨":"img/1f9d1-200d-1f3a8.webp","👩‍🍳":"img/1f469-200d-1f373.webp","🧔":"img/1f9d4.webp","👨‍🦳":"img/1f468-200d-1f9b3.webp","👩‍🦱":"img/1f469-200d-1f9b1.webp","🧓":"img/1f9d3.webp","🧑‍🦰":"img/1f9d1-200d-1f9b0.webp","🧐":"img/1f9d0.webp","🧑‍💼":"img/1f9d1-200d-1f4bc.webp","👧":"img/1f467.webp","🕵️":"img/1f575-fe0f.webp","🤵":"img/1f935.webp","💬":"img/1f4ac.webp","❤️":"img/2764-fe0f.webp","🪙":"img/1fa99.webp","🏆":"img/1f3c6.webp","⭐":"img/2b50.webp","🔒":"img/1f512.webp","🎀":"img/1f380.webp","❄️":"img/2744-fe0f.webp","👨‍🦱":"img/1f468-200d-1f9b1.webp","👩‍🦳":"img/1f469-200d-1f9b3.webp","💑":"img/1f491.webp","💍":"img/1f48d.webp","👦":"img/1f466.webp","👨‍⚕️":"img/1f468-200d-2695-fe0f.webp","🕸️":"img/1f578-fe0f.webp","📦":"img/1f4e6.webp","🧹":"img/1f9f9.webp","🎂":"img/1f382.webp","💡":"img/1f4a1.webp","🖼️":"img/1f5bc-fe0f.webp","🪴":"img/1fab4.webp","🛋️":"img/1f6cb-fe0f.webp","🐈":"img/1f408.webp","💐":"img/1f490.webp","🍂":"img/1f342.webp","⛱️":"img/26f1-fe0f.webp","🪑":"img/1fa91.webp","🌷":"img/1f337.webp","🏮":"img/1f3ee.webp","🪧":"img/1faa7.webp","🍦":"img/1f366.webp","🚲":"img/1f6b2.webp","⛲":"img/26f2.webp","🐕":"img/1f415.webp","🔥":"img/1f525.webp","🥖":"img/1f956.webp","🥣":"img/1f963.webp","🥧":"img/1f967.webp","🍓":"img/1f353.webp","🍯":"img/1f36f.webp","🫙":"img/1fad9.webp","🍵":"img/1f375.webp","🐁":"img/1f401.webp","🧳":"img/1f9f3.webp","🗺️":"img/1f5fa-fe0f.webp","🎠":"img/1f3a0.webp","🪞":"img/1fa9e.webp","🧵":"img/1f9f5.webp","🧶":"img/1f9f6.webp","🔭":"img/1f52d.webp","🎶":"img/1f3b6.webp","🦉":"img/1f989.webp","🌿":"img/1f33f.webp","🏡":"img/1f3e1.webp","🌳":"img/1f333.webp","🌹":"img/1f339.webp","🌻":"img/1f33b.webp","🐝":"img/1f41d.webp","🦆":"img/1f986.webp","🐇":"img/1f407.webp","🦋":"img/1f98b.webp","🧺":"img/1f9fa.webp","💝":"img/1f49d.webp","🍷":"img/1f377.webp","📷":"img/1f4f7.webp","✨":"img/2728.webp","💔":"img/1f494.webp","🤍":"img/1f90d.webp","↩️":"img/21a9-fe0f.webp","🔍":"img/1f50d.webp","🔀":"img/1f500.webp","☀️":"img/2600-fe0f.webp","⚙️":"img/2699-fe0f.webp","🚫":"img/1f6ab.webp","🎁":"img/1f381.webp","👛":"img/1f45b.webp","💌":"img/1f48c.webp","📖":"img/1f4d6.webp","⏳":"img/23f3.webp","🎨":"img/1f3a8.webp","👇":"img/1f447.webp","👆":"img/1f446.webp","🧩":"img/1f9e9.webp","🏅":"img/1f3c5.webp","🧭":"img/1f9ed.webp","🎺":"img/1f3ba.webp","🖋️":"img/1f58b-fe0f.webp","👓":"img/1f453.webp","🌴":"img/1f334.webp","🌸":"img/1f338.webp","🌵":"img/1f335.webp","🍋":"img/1f34b.webp","🐤":"img/1f424.webp","👀":"img/1f440.webp","📊":"img/1f4ca.webp","🎃":"img/1f383.webp","📲":"img/1f4f2.webp","🎉":"img/1f389.webp","💰":"img/1f4b0.webp","🐣":"img/1f423.webp","🥚":"img/1f95a.webp","🐰":"img/1f430.webp","🌼":"img/1f33c.webp","🍫":"img/1f36b.webp","🪺":"img/1faba.webp","🍬":"img/1f36c.webp","🍎":"img/1f34e.webp","🍐":"img/1f350.webp","🍄":"img/1f344.webp","🌰":"img/1f330.webp","🌽":"img/1f33d.webp","🍇":"img/1f347.webp","👑":"img/1f451.webp","🐑":"img/1f411.webp","🌾":"img/1f33e.webp","🧃":"img/1f9c3.webp","👒":"img/1f452.webp","🦔":"img/1f994.webp","⚡":"img/26a1.webp","⏱️":"img/23f1-fe0f.webp","📅":"img/1f4c5.webp","🌍":"img/1f30d.webp","📜":"img/1f4dc.webp","🧰":"img/1f9f0.webp","🔑":"img/1f511.webp","❔":"img/2754.webp"};
 const EMO_RE = new RegExp(Object.keys(EMO).sort((a, b) => b.length - a.length)
   .map(k => k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|"), "gu");
+// Schneller Vorfilter: Emoji liegen alle oberhalb von U+2000 – normaler Text wird gar nicht erst durchsucht
+const EMO_PRE = /[\u2000-\uffff]/;
+const EMO_SKIP = { SCRIPT: 1, STYLE: 1, TEXTAREA: 1, INPUT: 1, NOSCRIPT: 1 };
+const emoCand = t => { const p = t.parentNode; if (!p || EMO_SKIP[p.nodeName] || !EMO_PRE.test(t.nodeValue)) return false; EMO_RE.lastIndex = 0; return EMO_RE.test(t.nodeValue); };
 function emojify(root) {
-  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
-  const nodes = []; let n;
-  while ((n = w.nextNode())) { EMO_RE.lastIndex = 0; if (EMO_RE.test(n.nodeValue)) nodes.push(n); }
+  const nodes = [];
+  if (root.nodeType === 3) { if (emoCand(root)) nodes.push(root); }
+  else {
+    if (EMO_SKIP[root.nodeName]) return;
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: t => emoCand(t) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP });
+    let n; while ((n = w.nextNode())) nodes.push(n);
+  }
   nodes.forEach(t => {
     const str = t.nodeValue, frag = document.createDocumentFragment();
     let last = 0;
@@ -2856,8 +2922,7 @@ function emojify(root) {
   });
 }
 new MutationObserver(ms => ms.forEach(m => m.addedNodes.forEach(nd => {
-  if (nd.nodeType === 1) emojify(nd);
-  else if (nd.nodeType === 3 && nd.parentNode) emojify(nd.parentNode);
+  if (nd.nodeType === 1 || nd.nodeType === 3) emojify(nd);
 }))).observe(document.body, { childList: true, subtree: true });
 
 /* ================= Ton & Vibration ================= */
@@ -4293,7 +4358,7 @@ function renderSplash() {
   const tick = () => { done++; if (bar) bar.style.width = Math.round(done / srcs.length * 100) + "%"; };
   const loads = srcs.map(src => new Promise(res => { const im = new Image(); im.onload = im.onerror = () => { tick(); res(); }; im.src = src; }));
   const fonts = document.fonts && document.fonts.ready ? document.fonts.ready.catch(() => {}) : Promise.resolve();
-  const minWait = new Promise(res => setTimeout(res, 1400));
+  const minWait = new Promise(res => setTimeout(res, 700));
   const maxWait = new Promise(res => setTimeout(res, 6000));
   Promise.race([Promise.all([...loads, fonts, minWait]), maxWait]).then(() => {
     ready = true;

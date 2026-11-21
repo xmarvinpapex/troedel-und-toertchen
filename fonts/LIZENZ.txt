@@ -1,0 +1,3 @@
+Schriften: Caveat, Grandstander, Nunito (Google Fonts)
+Lizenz: SIL Open Font License 1.1 – https://openfontlicense.org
+Frei nutzbar, auch in kommerziellen Spielen.
