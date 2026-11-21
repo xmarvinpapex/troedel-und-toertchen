@@ -845,7 +845,7 @@ function levelCfg(n) {
   return { ...L(8, 4, 23 + (k % 3), 10 + (k % 3), 7 + 2 * lk + (wr ? 1 : 0) + ky + (mb ? 1 : 0) + (n >= 50 ? 1 : 0), sp), lk, wr, du, mb, ky };
 }
 // Geduld der Gäste in Sekunden (ab Level 4)
-const patienceFor = n => n < 4 ? 0 : n >= 25 ? 35 : Math.max(25, Math.round(66 - n * 3.5));   // ab Level 25 mehr Zeit, weil Hindernisse dazukommen
+const patienceFor = n => n < 4 ? 0 : n >= 20 ? 35 : Math.max(25, Math.round(66 - n * 3.5));   // ab Level 20 mehr Zeit
 const LEVEL_TIPS = {
   1: "Tippe einen Gegenstand an, dann einen freien Platz. Drei gleiche im Fach gehen an den Gast.",
   3: "Neu: Die kleinen Sachen oben stehen in der Reihe dahinter. Sie rücken erst vor, wenn das ganze Fach leer ist.",
@@ -2867,7 +2867,7 @@ Object.assign(EN, {
   "Für jeden Erfolg gibt es eine Belohnung. Tippe auf „Holen“, sobald einer geschafft ist.": "Every achievement comes with a reward. Tap “Claim” once you've earned one.",
   // Startseite, Tagesbonus, Einstellungen, Shop
   "Einstellungen": "Settings", "Sortiere Omas Trödel, bediene die Gäste, richte dein Café ein.": "Sort Grandma's trinkets, serve the guests, furnish your café.",
-  "⭐ {} frei": "⭐ {} free", "Album": "Album", "Shop (Demo)": "Shop (demo)", "Prototyp 1.5 · Werbung und Käufe sind nur simuliert": "Prototype 1.2 · Ads and purchases are only simulated",
+  "⭐ {} frei": "⭐ {} free", "Album": "Album", "Shop (Demo)": "Shop (demo)", "Prototyp 1.6 · Werbung und Käufe sind nur simuliert": "Prototype 1.2 · Ads and purchases are only simulated",
   "Tag {}": "Day {}", "Tagesbonus": "Daily bonus", "Komm jeden Tag wieder. Am 7. Tag gibt es einen Extra-Stern.": "Come back every day. On day 7 you get an extra star.",
   "{} 🪙 abholen": "Collect {} 🪙", "+{} 🪙{}. Bis morgen!": "+{} 🪙{}. See you tomorrow!", " und 1 ⭐": " and 1 ⭐",
   "Sprache": "Language", "Musik": "Music", "Umgebungsgeräusche": "Ambient sounds", "Soundeffekte": "Sound effects", "Vibration": "Vibration",
@@ -4872,7 +4872,7 @@ Object.assign(EN, {
   "iPhone/iPad: Tippe in Safari unten auf „Teilen“ und dann auf „Zum Home-Bildschirm“.": "iPhone/iPad: In Safari, tap “Share” at the bottom and then “Add to Home Screen”.",
   "Android: Tippe in Chrome oben rechts auf ⋮ und dann auf „App installieren“ oder „Zum Startbildschirm hinzufügen“.": "Android: In Chrome, tap ⋮ at the top right and then “Install app” or “Add to Home screen”.",
   "Danach hat das Spiel ein eigenes Symbol, startet im Vollbild und läuft auch ohne Internet.": "Then the game gets its own icon, starts in full screen and works without internet too.",
-  "Prototyp 1.5 · Werbung und Käufe sind nur simuliert": "Prototype 1.3 · Ads and purchases are only simulated",
+  "Prototyp 1.6 · Werbung und Käufe sind nur simuliert": "Prototype 1.3 · Ads and purchases are only simulated",
   "{} gehört dir! Die neuen Farben findest du beim Einrichten.": "{} is yours! You'll find the new colours when furnishing."
 });
 
@@ -4993,9 +4993,10 @@ function openWeek() {
 }
 
 /* ================= Was ist neu? ================= */
-const VERSION = "1.5";
+const VERSION = "1.6";
 const vnum = v => v.split(".").map(Number).reduce((a, x) => a * 1000 + x, 0);
 const CHANGES = [
+  { v: "1.6", items: ["⏳ Ab Level 20 haben die Gäste mehr Geduld (35 statt 25 Sekunden).", "⚡ Das Spiel startet jetzt viel schneller – besonders auf dem iPhone."] },
   { v: "1.5", items: ["🗺️ Neue Startseite: Dein Weg durch die Level ist jetzt das Spielbrett. Mit jedem geschafften Level hüpft dein Törtchen ein Feld weiter.", "🗝️ Omas Geheimnis: Am Ende jedes Kapitels wartet ein Hinweis auf dich. Was hat Oma versteckt?", "⏳ Ab Level 25 haben die Gäste mehr Geduld (35 Sekunden).", "🎉 Feier, wenn ein Raum fertig eingerichtet ist – mit Foto, Brief von Oma und Belohnung."] },
   { v: "1.4", items: ["🌸 Zwei neue Saison-Events: der Frühlingsmarkt und das Herbstfest, mit eigenen Orten, Tieren und Gegenständen",
     "⚡ Bonusrunden: 75 Sekunden Zeit, alle Münzen zählen doppelt", "📅 Wochenziele: jeden Montag drei neue Aufgaben mit Belohnung", "✨ Dieses Fenster zeigt dir ab jetzt, was neu ist"] },
@@ -5122,7 +5123,7 @@ Object.assign(EN, {
   "🌍 Englische Version": "🌍 English version", "🧩 Tagesrätsel": "🧩 Daily puzzle", "🏅 Erfolge": "🏅 Achievements",
   "🕸️ Neue Hindernisse ab Level 25": "🕸️ New obstacles from level 25", "🐈 Gäste und Tiere in den Räumen": "🐈 Guests and animals in the rooms",
   "Eine neue Version ist da. Starte das Spiel neu, um sie zu sehen.": "A new version is available. Restart the game to see it.",
-  "Prototyp 1.5 · Werbung und Käufe sind nur simuliert": "Prototype 1.5 · Ads and purchases are only simulated",
+  "Prototyp 1.6 · Werbung und Käufe sind nur simuliert": "Prototype 1.6 · Ads and purchases are only simulated",
   "🗝️ Omas Geheimnis: Am Ende jedes Kapitels wartet ein Hinweis auf dich. Was hat Oma versteckt?": "🗝️ Grandma's secret: a clue awaits you at the end of every chapter. What did Grandma hide?"
 });
 
@@ -5186,7 +5187,7 @@ function openMore() {
       <button class="btn alt" id="mNews">✨ ${tx("Was ist neu?")}</button>
       <button class="btn alt" id="mSet">⚙️ ${tx("Einstellungen")}</button>
     </div>
-    <p style="font-size:12px">${tx("Prototyp 1.5 · Werbung und Käufe sind nur simuliert")}</p>
+    <p style="font-size:12px">${tx("Prototyp 1.6 · Werbung und Käufe sind nur simuliert")}</p>
     <button class="btn" id="mClose">${tx("Schließen")}</button>
   </div>`);
   o.querySelector("#mAch").onclick = () => { closeOverlay(); renderAch(); };
@@ -5195,7 +5196,7 @@ function openMore() {
   o.querySelector("#mSet").onclick = () => { closeOverlay(); openSettings(); };
   o.querySelector("#mClose").onclick = closeOverlay;
 }
-Object.assign(EN, { "⏳ Ab Level 25 haben die Gäste mehr Geduld (35 Sekunden).": "⏳ From level 25 on, guests are more patient (35 seconds).", "🗺️ Neue Startseite: Dein Weg durch die Level ist jetzt das Spielbrett. Mit jedem geschafften Level hüpft dein Törtchen ein Feld weiter.": "🗺️ New home screen: your path through the levels is now the game board. Your tartlet hops one space further with every level you complete.", "Kap.": "Ch.", "Karte": "Map", "Mehr": "More", "Nächstes:": "Next:", "Alles eingerichtet!": "All furnished!", "{} von {} eingerichtet": "{} of {} furnished" });
+Object.assign(EN, { "⏳ Ab Level 20 haben die Gäste mehr Geduld (35 statt 25 Sekunden).": "⏳ From level 20 on, guests are more patient (35 instead of 25 seconds).", "⚡ Das Spiel startet jetzt viel schneller – besonders auf dem iPhone.": "⚡ The game now starts much faster – especially on iPhone.", "⏳ Ab Level 25 haben die Gäste mehr Geduld (35 Sekunden).": "⏳ From level 25 on, guests are more patient (35 seconds).", "🗺️ Neue Startseite: Dein Weg durch die Level ist jetzt das Spielbrett. Mit jedem geschafften Level hüpft dein Törtchen ein Feld weiter.": "🗺️ New home screen: your path through the levels is now the game board. Your tartlet hops one space further with every level you complete.", "Kap.": "Ch.", "Karte": "Map", "Mehr": "More", "Nächstes:": "Next:", "Alles eingerichtet!": "All furnished!", "{} von {} eingerichtet": "{} of {} furnished" });
 
 /* ================= Feier, wenn ein Raum fertig ist ================= */
 const ROOM_DONE = { coins: 150, stars: 1 };
@@ -5405,7 +5406,7 @@ function openSettings() {
     <button class="btn alt" id="tSeason">${tx("Jahreszeit:")} ${save.seasonOverride ? tx(SEASON_NAMES[save.seasonOverride]) : TX`automatisch (${tx(SEASON_NAMES[seasonNow()])})`}</button>
     <button class="btn alt" id="tReset">${tx("Fortschritt löschen")}</button>
     <button class="btn" id="tClose">${tx("Fertig")}</button>
-    <p style="font-size:12px">${tx("Prototyp 1.5 · Werbung und Käufe sind nur simuliert")}<br>${tx("Grafiken: Fluent Emoji von Microsoft (MIT-Lizenz)")}</p>
+    <p style="font-size:12px">${tx("Prototyp 1.6 · Werbung und Käufe sind nur simuliert")}<br>${tx("Grafiken: Fluent Emoji von Microsoft (MIT-Lizenz)")}</p>
   </div>`);
   o.querySelectorAll("[data-lang]").forEach(b => b.onclick = () => { if (b.dataset.lang === LANG) return; setLang(b.dataset.lang); closeOverlay(); renderHome(); openSettings(); });
   o.querySelector("#tMusic").onclick = e => { save.music = !save.music; persist(); e.currentTarget.setAttribute("aria-checked", save.music); save.music ? musicStart() : musicStop(); };
