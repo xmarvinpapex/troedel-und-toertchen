@@ -205,6 +205,8 @@ button:focus-visible { outline: 3px solid var(--brass); outline-offset: 2px; }
 /* ---------- Game ---------- */
 .topbar { display: flex; align-items: center; gap: 8px; }
 .topbar .lvl { font-family: var(--display); font-weight: 800; font-size: 20px; flex: 1; }
+.screen > .topbar .lvl { white-space: nowrap; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 380px) { .screen > .topbar { gap: 6px; } .screen > .topbar .pill { padding-inline: 9px; } }
 .iconbtn { border: 0; background: var(--wall-2); width: 40px; height: 40px; border-radius: 12px; font-size: 20px; font-weight: 800; }
 
 .guests { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding-top: 7px; }
@@ -751,6 +753,23 @@ a.btn { display: block; text-decoration: none; text-align: center; }
 .roomdone .rdtext { font-family: var(--hand); font-size: 22px !important; line-height: 1.25; color: #2a3a5c !important; text-align: left; margin: 0; }
 .roomdone .lsign { font-family: var(--hand); font-size: 21px; color: #8a3b2b !important; text-align: right; margin: 0; align-self: end; }
 @media (prefers-reduced-motion: reduce) { .confetti { display: none; } .polaroid, .roomdone .rdstar { animation: none; } }
+.bugkinds { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.chip { border: 0; border-radius: 999px; padding: 7px 12px; background: #e3d3b4; color: var(--ink); font: inherit; font-weight: 800; font-size: 13px; }
+.chip.on { background: var(--raspberry); color: #fff; }
+.fbinfo { font-size: 11.5px !important; opacity: .75; }
+.card textarea { width: 100%; font: inherit; font-size: 14px; border-radius: 12px; border: 2px solid #d9c6a3; padding: 8px; background: #fffaf0; color: var(--ink); resize: vertical; }
+.backup #bkCode { font-family: ui-monospace, monospace; font-size: 11px; word-break: break-all; }
+.card.help { text-align: left; } .card.help h2, .card.help .btn, .card.help .fbnote { text-align: center; }
+.card h4 { margin: 6px 0 0; font-family: var(--display); font-weight: 800; font-size: 17px; color: #6b3f1e; }
+.birow.locked { opacity: .55; }
+.card.recipe { text-align: left; gap: 8px; } .card.recipe h2 { font-size: 25px; }
+.recipe .rmeta { font-size: 13px; opacity: .8; }
+.recipe ul, .recipe ol { margin: 0; padding-left: 22px; display: grid; gap: 5px; color: #4a3828; font-weight: 600; font-size: 14.5px; }
+.recipe .ltext { font-size: 21px !important; margin-top: 4px; }
+.sec { position: relative; }
+.rdot, .ndot { position: absolute; top: 4px; right: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--raspberry); box-shadow: 0 0 0 2px #fff; }
+.hnav .ndot { right: calc(50% - 20px); top: 2px; }
+.pz { display: inline-flex; gap: 4px; vertical-align: middle; } .pz i { width: 5px; height: 15px; border-radius: 2px; background: currentColor; }
 @keyframes pop { 40% { transform: scale(1.3); } 100% { transform: scale(0); opacity: 0; } }
 @keyframes drop { from { transform: translateY(-14px); } to { transform: none; } }
 @keyframes reveal { from { transform: scale(.5); opacity: .3; } to { transform: none; opacity: 1; } }
@@ -2534,7 +2553,7 @@ const fresh = () => ({ level: 1, best: {}, coins: 100, spent: 0, owned: [], noAd
   ev: { level: 1, best: {}, spent: 0, owned: [], premium: false, claimed: [] }, variants: {}, varOwned: {}, pets: {}, regulars: {}, todOverride: null, seasonOverride: null,
   puzzle: { last: 0, streak: 0, total: 0, maxStreak: 0 }, stats: { sets: 0, guests: 0, combo: 0, nohelp: 0, dust: 0, critic: 0 }, ach: { claimed: [], seen: [] }, seenOb: {},
   packs: [], decoOff: {}, inv: {}, offer: null, tstats: { lv: {}, time: 0, sess: 0 },
-  evs: {}, evOverride: null, week: null, bonusReady: false, bonusNo: 0, seenVer: null, roomsDone: [] });
+  evs: {}, evOverride: null, week: null, bonusReady: false, bonusNo: 0, seenVer: null, roomsDone: [], fails: {}, recipesSeen: [], backupAsked: false, backupAt: 0, omaHelped: 0 });
 let save = fresh();
 try { const raw = localStorage.getItem(KEY); if (raw) { const f = fresh(); save = Object.assign(f, JSON.parse(raw)); ["puzzle", "stats", "ach"].forEach(k => save[k] = Object.assign(fresh()[k], save[k]));
   // Alter Wintermarkt-Fortschritt wandert in die neue Event-Ablage
@@ -2867,7 +2886,7 @@ Object.assign(EN, {
   "Für jeden Erfolg gibt es eine Belohnung. Tippe auf „Holen“, sobald einer geschafft ist.": "Every achievement comes with a reward. Tap “Claim” once you've earned one.",
   // Startseite, Tagesbonus, Einstellungen, Shop
   "Einstellungen": "Settings", "Sortiere Omas Trödel, bediene die Gäste, richte dein Café ein.": "Sort Grandma's trinkets, serve the guests, furnish your café.",
-  "⭐ {} frei": "⭐ {} free", "Album": "Album", "Shop (Demo)": "Shop (demo)", "Prototyp 1.7 · Werbung und Käufe sind nur simuliert": "Prototype 1.2 · Ads and purchases are only simulated",
+  "⭐ {} frei": "⭐ {} free", "Album": "Album", "Shop (Demo)": "Shop (demo)", "Prototyp 1.8 · Werbung und Käufe sind nur simuliert": "Prototype 1.2 · Ads and purchases are only simulated",
   "Tag {}": "Day {}", "Tagesbonus": "Daily bonus", "Komm jeden Tag wieder. Am 7. Tag gibt es einen Extra-Stern.": "Come back every day. On day 7 you get an extra star.",
   "{} 🪙 abholen": "Collect {} 🪙", "+{} 🪙{}. Bis morgen!": "+{} 🪙{}. See you tomorrow!", " und 1 ⭐": " and 1 ⭐",
   "Sprache": "Language", "Musik": "Music", "Umgebungsgeräusche": "Ambient sounds", "Soundeffekte": "Sound effects", "Vibration": "Vibration",
@@ -3282,6 +3301,7 @@ function preLevel(n, ev = false, mode = null) {
   if (ev === true) ev = curEvent() || EVENTS[0];
   if (save.feedbackPending) { save.feedbackPending = false; save.feedbackAsked = true; persist(); return openFeedback(true, () => preLevel(n, ev, mode)); }
   if (mode === "bonus") return startLevel(n, false, {}, "bonus");
+  if (!ev && !mode && n >= 4 && ((save.fails || {})[n] || 0) >= OMA_HELP_AFTER) return omaHelp(n);
   if (!ev && !mode && n < 4) return startLevel(n, ev);
   const total = () => PRE.filter(b => preSel.has(b.id) && !save.inv[b.id]).reduce((a, b) => a + b.c, 0);
   const draw = () => {
@@ -3540,6 +3560,7 @@ function guestLeaves(q) {
 }
 function lose() {
   sfx("lose");
+  if (!G.ev && !G.daily && !G.bonus) { save.fails = save.fails || {}; save.fails[G.n] = (save.fails[G.n] || 0) + 1; persist(); }
   const o = overlay(`<div class="card">
     <h2>${tx("Die Gäste sind verärgert")}</h2>
     <p>${tx("Drei Gäste haben den Laden ohne ihre Bestellung verlassen.")}</p>
@@ -3678,9 +3699,10 @@ function win() {
   // Am Ende eines Kapitels: ein Hinweis zu Omas Geheimnis
   if (!G.ev && !G.daily && !G.bonus && G.n % 10 === 0 && !G.secretShown) {
     const c = G.n / 10 - 1;
-    if (c < SECRET.length && !secretFound(c)) { G.secretShown = true; G.over = true; return showSecret(c, win); }
+    if (c < SECRET.length && !secretFound(c)) { G.secretShown = true; G.over = true; return showSecret(c, () => recipeUnlocked(c, win)); }
   }
   G.over = true; statEnd("w");
+  if (!G.ev && !G.daily && !G.bonus && save.fails && save.fails[G.n]) { delete save.fails[G.n]; persist(); }
   const st = starsFor();
   const news = mergeAlbum();
   if (G.bonus) return winBonus(news);
@@ -3767,6 +3789,7 @@ function renderGame() {
       <div class="lvl">${G.bonus ? "⚡ " + tx("Bonusrunde") : G.daily ? tx("Tagesrätsel") : G.ev ? tx(G.ev.n) + " " + G.n : "Level " + G.n}</div>
       ${hearts}
       <span class="pill">🪙 ${save.coins + G.levelCoins}</span>
+      <button class="iconbtn" id="gMenu" aria-label="${tx("Pause")}"><span class="pz"><i></i><i></i></span></button>
     </div>
     <div class="guests" id="guests"></div>
     <div class="queue-info" id="qinfo"></div>
@@ -3780,6 +3803,7 @@ function renderGame() {
     </div>
   </div>`;
   $("#gHome").onclick = () => { statEnd(G.over ? "l" : "q"); G.ev ? renderEvent() : renderHome(); };
+  $("#gMenu").onclick = openGameMenu;
   $("#bUndo").onclick = useUndo;
   $("#bHint").onclick = useHint;
   $("#bShuf").onclick = () => { if (!busy) boosterChoice("shuffle"); };
@@ -4093,6 +4117,7 @@ function renderAlbum() {
     </div>
     ${ba}
     ${secretRow()}
+    ${recipeRow()}
     <h3 class="ah">${tx("Stammgäste")}</h3>
     <div class="regs">${REGULARS.map(r => { const st = save.regulars[r.id] || 0; return `<button class="reg" data-reg="${r.id}">
       <span class="rf ${st ? "" : "locked"}">${r.g}</span><b>${st ? tx(r.n) : "???"}</b><small>${st}/${r.s.length}</small></button>`; }).join("")}</div>
@@ -4111,6 +4136,7 @@ function renderAlbum() {
     const upd = () => { const v = +baIn.value; $("#baB").style.clipPath = `inset(0 ${100 - v}% 0 0)`; $("#baL").style.left = v + "%"; };
     baIn.oninput = upd; upd();
   }
+  app.querySelectorAll("[data-rec]").forEach(b => b.onclick = () => { const c = +b.dataset.rec; recipeOpen(c) ? showRecipe(c, renderAlbum) : toast(TX`Schaff Level ${(c + 1) * 10}, um dieses Rezept zu bekommen.`); });
   app.querySelectorAll("[data-sec]").forEach(b => b.onclick = () => { const c = +b.dataset.sec; secretFound(c) ? showSecret(c, null, true) : toast(TX`Schaff Level ${(c + 1) * 10}, um diesen Hinweis zu finden.`); });
   app.querySelectorAll("[data-reg]").forEach(b => b.onclick = () => {
     const r = REGULARS.find(x => x.id === b.dataset.reg), st = save.regulars[r.id] || 0;
@@ -4381,32 +4407,6 @@ function renderSplash() {
 
 /* ================= Feedback ================= */
 const ITCH_URL = "https://marvipape-games.itch.io/trdel-trtchen";
-function openFeedback(asked, onClose) {
-  const f = save.feedback || (save.feedback = { stars: 0, text: "" });
-  const o = overlay(`<div class="card">
-    <div style="font-size:40px">💬</div>
-    <h2>${tx(asked ? "Kurze Frage an dich" : "Feedback")}</h2>
-    <p>${tx("Wie gefällt dir Trödel &amp; Törtchen bisher?")}</p>
-    <div class="fbstars">${[1, 2, 3, 4, 5].map(i => `<button class="fbs ${i <= f.stars ? "on" : ""}" data-fs="${i}" aria-label="${TX`${i} von 5 Sternen`}">⭐</button>`).join("")}</div>
-    <textarea id="fbText" rows="4" placeholder="${tx("Was gefällt dir? Was soll besser werden? (freiwillig)")}">${esc(f.text)}</textarea>
-    <label class="fbstat"><input type="checkbox" id="fbStat" checked> ${tx("Spielstatistik anhängen")}</label>
-    <a class="btn" id="fbItch" href="${ITCH_URL}#comments" target="_blank" rel="noopener">${tx("Auf itch.io kommentieren")}</a>
-    <p class="fbnote">${tx("Dein Text wird dabei kopiert. Füge ihn auf itch.io einfach ins Kommentarfeld ein.")}</p>
-    <button class="btn alt" id="fbClose">${tx(asked ? "Später" : "Schließen")}</button>
-  </div>`);
-  const ta = o.querySelector("#fbText");
-  const keep = () => { f.text = ta.value; persist(); };
-  o.querySelectorAll("[data-fs]").forEach(b => b.onclick = () => {
-    f.stars = +b.dataset.fs; persist(); sfx("pick");
-    o.querySelectorAll("[data-fs]").forEach(x => x.classList.toggle("on", +x.dataset.fs <= f.stars));
-  });
-  o.querySelector("#fbItch").onclick = () => {
-    keep();
-    const msg = (`${f.stars ? "⭐".repeat(f.stars) + " " : ""}${f.text}`.trim() + (o.querySelector("#fbStat").checked ? "\n\n" + statText() : "")).trim();
-    if (msg) try { navigator.clipboard.writeText(msg).then(() => toast(tx("Text kopiert – jetzt auf itch.io einfügen")), () => {}); } catch (e) {}
-  };
-  o.querySelector("#fbClose").onclick = () => { keep(); closeOverlay(); if (f.stars) toast(tx("Danke für deine Bewertung!")); if (onClose) onClose(); };
-}
 
 
 /* ================= Tagesrätsel ================= */
@@ -4872,7 +4872,7 @@ Object.assign(EN, {
   "iPhone/iPad: Tippe in Safari unten auf „Teilen“ und dann auf „Zum Home-Bildschirm“.": "iPhone/iPad: In Safari, tap “Share” at the bottom and then “Add to Home Screen”.",
   "Android: Tippe in Chrome oben rechts auf ⋮ und dann auf „App installieren“ oder „Zum Startbildschirm hinzufügen“.": "Android: In Chrome, tap ⋮ at the top right and then “Install app” or “Add to Home screen”.",
   "Danach hat das Spiel ein eigenes Symbol, startet im Vollbild und läuft auch ohne Internet.": "Then the game gets its own icon, starts in full screen and works without internet too.",
-  "Prototyp 1.7 · Werbung und Käufe sind nur simuliert": "Prototype 1.3 · Ads and purchases are only simulated",
+  "Prototyp 1.8 · Werbung und Käufe sind nur simuliert": "Prototype 1.3 · Ads and purchases are only simulated",
   "{} gehört dir! Die neuen Farben findest du beim Einrichten.": "{} is yours! You'll find the new colours when furnishing."
 });
 
@@ -4993,9 +4993,10 @@ function openWeek() {
 }
 
 /* ================= Was ist neu? ================= */
-const VERSION = "1.7";
+const VERSION = "1.8";
 const vnum = v => v.split(".").map(Number).reduce((a, x) => a * 1000 + x, 0);
 const CHANGES = [
+  { v: "1.8", items: ["💾 Spielstand sichern: Mit einem Code holst du deinen Fortschritt zurück – auch auf einem neuen Handy. Zu finden unter „Mehr“.", "👵 Oma hilft: Wenn ein Level dreimal nicht klappt, bietet Oma dir ihre Hilfe an.", "📜 Omas Rezeptbuch: Nach jedem Kapitel ein echtes Rezept zum Nachbacken – im Album.", "❓ „Wie geht das?“: Alle Gäste, Hindernisse und Hilfsmittel auf einen Blick.", "⏸ Pause-Knopf im Level – und „Problem melden“ direkt aus dem Spiel."] },
   { v: "1.7", items: ["⏳ Die Gäste haben mehr Geduld: ab Level 20 45 Sekunden, in Level 35 55 Sekunden und ab Level 36 60 Sekunden."] },
   { v: "1.6", items: ["⚡ Das Spiel startet jetzt viel schneller – besonders auf dem iPhone."] },
   { v: "1.5", items: ["🗺️ Neue Startseite: Dein Weg durch die Level ist jetzt das Spielbrett. Mit jedem geschafften Level hüpft dein Törtchen ein Feld weiter.", "🗝️ Omas Geheimnis: Am Ende jedes Kapitels wartet ein Hinweis auf dich. Was hat Oma versteckt?", "⏳ Ab Level 25 haben die Gäste mehr Geduld (35 Sekunden).", "🎉 Feier, wenn ein Raum fertig eingerichtet ist – mit Foto, Brief von Oma und Belohnung."] },
@@ -5124,7 +5125,7 @@ Object.assign(EN, {
   "🌍 Englische Version": "🌍 English version", "🧩 Tagesrätsel": "🧩 Daily puzzle", "🏅 Erfolge": "🏅 Achievements",
   "🕸️ Neue Hindernisse ab Level 25": "🕸️ New obstacles from level 25", "🐈 Gäste und Tiere in den Räumen": "🐈 Guests and animals in the rooms",
   "Eine neue Version ist da. Starte das Spiel neu, um sie zu sehen.": "A new version is available. Restart the game to see it.",
-  "Prototyp 1.7 · Werbung und Käufe sind nur simuliert": "Prototype 1.7 · Ads and purchases are only simulated",
+  "Prototyp 1.8 · Werbung und Käufe sind nur simuliert": "Prototype 1.8 · Ads and purchases are only simulated",
   "🗝️ Omas Geheimnis: Am Ende jedes Kapitels wartet ein Hinweis auf dich. Was hat Oma versteckt?": "🗝️ Grandma's secret: a clue awaits you at the end of every chapter. What did Grandma hide?"
 });
 
@@ -5184,20 +5185,400 @@ function openMore() {
     <h2>${tx("Mehr")}</h2>
     <div class="morelist">
       <button class="btn alt" id="mAch">🏅 ${tx("Erfolge")}${a ? ` <span class="nbadge">${a}</span>` : ""}</button>
+      <button class="btn alt" id="mHelp">❓ ${tx("Wie geht das?")}</button>
+      <button class="btn alt" id="mSave">💾 ${tx("Spielstand sichern")}</button>
       <button class="btn alt" id="mFb">💬 ${tx("Feedback geben")}</button>
+      <button class="btn alt" id="mBug">🐞 ${tx("Problem melden")}</button>
       <button class="btn alt" id="mNews">✨ ${tx("Was ist neu?")}</button>
       <button class="btn alt" id="mSet">⚙️ ${tx("Einstellungen")}</button>
     </div>
-    <p style="font-size:12px">${tx("Prototyp 1.7 · Werbung und Käufe sind nur simuliert")}</p>
+    <p style="font-size:12px">${tx("Prototyp 1.8 · Werbung und Käufe sind nur simuliert")}</p>
     <button class="btn" id="mClose">${tx("Schließen")}</button>
   </div>`);
   o.querySelector("#mAch").onclick = () => { closeOverlay(); renderAch(); };
   o.querySelector("#mFb").onclick = () => { closeOverlay(); openFeedback(false); };
+  o.querySelector("#mHelp").onclick = () => openHelp(openMore);
+  o.querySelector("#mSave").onclick = openBackup;
+  o.querySelector("#mBug").onclick = () => openFeedback(false, openMore, true);
   o.querySelector("#mNews").onclick = () => { closeOverlay(); showNews("1.1"); };
   o.querySelector("#mSet").onclick = () => { closeOverlay(); openSettings(); };
   o.querySelector("#mClose").onclick = closeOverlay;
 }
-Object.assign(EN, { "⏳ Die Gäste haben mehr Geduld: ab Level 20 45 Sekunden, in Level 35 55 Sekunden und ab Level 36 60 Sekunden.": "⏳ Guests are more patient: 45 seconds from level 20, 55 seconds in level 35 and 60 seconds from level 36.", "⚡ Das Spiel startet jetzt viel schneller – besonders auf dem iPhone.": "⚡ The game now starts much faster – especially on iPhone.", "⏳ Ab Level 25 haben die Gäste mehr Geduld (35 Sekunden).": "⏳ From level 25 on, guests are more patient (35 seconds).", "🗺️ Neue Startseite: Dein Weg durch die Level ist jetzt das Spielbrett. Mit jedem geschafften Level hüpft dein Törtchen ein Feld weiter.": "🗺️ New home screen: your path through the levels is now the game board. Your tartlet hops one space further with every level you complete.", "Kap.": "Ch.", "Karte": "Map", "Mehr": "More", "Nächstes:": "Next:", "Alles eingerichtet!": "All furnished!", "{} von {} eingerichtet": "{} of {} furnished" });
+Object.assign(EN, { "💾 Spielstand sichern: Mit einem Code holst du deinen Fortschritt zurück – auch auf einem neuen Handy. Zu finden unter „Mehr“.": "💾 Back up progress: a code brings your progress back – even on a new phone. You'll find it under “More”.", "👵 Oma hilft: Wenn ein Level dreimal nicht klappt, bietet Oma dir ihre Hilfe an.": "👵 Grandma helps: if a level doesn't work out three times, Grandma offers you her help.", "📜 Omas Rezeptbuch: Nach jedem Kapitel ein echtes Rezept zum Nachbacken – im Album.": "📜 Grandma's recipe book: a real recipe to bake after every chapter – in the album.", "❓ „Wie geht das?“: Alle Gäste, Hindernisse und Hilfsmittel auf einen Blick.": "❓ “How does it work?”: all guests, obstacles and helpers at a glance.", "⏸ Pause-Knopf im Level – und „Problem melden“ direkt aus dem Spiel.": "⏸ Pause button in levels – and “Report a problem” right from the game.", "⏳ Die Gäste haben mehr Geduld: ab Level 20 45 Sekunden, in Level 35 55 Sekunden und ab Level 36 60 Sekunden.": "⏳ Guests are more patient: 45 seconds from level 20, 55 seconds in level 35 and 60 seconds from level 36.", "⚡ Das Spiel startet jetzt viel schneller – besonders auf dem iPhone.": "⚡ The game now starts much faster – especially on iPhone.", "⏳ Ab Level 25 haben die Gäste mehr Geduld (35 Sekunden).": "⏳ From level 25 on, guests are more patient (35 seconds).", "🗺️ Neue Startseite: Dein Weg durch die Level ist jetzt das Spielbrett. Mit jedem geschafften Level hüpft dein Törtchen ein Feld weiter.": "🗺️ New home screen: your path through the levels is now the game board. Your tartlet hops one space further with every level you complete.", "Kap.": "Ch.", "Karte": "Map", "Mehr": "More", "Nächstes:": "Next:", "Alles eingerichtet!": "All furnished!", "{} von {} eingerichtet": "{} of {} furnished" });
+
+/* ================= Omas Rezeptbuch ================= */
+// Pro Kapitel ein echtes Rezept zum Nachbacken (schaltet sich zusammen mit dem Geheimnis-Hinweis frei)
+const RECIPES = [
+  { e: "🍰", de: { n: "Omas Streuselkuchen", meta: "1 Backblech · ca. 1½ Std.",
+      ing: ["Teig: 500 g Mehl, 1 Würfel Hefe, 250 ml lauwarme Milch, 80 g Zucker, 80 g weiche Butter, 1 Ei, 1 Prise Salz", "Streusel: 300 g Mehl, 200 g Zucker, 200 g kalte Butter, 1 Päckchen Vanillezucker"],
+      steps: ["Hefe in der Milch mit 1 TL Zucker auflösen. Mit den übrigen Teig-Zutaten 5 Minuten zu einem glatten Teig kneten und zugedeckt 45 Minuten gehen lassen.", "Teig auf einem gefetteten Backblech ausrollen.", "Zutaten für die Streusel mit den Fingern zu Streuseln reiben und auf dem Teig verteilen.", "Noch 15 Minuten gehen lassen, dann bei 180 °C (Ober-/Unterhitze) etwa 25 Minuten goldgelb backen."],
+      note: "Die Butter für die Streusel muss kalt sein – dann werden sie schön knusprig." },
+    en: { n: "Grandma's crumble cake", meta: "1 baking tray · approx. 1½ hrs",
+      ing: ["Dough: 500 g flour, 42 g fresh yeast, 250 ml lukewarm milk, 80 g sugar, 80 g soft butter, 1 egg, 1 pinch of salt", "Crumble: 300 g flour, 200 g sugar, 200 g cold butter, 1 tsp vanilla sugar"],
+      steps: ["Dissolve the yeast in the milk with 1 tsp sugar. Knead with the remaining dough ingredients for 5 minutes until smooth, cover and leave to rise for 45 minutes.", "Roll the dough out on a greased baking tray.", "Rub the crumble ingredients between your fingers into crumbs and spread them over the dough.", "Leave to rise for another 15 minutes, then bake at 180 °C (conventional) for about 25 minutes until golden."],
+      note: "The butter for the crumble has to be cold – that's what makes it nice and crunchy." } },
+  { e: "🍎", de: { n: "Versunkener Apfelkuchen", meta: "Springform 26 cm · ca. 1 Std. 15 Min.",
+      ing: ["125 g weiche Butter, 125 g Zucker, 1 Päckchen Vanillezucker", "3 Eier", "200 g Mehl, 2 TL Backpulver, 3 EL Milch", "4 kleine Äpfel"],
+      steps: ["Butter, Zucker und Vanillezucker cremig rühren, die Eier einzeln unterrühren.", "Mehl, Backpulver und Milch unterrühren und den Teig in die gefettete Form streichen.", "Äpfel schälen, vierteln, das Kerngehäuse entfernen und die Rücken mehrmals einschneiden. Mit der runden Seite nach oben in den Teig drücken.", "Bei 175 °C (Ober-/Unterhitze) etwa 45 Minuten backen."],
+      note: "Den ersten Kuchen bringst du den neuen Nachbarn. So fangen die besten Freundschaften an." },
+    en: { n: "Sunken apple cake", meta: "26 cm springform · approx. 1 hr 15 min",
+      ing: ["125 g soft butter, 125 g sugar, 1 tsp vanilla sugar", "3 eggs", "200 g flour, 2 tsp baking powder, 3 tbsp milk", "4 small apples"],
+      steps: ["Cream the butter, sugar and vanilla sugar, then beat in the eggs one at a time.", "Stir in the flour, baking powder and milk and spread the batter in the greased tin.", "Peel and quarter the apples, remove the cores and score the backs several times. Press them into the batter, rounded side up.", "Bake at 175 °C (conventional) for about 45 minutes."],
+      note: "Bring your first cake to the new neighbours. That's how the best friendships begin." } },
+  { e: "🧁", de: { n: "Sonntags-Marmorkuchen", meta: "Gugelhupf-Form · ca. 1½ Std.",
+      ing: ["250 g weiche Butter, 200 g Zucker, 1 Päckchen Vanillezucker", "4 Eier", "375 g Mehl, 1 Päckchen Backpulver, 125 ml Milch", "2 EL Kakao, 2 EL Zucker, 2 EL Milch"],
+      steps: ["Butter, Zucker und Vanillezucker cremig rühren, die Eier einzeln unterrühren.", "Mehl mit Backpulver mischen und abwechselnd mit der Milch unterrühren. Die Hälfte des Teigs in die gefettete Form füllen.", "Kakao, Zucker und Milch unter den restlichen Teig rühren, darauf verteilen und mit einer Gabel spiralförmig durchziehen.", "Bei 175 °C (Ober-/Unterhitze) 50–60 Minuten backen. Mit einem Holzstäbchen prüfen, ob er durch ist."],
+      note: "Sonntags um drei gab es Kuchen. Immer. Auch wenn nur Opa und ich am Tisch saßen." },
+    en: { n: "Sunday marble cake", meta: "Bundt tin · approx. 1½ hrs",
+      ing: ["250 g soft butter, 200 g sugar, 1 tsp vanilla sugar", "4 eggs", "375 g flour, 3 tsp baking powder, 125 ml milk", "2 tbsp cocoa, 2 tbsp sugar, 2 tbsp milk"],
+      steps: ["Cream the butter, sugar and vanilla sugar, then beat in the eggs one at a time.", "Mix the flour with the baking powder and stir it in, alternating with the milk. Pour half the batter into the greased tin.", "Stir the cocoa, sugar and milk into the rest of the batter, spread it on top and swirl through with a fork.", "Bake at 175 °C (conventional) for 50–60 minutes. Check with a wooden skewer that it's done."],
+      note: "Sundays at three there was cake. Always. Even when it was just Grandpa and me at the table." } },
+  { e: "🥐", de: { n: "Zimtschnecken", meta: "12 Stück · ca. 2 Std.",
+      ing: ["Teig: 500 g Mehl, 1 Würfel Hefe, 250 ml lauwarme Milch, 75 g Zucker, 75 g weiche Butter, 1 Ei", "Füllung: 100 g weiche Butter, 100 g brauner Zucker, 2 EL Zimt"],
+      steps: ["Hefe in der Milch auflösen, mit den übrigen Teig-Zutaten verkneten und zugedeckt 1 Stunde gehen lassen.", "Teig zu einem Rechteck (ca. 40 × 30 cm) ausrollen, mit Butter bestreichen und mit Zucker und Zimt bestreuen.", "Von der langen Seite aufrollen, in 12 Scheiben schneiden und in eine gefettete Form setzen. Noch 20 Minuten gehen lassen.", "Bei 180 °C (Ober-/Unterhitze) 20–25 Minuten backen."],
+      note: "Wenn es nach Zimt duftet, kommen die Leute ganz von allein in den Laden. Das ist mein ältestes Geheimnis." },
+    en: { n: "Cinnamon rolls", meta: "12 rolls · approx. 2 hrs",
+      ing: ["Dough: 500 g flour, 42 g fresh yeast, 250 ml lukewarm milk, 75 g sugar, 75 g soft butter, 1 egg", "Filling: 100 g soft butter, 100 g brown sugar, 2 tbsp cinnamon"],
+      steps: ["Dissolve the yeast in the milk, knead with the remaining dough ingredients, cover and leave to rise for 1 hour.", "Roll the dough into a rectangle (approx. 40 × 30 cm), spread with butter and sprinkle with sugar and cinnamon.", "Roll up from the long side, cut into 12 slices and place them in a greased dish. Leave to rise for another 20 minutes.", "Bake at 180 °C (conventional) for 20–25 minutes."],
+      note: "When it smells of cinnamon, people come into the shop all by themselves. That's my oldest secret." } },
+  { e: "🥧", de: { n: "Käsekuchen", meta: "Springform 26 cm · ca. 2 Std. + Abkühlen",
+      ing: ["Boden: 200 g Mehl, 80 g Zucker, 100 g Butter, 1 Ei", "Füllung: 1 kg Magerquark, 200 g Zucker, 3 Eier, 1 Päckchen Vanillepuddingpulver, 100 ml Öl, 250 ml Milch, Saft einer halben Zitrone"],
+      steps: ["Zutaten für den Boden verkneten und in die gefettete Form drücken, dabei einen Rand von etwa 3 cm hochziehen.", "Alle Zutaten für die Füllung glatt rühren und auf den Boden gießen.", "Bei 170 °C (Ober-/Unterhitze) 60–70 Minuten backen.", "Ofen ausschalten und den Kuchen bei einem Spalt breit geöffneter Tür langsam abkühlen lassen – so fällt er nicht zusammen."],
+      note: "Geduld ist die wichtigste Zutat. Hinter verschlossenen Türen – auch hinter der Ofentür – passiert das Beste ganz langsam." },
+    en: { n: "German cheesecake", meta: "26 cm springform · approx. 2 hrs + cooling",
+      ing: ["Base: 200 g flour, 80 g sugar, 100 g butter, 1 egg", "Filling: 1 kg low-fat quark, 200 g sugar, 3 eggs, 40 g vanilla custard powder, 100 ml oil, 250 ml milk, juice of half a lemon"],
+      steps: ["Knead the base ingredients and press into the greased tin, pulling up a rim of about 3 cm.", "Whisk all the filling ingredients until smooth and pour onto the base.", "Bake at 170 °C (conventional) for 60–70 minutes.", "Switch off the oven and let the cake cool slowly with the door slightly open – that way it won't collapse."],
+      note: "Patience is the most important ingredient. Behind closed doors – even the oven door – the best things happen very slowly." } },
+  { e: "🫐", de: { n: "Zwetschgenkuchen", meta: "1 Backblech · ca. 1½ Std.",
+      ing: ["Teig: 400 g Mehl, ½ Würfel Hefe, 200 ml lauwarme Milch, 50 g Zucker, 50 g weiche Butter, 1 Ei, 1 Prise Salz", "Belag: 1,5 kg Zwetschgen, 3 EL Zucker, 1 TL Zimt"],
+      steps: ["Aus den Teig-Zutaten einen Hefeteig kneten und zugedeckt 45 Minuten gehen lassen.", "Teig auf einem gefetteten Backblech ausrollen.", "Zwetschgen waschen, entsteinen, längs einschneiden und dicht an dicht wie Dachziegel aufrecht auf den Teig setzen.", "Bei 200 °C (Ober-/Unterhitze) 25–30 Minuten backen. Noch warm mit Zimt und Zucker bestreuen."],
+      note: "Das alte Blech aus der Truhe hat mehr Zwetschgenkuchen gesehen als jedes andere in der Stadt. Benutz es oft!" },
+    en: { n: "Plum cake", meta: "1 baking tray · approx. 1½ hrs",
+      ing: ["Dough: 400 g flour, 21 g fresh yeast, 200 ml lukewarm milk, 50 g sugar, 50 g soft butter, 1 egg, 1 pinch of salt", "Topping: 1.5 kg plums, 3 tbsp sugar, 1 tsp cinnamon"],
+      steps: ["Knead the dough ingredients into a yeast dough, cover and leave to rise for 45 minutes.", "Roll the dough out on a greased baking tray.", "Wash and stone the plums, cut them lengthwise and stand them upright on the dough, tightly overlapping like roof tiles.", "Bake at 200 °C (conventional) for 25–30 minutes. Sprinkle with cinnamon and sugar while still warm."],
+      note: "The old tray from the chest has seen more plum cakes than any other in town. Use it often!" } },
+  { e: "🍓", de: { n: "Erdbeerkuchen für die Feier", meta: "Obstbodenform 28 cm · ca. 1 Std. + Abkühlen",
+      ing: ["Biskuit: 3 Eier, 100 g Zucker, 100 g Mehl, 1 TL Backpulver", "Belag: 750 g Erdbeeren, 1 Päckchen roter Tortenguss, 2 EL Zucker, 250 ml Wasser", "Zum Servieren: Schlagsahne"],
+      steps: ["Eier und Zucker 5 Minuten hell und schaumig schlagen. Mehl und Backpulver vorsichtig unterheben.", "In die gefettete Obstbodenform füllen und bei 180 °C (Ober-/Unterhitze) 15–20 Minuten backen. Abkühlen lassen und stürzen.", "Erdbeeren waschen, halbieren und auf dem Boden verteilen.", "Tortenguss nach Packung mit Zucker und Wasser kochen und über die Erdbeeren geben. Mit Sahne servieren."],
+      note: "Für jede Feier ein Erdbeerkuchen – und für jeden Gast einen extra Löffel Sahne." },
+    en: { n: "Strawberry flan for the party", meta: "28 cm flan tin · approx. 1 hr + cooling",
+      ing: ["Sponge: 3 eggs, 100 g sugar, 100 g flour, 1 tsp baking powder", "Topping: 750 g strawberries, 1 sachet red cake glaze, 2 tbsp sugar, 250 ml water", "To serve: whipped cream"],
+      steps: ["Beat the eggs and sugar for 5 minutes until pale and fluffy. Gently fold in the flour and baking powder.", "Pour into the greased flan tin and bake at 180 °C (conventional) for 15–20 minutes. Let it cool and turn it out.", "Wash and halve the strawberries and arrange them on the base.", "Cook the cake glaze with the sugar and water as directed on the packet and pour over the strawberries. Serve with cream."],
+      note: "A strawberry flan for every party – and an extra spoonful of cream for every guest." } },
+  { e: "💝", de: { n: "Hildes Herztörtchen", meta: "ca. 15 Stück · ca. 1 Std. + Kühlen",
+      ing: ["250 g Mehl, 125 g kalte Butter, 80 g Puderzucker, 1 Eigelb, 1 Prise Salz, abgeriebene Schale einer Zitrone", "150 g Himbeermarmelade", "Puderzucker zum Bestäuben"],
+      steps: ["Alle Teig-Zutaten schnell zu einem glatten Teig verkneten und 30 Minuten kalt stellen.", "Teig 3 mm dünn ausrollen und Herzen ausstechen. Bei der Hälfte in der Mitte ein kleines Herz ausstechen.", "Bei 180 °C (Ober-/Unterhitze) 8–10 Minuten hellgolden backen und abkühlen lassen.", "Die ganzen Herzen mit Marmelade bestreichen, die Herzen mit Loch mit Puderzucker bestäuben und daraufsetzen."],
+      note: "Henri hat gesagt: Das kleine Loch in der Mitte ist das Fenster, durch das man ins Herz schaut. Back sie für die Menschen, die du lieb hast." },
+    en: { n: "Hilde's heart tartlets", meta: "approx. 15 tartlets · approx. 1 hr + chilling",
+      ing: ["250 g flour, 125 g cold butter, 80 g icing sugar, 1 egg yolk, 1 pinch of salt, grated zest of one lemon", "150 g raspberry jam", "Icing sugar for dusting"],
+      steps: ["Quickly knead all the dough ingredients into a smooth dough and chill for 30 minutes.", "Roll the dough out 3 mm thin and cut out hearts. Cut a small heart out of the centre of half of them.", "Bake at 180 °C (conventional) for 8–10 minutes until light golden and let cool.", "Spread the whole hearts with jam, dust the hearts with a hole with icing sugar and place them on top."],
+      note: "Henri said: the little hole in the middle is the window you look into the heart through. Bake them for the people you love." } }
+];
+const recipeOpen = c => !!save.best[(c + 1) * 10];
+const recipeNew = () => RECIPES.filter((_, c) => recipeOpen(c) && !(save.recipesSeen || []).includes(c)).length;
+function showRecipe(c, onClose) {
+  const r = RECIPES[c], t = r[LANG] || r.de;
+  if (!(save.recipesSeen || []).includes(c)) { save.recipesSeen = (save.recipesSeen || []).concat(c); persist(); }
+  const o = overlay(`<div class="card letter recipe">
+    <div class="lhead"><span class="licon">${r.e}</span><span>${tx("Omas Rezeptbuch")} · ${c + 1}/${RECIPES.length}</span></div>
+    <h2>${esc(t.n)}</h2>
+    <p class="rmeta">${esc(t.meta)}</p>
+    <h4>${tx("Zutaten")}</h4>
+    <ul class="ring">${t.ing.map(x => `<li>${esc(x)}</li>`).join("")}</ul>
+    <h4>${tx("So geht's")}</h4>
+    <ol class="rsteps">${t.steps.map(x => `<li>${esc(x)}</li>`).join("")}</ol>
+    <p class="ltext">„${esc(t.note)}“</p>
+    <p class="lsign">– ${tx("Oma Hilde")}</p>
+    <button class="btn alt" id="rShare">📤 ${tx("Rezept teilen")}</button>
+    <button class="btn" id="rOk">${tx("Schließen")}</button>
+  </div>`);
+  o.querySelector("#rShare").onclick = () => shareText(`${t.n} (${t.meta})\n\n${tx("Zutaten")}:\n${t.ing.map(x => "• " + x).join("\n")}\n\n${tx("So geht's")}:\n${t.steps.map((x, i) => `${i + 1}. ${x}`).join("\n")}\n\n„${t.note}“ – ${tx("Oma Hilde")}\n${tx("Aus Trödel & Törtchen")}`, tx("Rezept kopiert"));
+  o.querySelector("#rOk").onclick = () => { closeOverlay(); if (onClose) onClose(); };
+}
+// Nach dem Geheimnis-Hinweis: Das neue Rezept kurz vorstellen
+function recipeUnlocked(c, onDone) {
+  const r = RECIPES[c]; if (!r) return onDone && onDone();
+  const o = overlay(`<div class="card">
+    <div style="font-size:46px">📜</div>
+    <h2>${tx("Neues Rezept!")}</h2>
+    <p>${TX`In Omas Rezeptbuch steht jetzt: ${r.e} ${(r[LANG] || r.de).n}`}</p>
+    <p class="fbnote">${tx("Ein echtes Rezept zum Nachbacken. Du findest es jederzeit im Album.")}</p>
+    <button class="btn" id="rnLook">${tx("Rezept ansehen")}</button>
+    <button class="btn alt" id="rnLater">${tx("Später")}</button>
+  </div>`);
+  sfx("win");
+  o.querySelector("#rnLook").onclick = () => showRecipe(c, onDone);
+  o.querySelector("#rnLater").onclick = () => { closeOverlay(); if (onDone) onDone(); };
+}
+function recipeRow() {
+  return `<h3 class="ah">${tx("Omas Rezeptbuch")}</h3>
+    <p class="tag">${tx("Nach jedem Kapitel bekommst du ein echtes Rezept zum Nachbacken.")}</p>
+    <div class="secrets">${RECIPES.map((r, c) => `<button class="sec ${recipeOpen(c) ? "" : "locked"}" data-rec="${c}">${recipeOpen(c) && !(save.recipesSeen || []).includes(c) ? `<span class="rdot"></span>` : ""}<span class="si">${recipeOpen(c) ? r.e : "🔒"}</span><small>${recipeOpen(c) ? esc((r[LANG] || r.de).n) : TX`Kapitel ${c + 1}`}</small></button>`).join("")}</div>`;
+}
+Object.assign(EN, {
+  "Omas Rezeptbuch": "Grandma's recipe book", "Zutaten": "Ingredients", "So geht's": "How to make it", "Rezept teilen": "Share recipe", "Rezept kopiert": "Recipe copied",
+  "Neues Rezept!": "New recipe!", "In Omas Rezeptbuch steht jetzt: {} {}": "Grandma's recipe book now contains: {} {}",
+  "Ein echtes Rezept zum Nachbacken. Du findest es jederzeit im Album.": "A real recipe to bake at home. You can find it in the album at any time.",
+  "Rezept ansehen": "View recipe", "Aus Trödel & Törtchen": "From Trödel & Törtchen",
+  "Nach jedem Kapitel bekommst du ein echtes Rezept zum Nachbacken.": "After every chapter you get a real recipe to bake at home.",
+  "Schaff Level {}, um dieses Rezept zu bekommen.": "Complete level {} to get this recipe."
+});
+
+/* ================= Teilen, Geräte-Infos ================= */
+// Text über das Teilen-Menü des Handys verschicken (WhatsApp, Mail …), sonst in die Zwischenablage kopieren
+function shareText(text, copiedMsg) {
+  const copy = () => { try { navigator.clipboard.writeText(text).then(() => toast(copiedMsg || tx("Kopiert")), () => toast(tx("Kopieren ging nicht. Bitte lange auf den Text drücken."))); } catch (e) { toast(tx("Kopieren ging nicht. Bitte lange auf den Text drücken.")); } };
+  if (navigator.share && !inFrame()) navigator.share({ text }).catch(e => { if (!e || e.name !== "AbortError") copy(); });
+  else copy();
+}
+function deviceInfo() {
+  const ua = navigator.userAgent;
+  const ios = ua.match(/(iPhone|iPad|iPod).*? OS (\d+)[_.](\d+)/);
+  const os = ios ? `${ios[1]} iOS ${ios[2]}.${ios[3]}` : /Android/.test(ua) ? "Android " + ((ua.match(/Android ([\d.]+)/) || [])[1] || "?")
+    : /Mac OS X/.test(ua) ? (navigator.maxTouchPoints > 1 ? "iPad" : "Mac") : /Windows/.test(ua) ? "Windows" : /Linux/.test(ua) ? "Linux" : "?";
+  const br = /CriOS/.test(ua) ? "Chrome" : /FxiOS|Firefox/.test(ua) ? "Firefox" : /EdgA|EdgiOS|Edg\//.test(ua) ? "Edge" : /SamsungBrowser/.test(ua) ? "Samsung Internet"
+    : /Chrome\//.test(ua) ? "Chrome" : /Safari/.test(ua) ? "Safari" : "?";
+  const mode = isStandalone() ? tx("App vom Home-Bildschirm") : inFrame() ? tx("eingebettet") : tx("Browser");
+  return `${os} · ${br} · ${mode}`;
+}
+function infoText() {
+  const lvName = G ? (G.bonus ? tx("Bonusrunde") : G.daily ? tx("Tagesrätsel") + " #" + G.n : G.ev ? tx(G.ev.n) + " " + G.n : "Level " + G.n) : "";
+  return `[Info] Version ${VERSION} · ${new Date().toLocaleString(LANG === "de" ? "de-DE" : "en-GB")} · ${deviceInfo()} · ${innerWidth}×${innerHeight} · ${LANG}`
+    + (G ? `\n${tx("Gerade im Spiel")}: ${lvName} · ${TX`Zug ${G.moves}`} · ❤️ ${G.hearts}/${G.maxHearts} · ${tx("Geduld")} ${G.pMax || "–"} s${G.boosts && Object.keys(G.boosts).length ? " · " + Object.keys(G.boosts).join("+") : ""}` : "");
+}
+Object.assign(EN, {
+  "Kopiert": "Copied", "Kopieren ging nicht. Bitte lange auf den Text drücken.": "Copying didn't work. Please long-press the text.",
+  "App vom Home-Bildschirm": "home screen app", "eingebettet": "embedded", "Browser": "browser", "Gerade im Spiel": "Currently playing", "Zug {}": "Move {}", "Geduld": "Patience"
+});
+
+/* ================= Feedback und Problem melden ================= */
+const BUG_KINDS = ["Hängt / reagiert nicht", "Sieht komisch aus", "Zu schwer", "Fehler im Text", "Sonstiges"];
+function openFeedback(asked, onClose, report = false) {
+  const f = save.feedback || (save.feedback = { stars: 0, text: "" });
+  let kind = null;
+  const o = overlay(`<div class="card">
+    <div style="font-size:40px">${report ? "🐞" : "💬"}</div>
+    <h2>${tx(report ? "Problem melden" : asked ? "Kurze Frage an dich" : "Feedback")}</h2>
+    ${report ? `<p>${tx("Was ist passiert?")}</p>
+      <div class="bugkinds">${BUG_KINDS.map((k, i) => `<button class="chip" data-bk="${i}">${tx(k)}</button>`).join("")}</div>`
+    : `<p>${tx("Wie gefällt dir Trödel &amp; Törtchen bisher?")}</p>
+      <div class="fbstars">${[1, 2, 3, 4, 5].map(i => `<button class="fbs ${i <= f.stars ? "on" : ""}" data-fs="${i}" aria-label="${TX`${i} von 5 Sternen`}">⭐</button>`).join("")}</div>`}
+    <textarea id="fbText" rows="4" placeholder="${tx(report ? "Beschreib kurz, was du gemacht hast und was dann passiert ist." : "Was gefällt dir? Was soll besser werden? (freiwillig)")}">${report ? "" : esc(f.text)}</textarea>
+    <label class="fbstat"><input type="checkbox" id="fbStat" checked> ${tx("Infos zu Gerät und Spielstand anhängen")}</label>
+    <p class="fbinfo">${esc(`Version ${VERSION} · Level ${G ? G.n : save.level} · ${deviceInfo()}`)}</p>
+    <button class="btn" id="fbSend">📤 ${tx("Senden (WhatsApp, Mail …)")}</button>
+    <p class="fbnote">${tx("Wähle im nächsten Fenster aus, an wen es gehen soll.")}</p>
+    <a class="btn alt" id="fbItch" href="${ITCH_URL}#comments" target="_blank" rel="noopener">${tx("Auf itch.io kommentieren")}</a>
+    <button class="btn alt" id="fbClose">${tx(asked ? "Später" : "Schließen")}</button>
+  </div>`);
+  const ta = o.querySelector("#fbText");
+  const keep = () => { if (!report) { f.text = ta.value; persist(); } };
+  o.querySelectorAll("[data-fs]").forEach(b => b.onclick = () => {
+    f.stars = +b.dataset.fs; persist(); sfx("pick");
+    o.querySelectorAll("[data-fs]").forEach(x => x.classList.toggle("on", +x.dataset.fs <= f.stars));
+  });
+  o.querySelectorAll("[data-bk]").forEach(b => b.onclick = () => {
+    kind = +b.dataset.bk; sfx("pick"); o.querySelectorAll("[data-bk]").forEach(x => x.classList.toggle("on", x === b));
+  });
+  const message = () => {
+    const head = report ? `🐞 ${tx("Problem")}${kind !== null ? ": " + tx(BUG_KINDS[kind]) : ""}` : f.stars ? "⭐".repeat(f.stars) : "";
+    return [`Trödel & Törtchen – ${tx(report ? "Problem melden" : "Feedback")}`, head, ta.value.trim(),
+      o.querySelector("#fbStat").checked ? infoText() + "\n" + statText() : ""].filter(Boolean).join("\n\n");
+  };
+  o.querySelector("#fbSend").onclick = () => {
+    if (report && kind === null && !ta.value.trim()) return toast(tx("Wähle oben aus, was passiert ist, oder schreib ein paar Worte."));
+    keep(); shareText(message(), tx("Text kopiert – füge ihn jetzt in WhatsApp oder eine Mail ein."));
+  };
+  o.querySelector("#fbItch").onclick = () => {
+    keep();
+    try { navigator.clipboard.writeText(message()).then(() => toast(tx("Text kopiert – jetzt auf itch.io einfügen")), () => {}); } catch (e) {}
+  };
+  o.querySelector("#fbClose").onclick = () => { keep(); closeOverlay(); if (!report && f.stars) toast(tx("Danke für deine Bewertung!")); if (onClose) onClose(); };
+}
+Object.assign(EN, {
+  "Problem melden": "Report a problem", "Was ist passiert?": "What happened?", "Hängt / reagiert nicht": "Stuck / not responding", "Sieht komisch aus": "Looks odd",
+  "Zu schwer": "Too hard", "Fehler im Text": "Mistake in the text", "Sonstiges": "Something else",
+  "Beschreib kurz, was du gemacht hast und was dann passiert ist.": "Briefly describe what you did and what happened next.",
+  "Infos zu Gerät und Spielstand anhängen": "Attach device and progress info", "Senden (WhatsApp, Mail …)": "Send (WhatsApp, email …)",
+  "Wähle im nächsten Fenster aus, an wen es gehen soll.": "Choose who to send it to in the next window.", "Problem": "Problem", "Feedback": "Feedback",
+  "Wähle oben aus, was passiert ist, oder schreib ein paar Worte.": "Pick what happened above, or write a few words.",
+  "Text kopiert – füge ihn jetzt in WhatsApp oder eine Mail ein.": "Text copied – now paste it into WhatsApp or an email."
+});
+
+/* ================= Pause-Menü im Level ================= */
+function openGameMenu() {
+  const o = overlay(`<div class="card">
+    <h2>${tx("Pause")}</h2>
+    <p>${tx("Die Gäste warten, bis du weiterspielst.")}</p>
+    <div class="morelist">
+      <button class="btn" id="gmGo">▶ ${tx("Weiterspielen")}</button>
+      <button class="btn alt" id="gmHelp">❓ ${tx("Wie geht das?")}</button>
+      <button class="btn alt" id="gmBug">🐞 ${tx("Problem melden")}</button>
+    </div>
+  </div>`);
+  o.querySelector("#gmGo").onclick = closeOverlay;
+  o.querySelector("#gmHelp").onclick = () => openHelp(openGameMenu);
+  o.querySelector("#gmBug").onclick = () => openFeedback(false, openGameMenu, true);
+}
+Object.assign(EN, { "Pause": "Pause", "Die Gäste warten, bis du weiterspielst.": "The guests will wait until you carry on.", "Weiterspielen": "Continue", "Menü": "Menu" });
+
+/* ================= Hilfe: Wie geht das? ================= */
+function openHelp(onClose) {
+  const strip = s => tx(s).replace(/^(Neu|New): /, "");
+  const row = (e, n, d, lv) => save.level >= lv || lv <= 1
+    ? `<div class="birow"><span class="bie">${e}</span><span><b>${tx(n)}</b><small>${strip(d)}</small></span></div>`
+    : `<div class="birow locked"><span class="bie">🔒</span><span><b>${tx(n)}</b><small>${TX`Kommt ab Level ${lv}`}</small></span></div>`;
+  const K = KINDS;
+  const o = overlay(`<div class="card help">
+    <h2>${tx("Wie geht das?")}</h2>
+    <h4>${tx("Die Grundregeln")}</h4>
+    <div class="bilist">
+      ${row("👆", "Sortieren", LEVEL_TIPS[1], 1)}
+      ${row("📦", "Hintere Reihe", LEVEL_TIPS[3], 3)}
+      ${row("⏳", "Geduld der Gäste", LEVEL_TIPS[4], 4)}
+      ${row("🪙", "Trinkgeld", LEVEL_TIPS[5], 5)}
+      ${row("⭐", "Sterne", "Je mehr Herzen du am Ende übrig hast, desto mehr Sterne bekommst du. Mit Sternen richtest du dein Café ein.", 4)}
+    </div>
+    <h4>${tx("Besondere Gäste")}</h4>
+    <div class="bilist">
+      ${row(K.stamm.g, "Stammgast", LEVEL_TIPS[6], 6)}
+      ${row(K.boss.g, "Bürgermeister", LEVEL_TIPS[10], 10)}
+      ${row(K.sammler.g, "Sammler", LEVEL_TIPS[11], 11)}
+      ${row(K.eilig.g, "Eilig", LEVEL_TIPS[14], 14)}
+      ${row(K.nasch.g, "Naschkatze", LEVEL_TIPS[17], 17)}
+      ${row(K.kritiker.g, "Kritiker", LEVEL_TIPS[22], 22)}
+    </div>
+    <h4>${tx("Hindernisse")}</h4>
+    <div class="bilist">
+      ${row("🕸️", "Verstaubte Teile", OB_TIPS.du, 25)}
+      ${row("🎶", "Spieluhr", OB_TIPS.mb, 28)}
+      ${row("🗝️", "Schlüsselfach", OB_TIPS.ky, 33)}
+      ${row("🔒", "Verschlossene Fächer", LEVEL_TIPS[41], 41)}
+      ${row("🎀", "Verpackte Teile", LEVEL_TIPS[46], 46)}
+    </div>
+    <h4>${tx("Hilfsmittel")}</h4>
+    <div class="bilist">
+      ${row("↩️", LANG === "de" ? "Zurück" : "Undo", "Nimmt deinen letzten Zug zurück.", 1)}
+      ${row("🔍", "Tipp", "Zeigt dir einen guten Zug.", 1)}
+      ${row("🔀", "Mischen", "Verteilt alle Teile in den offenen Fächern neu.", 1)}
+      ${row("🧺", "Extra-Fach", "Stellt ein zusätzliches leeres Fach auf.", 1)}
+      ${PRE.map(b => row(b.e, b.n, b.d + ".", 4)).join("")}
+    </div>
+    <p class="fbnote">${tx("Steckst du in einem Level fest? Nach drei Versuchen bietet Oma dir ihre Hilfe an.")}</p>
+    <button class="btn" id="hlOk">${tx("Verstanden")}</button>
+  </div>`);
+  o.querySelector("#hlOk").onclick = () => { closeOverlay(); if (onClose) onClose(); };
+}
+Object.assign(EN, {
+  "Wie geht das?": "How does it work?", "Die Grundregeln": "The basics", "Sortieren": "Sorting", "Hintere Reihe": "Back row", "Geduld der Gäste": "Guest patience",
+  "Trinkgeld": "Tips", "Sterne": "Stars", "Je mehr Herzen du am Ende übrig hast, desto mehr Sterne bekommst du. Mit Sternen richtest du dein Café ein.": "The more hearts you have left at the end, the more stars you get. You use stars to furnish your café.",
+  "Besondere Gäste": "Special guests", "Stammgast": "Regular", "Hindernisse": "Obstacles", "Verstaubte Teile": "Dusty items", "Spieluhr": "Music box",
+  "Schlüsselfach": "Key shelf", "Verschlossene Fächer": "Locked shelves", "Verpackte Teile": "Wrapped items", "Hilfsmittel": "Helpers", "Kommt ab Level {}": "Arrives from level {}",
+  "Gäste warten 50 % länger.": "Guests wait 50% longer.", "Du startest mit 4 statt 3 Herzen.": "You start with 4 instead of 3 hearts.", "Ein leeres Extra-Fach von Anfang an.": "An empty extra shelf from the start.",
+  "Steckst du in einem Level fest? Nach drei Versuchen bietet Oma dir ihre Hilfe an.": "Stuck on a level? After three tries, Grandma offers you her help."
+});
+
+/* ================= Oma hilft, wenn ein Level klemmt ================= */
+const OMA_HELP_AFTER = 3;
+function omaHelp(n) {
+  const o = overlay(`<div class="card letter">
+    <div class="lhead"><span class="licon">👵</span><span>${tx("Oma hilft")}</span></div>
+    <p class="ltext">${esc(tx("Level {} ist ganz schön knifflig, was? Ich hab dir etwas eingepackt: Diesmal warten die Gäste 50 % länger, und du bekommst ein Extra-Herz. Ganz umsonst!").replace("{}", n)).replace(/\n/g, "<br>")}</p>
+    <p class="lsign">– ${tx("Oma Hilde")}</p>
+    <button class="btn" id="ohYes">${tx("Ja, gerne!")}</button>
+    <button class="btn alt" id="ohNo">${tx("Nein danke, ich schaff das allein")}</button>
+  </div>`);
+  sfx("pick");
+  const reset = () => { save.fails[n] = 0; persist(); closeOverlay(); };
+  o.querySelector("#ohYes").onclick = () => { reset(); save.omaHelped = (save.omaHelped || 0) + 1; persist(); startLevel(n, false, { geduld: true, herz: true }); toast(tx("Omas Hilfe: Geduld+ und ein Extra-Herz")); };
+  o.querySelector("#ohNo").onclick = () => { reset(); preLevel(n); };
+}
+Object.assign(EN, {
+  "Oma hilft": "Grandma helps", "Ja, gerne!": "Yes, please!", "Nein danke, ich schaff das allein": "No thanks, I can do it myself",
+  "Level {} ist ganz schön knifflig, was? Ich hab dir etwas eingepackt: Diesmal warten die Gäste 50 % länger, und du bekommst ein Extra-Herz. Ganz umsonst!": "Level {} is pretty tricky, isn't it? I've packed you something: this time the guests wait 50% longer and you get an extra heart. Completely free!",
+  "Omas Hilfe: Geduld+ und ein Extra-Herz": "Grandma's help: Patience+ and an extra heart"
+});
+
+/* ================= Spielstand sichern und laden ================= */
+const b64u = bytes => { let s = ""; for (let i = 0; i < bytes.length; i += 8192) s += String.fromCharCode.apply(null, bytes.subarray(i, i + 8192)); return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
+const unb64u = str => { const s = atob(str.replace(/-/g, "+").replace(/_/g, "/")); const b = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) b[i] = s.charCodeAt(i); return b; };
+const pipeBytes = (bytes, stream) => new Response(new Blob([bytes]).stream().pipeThrough(stream)).arrayBuffer().then(b => new Uint8Array(b));
+async function backupCode() {
+  const raw = new TextEncoder().encode(JSON.stringify(save));
+  if (window.CompressionStream) try { return "TT2-" + b64u(await pipeBytes(raw, new CompressionStream("deflate-raw"))); } catch (e) {}
+  return "TT1-" + b64u(raw);
+}
+async function readBackup(code) {
+  const c = (code || "").replace(/\s+/g, ""), m = c.match(/^TT([12])-([A-Za-z0-9_-]+)$/);
+  if (!m) throw new Error("format");
+  let bytes = unb64u(m[2]);
+  if (m[1] === "2") bytes = await pipeBytes(bytes, new DecompressionStream("deflate-raw"));
+  const data = JSON.parse(new TextDecoder().decode(bytes));
+  if (!data || typeof data.level !== "number") throw new Error("data");
+  return data;
+}
+function openBackup() {
+  const o = overlay(`<div class="card backup">
+    <div style="font-size:40px">💾</div>
+    <h2>${tx("Spielstand sichern")}</h2>
+    <p>${tx("Mit diesem Code holst du deinen Fortschritt zurück – auch auf einem neuen Handy oder wenn du das App-Symbol gelöscht hast. Schick ihn dir am besten selbst per WhatsApp oder Mail.")}</p>
+    <textarea id="bkCode" rows="3" readonly>…</textarea>
+    <button class="btn" id="bkShare">📤 ${tx("Code verschicken")}</button>
+    <button class="btn alt" id="bkCopy">📋 ${tx("Code kopieren")}</button>
+    <h3 class="ah">${tx("Spielstand laden")}</h3>
+    <textarea id="bkIn" rows="3" placeholder="${tx("Gesicherten Code hier einfügen")}"></textarea>
+    <button class="btn alt" id="bkLoad">${tx("Spielstand laden")}</button>
+    <button class="btn" id="bkClose">${tx("Schließen")}</button>
+  </div>`);
+  let code = "";
+  backupCode().then(c => { code = c; const t = o.querySelector("#bkCode"); if (t) t.value = c; save.backupAt = Date.now(); persist(); });
+  const msg = () => `${tx("Mein Spielstand bei Trödel & Törtchen")} (Level ${save.level}, ${new Date().toLocaleDateString(LANG === "de" ? "de-DE" : "en-GB")}):\n\n${code}`;
+  o.querySelector("#bkShare").onclick = () => { if (code) shareText(msg(), tx("Code kopiert")); };
+  o.querySelector("#bkCopy").onclick = () => { if (!code) return; try { navigator.clipboard.writeText(code).then(() => toast(tx("Code kopiert")), () => o.querySelector("#bkCode").select()); } catch (e) { o.querySelector("#bkCode").select(); } };
+  o.querySelector("#bkClose").onclick = closeOverlay;
+  o.querySelector("#bkLoad").onclick = async () => {
+    const txt = o.querySelector("#bkIn").value, found = (txt.match(/TT[12]-[A-Za-z0-9_-]+/) || [txt])[0];
+    let data; try { data = await readBackup(found); } catch (e) { return toast(tx("Dieser Code passt leider nicht. Bitte kopier ihn vollständig.")); }
+    const c = overlay(`<div class="card">
+      <h2>${tx("Spielstand laden?")}</h2>
+      <p>${TX`Dein jetziger Stand (Level ${save.level}) wird durch den gesicherten Stand (Level ${data.level}) ersetzt.`}</p>
+      <button class="btn" id="bkYes">${tx("Ja, laden")}</button>
+      <button class="btn alt" id="bkNo">${tx("Abbrechen")}</button>
+    </div>`);
+    c.querySelector("#bkNo").onclick = openBackup;
+    c.querySelector("#bkYes").onclick = () => {
+      save = Object.assign(fresh(), data); persist();
+      c.querySelector(".card").innerHTML = `<h2>${tx("Geladen!")}</h2><p>${tx("Das Spiel startet neu …")}</p>`;
+      setTimeout(() => location.reload(), 700);
+    };
+  };
+}
+// Einmal ab Level 10 an die Sicherung erinnern
+function backupNudge() {
+  if (save.level < 10 || save.backupAsked || save.backupAt) return false;
+  save.backupAsked = true; persist();
+  const o = overlay(`<div class="card">
+    <div style="font-size:40px">💾</div>
+    <h2>${tx("Sichere deinen Fortschritt")}</h2>
+    <p>${tx("Du hast schon richtig viel geschafft! Mit einem kurzen Code kannst du deinen Spielstand sichern – falls du mal das Handy wechselst oder das App-Symbol löschst.")}</p>
+    <button class="btn" id="bnGo">${tx("Jetzt sichern")}</button>
+    <button class="btn alt" id="bnLater">${tx("Später")}</button>
+    <p class="fbnote">${tx("Du findest das jederzeit unter „Mehr“.")}</p>
+  </div>`);
+  o.querySelector("#bnGo").onclick = openBackup;
+  o.querySelector("#bnLater").onclick = closeOverlay;
+  return true;
+}
+Object.assign(EN, {
+  "Spielstand sichern": "Back up progress", "Spielstand laden": "Restore progress", "Code verschicken": "Send code", "Code kopieren": "Copy code", "Code kopiert": "Code copied",
+  "Mit diesem Code holst du deinen Fortschritt zurück – auch auf einem neuen Handy oder wenn du das App-Symbol gelöscht hast. Schick ihn dir am besten selbst per WhatsApp oder Mail.": "This code brings your progress back – even on a new phone or if you deleted the app icon. It's best to send it to yourself via WhatsApp or email.",
+  "Gesicherten Code hier einfügen": "Paste your saved code here", "Mein Spielstand bei Trödel & Törtchen": "My Trödel & Törtchen progress",
+  "Dieser Code passt leider nicht. Bitte kopier ihn vollständig.": "Sorry, this code doesn't work. Please copy all of it.", "Spielstand laden?": "Restore progress?",
+  "Dein jetziger Stand (Level {}) wird durch den gesicherten Stand (Level {}) ersetzt.": "Your current progress (level {}) will be replaced by the saved progress (level {}).",
+  "Ja, laden": "Yes, restore", "Abbrechen": "Cancel", "Geladen!": "Restored!", "Das Spiel startet neu …": "The game is restarting …",
+  "Sichere deinen Fortschritt": "Back up your progress", "Jetzt sichern": "Back up now", "Du findest das jederzeit unter „Mehr“.": "You can always find this under “More”.",
+  "Du hast schon richtig viel geschafft! Mit einem kurzen Code kannst du deinen Spielstand sichern – falls du mal das Handy wechselst oder das App-Symbol löschst.": "You've already achieved a lot! With a short code you can back up your progress – in case you switch phones or delete the app icon."
+});
 
 /* ================= Feier, wenn ein Raum fertig ist ================= */
 const ROOM_DONE = { coins: 150, stars: 1 };
@@ -5306,7 +5687,7 @@ function renderHome() {
     <nav class="hnav">
       <button class="on" id="nMap">🗺️<span>${tx("Karte")}</span></button>
       <button id="hShop">🛋️<span>${tx("Einrichten")}</span>${affordable ? `<b class="badge">${affordable}</b>` : ""}</button>
-      <button id="hAlbum">📖<span>${tx("Album")}</span></button>
+      <button id="hAlbum">📖<span>${tx("Album")}</span>${recipeNew() ? `<i class="ndot"></i>` : ""}</button>
       <button id="hStore">🎁<span>Shop</span>${offerLeft() ? `<b class="badge">1</b>` : ""}</button>
       <button id="hMore">⚙️<span>${tx("Mehr")}</span>${achClaimable() ? `<b class="badge">${achClaimable()}</b>` : ""}</button>
     </nav>
@@ -5356,6 +5737,7 @@ function renderHome() {
   if (puzzleUnlocked() && !save.puzzle.intro) { save.puzzle.intro = true; persist(); setTimeout(() => toast(tx("Neu: Das Tagesrätsel 🧩 ist freigeschaltet!")), 500); }
   achCheck();
   if (dailyDue()) setTimeout(() => { if (!G && !$("#ov") && dailyDue()) openDaily(); }, 450);
+  else if (save.level >= 10 && !save.backupAsked && !save.backupAt) setTimeout(() => { if (!G && !$("#ov")) backupNudge(); }, 450);
 }
 
 const dayKey = (d = new Date()) => `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
@@ -5400,6 +5782,7 @@ function openSettings() {
     <button class="btn alt" id="tNews">✨ ${tx("Was ist neu?")}</button>
     <button class="btn alt" id="tFb">💬 ${tx("Feedback geben")}</button>
     <button class="btn alt" id="tStats">📊 ${tx("Spielstatistik")}</button>
+    <button class="btn alt" id="tBackup">💾 ${tx("Spielstand sichern")}</button>
     <button class="btn alt" id="tInst">📲 ${tx("Als App installieren")}</button>
     <button class="btn alt" id="tBoost">${tx("Hilfsmittel erklären")}</button>
     <button class="btn alt" id="tIntro">${tx("Omas ersten Brief nochmal lesen")}</button>
@@ -5407,7 +5790,7 @@ function openSettings() {
     <button class="btn alt" id="tSeason">${tx("Jahreszeit:")} ${save.seasonOverride ? tx(SEASON_NAMES[save.seasonOverride]) : TX`automatisch (${tx(SEASON_NAMES[seasonNow()])})`}</button>
     <button class="btn alt" id="tReset">${tx("Fortschritt löschen")}</button>
     <button class="btn" id="tClose">${tx("Fertig")}</button>
-    <p style="font-size:12px">${tx("Prototyp 1.7 · Werbung und Käufe sind nur simuliert")}<br>${tx("Grafiken: Fluent Emoji von Microsoft (MIT-Lizenz)")}</p>
+    <p style="font-size:12px">${tx("Prototyp 1.8 · Werbung und Käufe sind nur simuliert")}<br>${tx("Grafiken: Fluent Emoji von Microsoft (MIT-Lizenz)")}</p>
   </div>`);
   o.querySelectorAll("[data-lang]").forEach(b => b.onclick = () => { if (b.dataset.lang === LANG) return; setLang(b.dataset.lang); closeOverlay(); renderHome(); openSettings(); });
   o.querySelector("#tMusic").onclick = e => { save.music = !save.music; persist(); e.currentTarget.setAttribute("aria-checked", save.music); save.music ? musicStart() : musicStop(); };
@@ -5423,6 +5806,7 @@ function openSettings() {
   o.querySelector("#tNews").onclick = () => { closeOverlay(); showNews("1.1"); };
   o.querySelector("#tPuz").onclick = () => { if (puzzleSolved()) save.puzzle.last = puzzleNo() - 1; persist(); closeOverlay(); renderHome(); };
   o.querySelector("#tStats").onclick = () => { closeOverlay(); openStats(); };
+  o.querySelector("#tBackup").onclick = openBackup;
   o.querySelector("#tInst").onclick = () => { closeOverlay(); openInstall(); };
   o.querySelector("#tBoost").onclick = () => { closeOverlay(); showBoostIntro(); };
   o.querySelector("#tFb").onclick = () => { closeOverlay(); openFeedback(false); };
