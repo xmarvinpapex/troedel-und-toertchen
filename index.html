@@ -770,6 +770,8 @@ a.btn { display: block; text-decoration: none; text-align: center; }
 .rdot, .ndot { position: absolute; top: 4px; right: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--raspberry); box-shadow: 0 0 0 2px #fff; }
 .hnav .ndot { right: calc(50% - 20px); top: 2px; }
 .pz { display: inline-flex; gap: 4px; vertical-align: middle; } .pz i { width: 5px; height: 15px; border-radius: 2px; background: currentColor; }
+.bsoon { position: absolute; transform: translate(-50%, -50%); border: 0; border-radius: 14px; padding: 6px 10px; background: #f6d33c; color: #2a2116; box-shadow: 0 4px 0 #b9962a, 0 6px 14px rgba(0,0,0,.25); display: grid; justify-items: center; gap: 1px; width: 110px; z-index: 2; }
+.bsoon span { font-size: 24px; line-height: 1.1; } .bsoon small { font-weight: 800; font-size: 11px; line-height: 1.15; }
 @keyframes pop { 40% { transform: scale(1.3); } 100% { transform: scale(0); opacity: 0; } }
 @keyframes drop { from { transform: translateY(-14px); } to { transform: none; } }
 @keyframes reveal { from { transform: scale(.5); opacity: .3; } to { transform: none; opacity: 1; } }
@@ -2553,7 +2555,7 @@ const fresh = () => ({ level: 1, best: {}, coins: 100, spent: 0, owned: [], noAd
   ev: { level: 1, best: {}, spent: 0, owned: [], premium: false, claimed: [] }, variants: {}, varOwned: {}, pets: {}, regulars: {}, todOverride: null, seasonOverride: null,
   puzzle: { last: 0, streak: 0, total: 0, maxStreak: 0 }, stats: { sets: 0, guests: 0, combo: 0, nohelp: 0, dust: 0, critic: 0 }, ach: { claimed: [], seen: [] }, seenOb: {},
   packs: [], decoOff: {}, inv: {}, offer: null, tstats: { lv: {}, time: 0, sess: 0 },
-  evs: {}, evOverride: null, week: null, bonusReady: false, bonusNo: 0, seenVer: null, roomsDone: [], fails: {}, recipesSeen: [], backupAsked: false, backupAt: 0, omaHelped: 0 });
+  evs: {}, evOverride: null, week: null, bonusReady: false, bonusNo: 0, seenVer: null, roomsDone: [], maxSeen: 0, fails: {}, recipesSeen: [], backupAsked: false, backupAt: 0, omaHelped: 0 });
 let save = fresh();
 try { const raw = localStorage.getItem(KEY); if (raw) { const f = fresh(); save = Object.assign(f, JSON.parse(raw)); ["puzzle", "stats", "ach"].forEach(k => save[k] = Object.assign(fresh()[k], save[k]));
   // Alter Wintermarkt-Fortschritt wandert in die neue Event-Ablage
@@ -2886,7 +2888,7 @@ Object.assign(EN, {
   "Für jeden Erfolg gibt es eine Belohnung. Tippe auf „Holen“, sobald einer geschafft ist.": "Every achievement comes with a reward. Tap “Claim” once you've earned one.",
   // Startseite, Tagesbonus, Einstellungen, Shop
   "Einstellungen": "Settings", "Sortiere Omas Trödel, bediene die Gäste, richte dein Café ein.": "Sort Grandma's trinkets, serve the guests, furnish your café.",
-  "⭐ {} frei": "⭐ {} free", "Album": "Album", "Shop (Demo)": "Shop (demo)", "Prototyp 1.8 · Werbung und Käufe sind nur simuliert": "Prototype 1.2 · Ads and purchases are only simulated",
+  "⭐ {} frei": "⭐ {} free", "Album": "Album", "Shop (Demo)": "Shop (demo)", "Prototyp 1.9 · Werbung und Käufe sind nur simuliert": "Prototype 1.2 · Ads and purchases are only simulated",
   "Tag {}": "Day {}", "Tagesbonus": "Daily bonus", "Komm jeden Tag wieder. Am 7. Tag gibt es einen Extra-Stern.": "Come back every day. On day 7 you get an extra star.",
   "{} 🪙 abholen": "Collect {} 🪙", "+{} 🪙{}. Bis morgen!": "+{} 🪙{}. See you tomorrow!", " und 1 ⭐": " and 1 ⭐",
   "Sprache": "Language", "Musik": "Music", "Umgebungsgeräusche": "Ambient sounds", "Soundeffekte": "Sound effects", "Vibration": "Vibration",
@@ -3301,6 +3303,7 @@ function preLevel(n, ev = false, mode = null) {
   if (ev === true) ev = curEvent() || EVENTS[0];
   if (save.feedbackPending) { save.feedbackPending = false; save.feedbackAsked = true; persist(); return openFeedback(true, () => preLevel(n, ev, mode)); }
   if (mode === "bonus") return startLevel(n, false, {}, "bonus");
+  if (!ev && !mode && n > MAX_LEVEL) return openToBeContinued();
   if (!ev && !mode && n >= 4 && ((save.fails || {})[n] || 0) >= OMA_HELP_AFTER) return omaHelp(n);
   if (!ev && !mode && n < 4) return startLevel(n, ev);
   const total = () => PRE.filter(b => preSel.has(b.id) && !save.inv[b.id]).reduce((a, b) => a + b.c, 0);
@@ -3725,6 +3728,7 @@ function win() {
   persist();
   const gained = Math.max(0, st - prev);
   const goal = nextGoal(), goalOk = goal && goal.have >= goal.u.c;
+  const nextLabel = G.n >= MAX_LEVEL ? tx("Wie geht es weiter?") : TX`Weiter zu Level ${G.n + 1}`;
   sfx("win"); buzz(40);
   const o = overlay(`<div class="card">
     <h2>${tx("Alle Gäste bedient!")}</h2>
@@ -3736,8 +3740,8 @@ function win() {
     ${goal ? goalHTML(goal, "wGoal") : ""}
     ${save.bonusReady ? `<button class="btn berry" id="wBonus">⚡ ${tx("Bonusrunde spielen")}</button>` : ""}
     ${goalOk ? `<button class="btn" id="wShop">${TX`Jetzt einrichten: ${tx(goal.u.n)}`}</button>
-      <button class="btn alt" id="wNext">${TX`Weiter zu Level ${G.n + 1}`}</button>`
-      : `<button class="btn" id="wNext">${TX`Weiter zu Level ${G.n + 1}`}</button>
+      <button class="btn alt" id="wNext">${nextLabel}</button>`
+      : `<button class="btn" id="wNext">${nextLabel}</button>
       <button class="btn alt" id="wShop">${tx("Einrichten")} (${freeStars()} ⭐)</button>`}
   </div>`);
   const wg = o.querySelector("#wGoal"); if (wg) wg.onclick = () => { closeOverlay(); afterWinAd(() => renderShop(null, goal.u.id)); };
@@ -4615,6 +4619,51 @@ LEVEL_TIPS[50] = "Neu: In Omas Truhe sind weitere Schätze aufgetaucht – Kamer
 
 /* ================= Levelkarte ================= */
 const CHAPTERS = ["Der verstaubte Laden", "Neue Nachbarn", "Sonntagskuchen", "Omas Geheimnisse", "Hinter verschlossenen Türen", "Schätze aus der Truhe", "Die große Feier", "Durch die Jahreszeiten"];
+// So weit reicht das Spiel: 10 Level pro fertigem Kapitel. Neue Kapitel kommen per Update dazu (Anleitung: docs/neues-kapitel.md).
+const MAX_LEVEL = CHAPTERS.length * 10;
+function openToBeContinued() {
+  const o = overlay(`<div class="card letter">
+    <div class="lhead"><span class="licon">🚧</span><span>${tx("Fortsetzung folgt …")}</span></div>
+    <p class="ltext">${esc(tx("Du hast alle Kapitel geschafft, die es bisher gibt! Aber mein Laden hat noch viele Geschichten zu erzählen. Neue Kapitel kommen mit den nächsten Updates – ich sag dir Bescheid.\n\nBis dahin: Spiel ältere Level nochmal für mehr Sterne, löse das Tagesrätsel und mach dein Café noch schöner.")).replace(/\n/g, "<br>")}</p>
+    <p class="lsign">– ${tx("Oma Hilde")}</p>
+    <button class="btn" id="tbShop">🛋️ ${tx("Café einrichten")}</button>
+    ${puzzleUnlocked() && !puzzleSolved() ? `<button class="btn alt" id="tbPuz">🧩 ${tx("Tagesrätsel")}</button>` : ""}
+    <button class="btn alt" id="tbOk">${tx("Schließen")}</button>
+  </div>`);
+  o.querySelector("#tbShop").onclick = () => { closeOverlay(); renderShop(); };
+  const pz = o.querySelector("#tbPuz"); if (pz) pz.onclick = () => { closeOverlay(); preLevel(puzzleNo(), false, "daily"); };
+  o.querySelector("#tbOk").onclick = () => { closeOverlay(); if (!$(".homemap")) renderHome(); };
+}
+function newChapterNews() {
+  // Beim ersten Start mit diesem Stand nur merken, wie weit das Spiel reicht
+  if (!save.maxSeen) { save.maxSeen = MAX_LEVEL; persist(); return false; }
+  if (save.maxSeen >= MAX_LEVEL) return false;
+  const waiting = save.level > save.maxSeen, c = save.maxSeen / 10;
+  save.maxSeen = MAX_LEVEL; persist();
+  if (!waiting) return false;
+  const n = MAX_LEVEL / 10 - c;
+  setTimeout(() => { if ($("#ov") || G) return;
+    const o = overlay(`<div class="card letter">
+      <div class="lhead"><span class="licon">📬</span><span>${n > 1 ? TX`${n} neue Kapitel!` : tx("Ein neues Kapitel!")}</span></div>
+      <p class="ltext">${esc(TX`Ich hab dir doch versprochen, dass es weitergeht! Kapitel ${c + 1}: „${chapterName(c)}“ wartet auf dich.`)}</p>
+      <p class="lsign">– ${tx("Oma Hilde")}</p>
+      <button class="btn" id="ncGo">${TX`Level ${save.level} spielen`}</button>
+      <button class="btn alt" id="ncLater">${tx("Später")}</button>
+    </div>`);
+    sfx("win");
+    o.querySelector("#ncGo").onclick = () => { closeOverlay(); preLevel(save.level); };
+    o.querySelector("#ncLater").onclick = () => { closeOverlay(); renderHome(); };
+  }, 450);
+  return true;
+}
+Object.assign(EN, {
+  "Fortsetzung folgt …": "To be continued …", "Café einrichten": "Furnish the café", "Wie geht es weiter?": "What happens next?",
+  "Du hast alle Kapitel geschafft, die es bisher gibt! Aber mein Laden hat noch viele Geschichten zu erzählen. Neue Kapitel kommen mit den nächsten Updates – ich sag dir Bescheid.\n\nBis dahin: Spiel ältere Level nochmal für mehr Sterne, löse das Tagesrätsel und mach dein Café noch schöner.": "You've finished every chapter there is so far! But my shop still has many stories to tell. New chapters will arrive with the next updates – I'll let you know.\n\nUntil then: replay older levels for more stars, solve the daily puzzle and make your café even lovelier.",
+  "{} neue Kapitel!": "{} new chapters!", "Ein neues Kapitel!": "A new chapter!",
+  "Ich hab dir doch versprochen, dass es weitergeht! Kapitel {}: „{}“ wartet auf dich.": "I promised you it would continue! Chapter {}: “{}” is waiting for you.",
+  "Neue Kapitel kommen bald": "New chapters coming soon", "Neue Kapitel kommen mit dem nächsten Update": "New chapters arrive with the next update",
+  "🚧 Nach dem letzten Kapitel heißt es jetzt „Fortsetzung folgt“ – neue Kapitel kommen per Update.": "🚧 After the last chapter it now says “To be continued” – new chapters arrive via updates."
+});
 const chapterName = c => c < CHAPTERS.length ? tx(CHAPTERS[c]) : TX`Kapitel ${c + 1}`;
 const MILESTONES = { 3: ["👀", "Hintere Reihen"], 4: ["⏳", "Geduld"], 6: ["💬", "Stammgäste"], 8: ["🧩", "Tagesrätsel"], 10: ["🤵", "Bürgermeister"], 11: ["🧐", "Sammler"],
   14: ["🧑‍💼", "Eilige Gäste"], 17: ["👧", "Naschkatze"], 22: ["🕵️", "Kritiker"], 25: ["🕸️", "Staub"], 28: ["🎶", "Spieluhr"], 33: ["🗝️", "Schlüsselfach"],
@@ -4872,7 +4921,7 @@ Object.assign(EN, {
   "iPhone/iPad: Tippe in Safari unten auf „Teilen“ und dann auf „Zum Home-Bildschirm“.": "iPhone/iPad: In Safari, tap “Share” at the bottom and then “Add to Home Screen”.",
   "Android: Tippe in Chrome oben rechts auf ⋮ und dann auf „App installieren“ oder „Zum Startbildschirm hinzufügen“.": "Android: In Chrome, tap ⋮ at the top right and then “Install app” or “Add to Home screen”.",
   "Danach hat das Spiel ein eigenes Symbol, startet im Vollbild und läuft auch ohne Internet.": "Then the game gets its own icon, starts in full screen and works without internet too.",
-  "Prototyp 1.8 · Werbung und Käufe sind nur simuliert": "Prototype 1.3 · Ads and purchases are only simulated",
+  "Prototyp 1.9 · Werbung und Käufe sind nur simuliert": "Prototype 1.3 · Ads and purchases are only simulated",
   "{} gehört dir! Die neuen Farben findest du beim Einrichten.": "{} is yours! You'll find the new colours when furnishing."
 });
 
@@ -4993,9 +5042,10 @@ function openWeek() {
 }
 
 /* ================= Was ist neu? ================= */
-const VERSION = "1.8";
+const VERSION = "1.9";
 const vnum = v => v.split(".").map(Number).reduce((a, x) => a * 1000 + x, 0);
 const CHANGES = [
+  { v: "1.9", items: ["🚧 Nach dem letzten Kapitel heißt es jetzt „Fortsetzung folgt“ – neue Kapitel kommen per Update."] },
   { v: "1.8", items: ["💾 Spielstand sichern: Mit einem Code holst du deinen Fortschritt zurück – auch auf einem neuen Handy. Zu finden unter „Mehr“.", "👵 Oma hilft: Wenn ein Level dreimal nicht klappt, bietet Oma dir ihre Hilfe an.", "📜 Omas Rezeptbuch: Nach jedem Kapitel ein echtes Rezept zum Nachbacken – im Album.", "❓ „Wie geht das?“: Alle Gäste, Hindernisse und Hilfsmittel auf einen Blick.", "⏸ Pause-Knopf im Level – und „Problem melden“ direkt aus dem Spiel."] },
   { v: "1.7", items: ["⏳ Die Gäste haben mehr Geduld: ab Level 20 45 Sekunden, in Level 35 55 Sekunden und ab Level 36 60 Sekunden."] },
   { v: "1.6", items: ["⚡ Das Spiel startet jetzt viel schneller – besonders auf dem iPhone."] },
@@ -5125,7 +5175,7 @@ Object.assign(EN, {
   "🌍 Englische Version": "🌍 English version", "🧩 Tagesrätsel": "🧩 Daily puzzle", "🏅 Erfolge": "🏅 Achievements",
   "🕸️ Neue Hindernisse ab Level 25": "🕸️ New obstacles from level 25", "🐈 Gäste und Tiere in den Räumen": "🐈 Guests and animals in the rooms",
   "Eine neue Version ist da. Starte das Spiel neu, um sie zu sehen.": "A new version is available. Restart the game to see it.",
-  "Prototyp 1.8 · Werbung und Käufe sind nur simuliert": "Prototype 1.8 · Ads and purchases are only simulated",
+  "Prototyp 1.9 · Werbung und Käufe sind nur simuliert": "Prototype 1.9 · Ads and purchases are only simulated",
   "🗝️ Omas Geheimnis: Am Ende jedes Kapitels wartet ein Hinweis auf dich. Was hat Oma versteckt?": "🗝️ Grandma's secret: a clue awaits you at the end of every chapter. What did Grandma hide?"
 });
 
@@ -5192,7 +5242,7 @@ function openMore() {
       <button class="btn alt" id="mNews">✨ ${tx("Was ist neu?")}</button>
       <button class="btn alt" id="mSet">⚙️ ${tx("Einstellungen")}</button>
     </div>
-    <p style="font-size:12px">${tx("Prototyp 1.8 · Werbung und Käufe sind nur simuliert")}</p>
+    <p style="font-size:12px">${tx("Prototyp 1.9 · Werbung und Käufe sind nur simuliert")}</p>
     <button class="btn" id="mClose">${tx("Schließen")}</button>
   </div>`);
   o.querySelector("#mAch").onclick = () => { closeOverlay(); renderAch(); };
@@ -5642,8 +5692,9 @@ function renderHome() {
   setScreenAudio(room.id);
   const done = room.ups.filter(u => save.owned.includes(u.id)).length;
   const g = nextGoal();
-  const cur = save.level, maxN = Math.max(24, Math.ceil((cur + 8) / ROWN) * ROWN);
-  const rows = Math.ceil(maxN / ROWN), H = BPAD * 2 + (rows - 1) * ROWH + 40;
+  const cur = Math.min(save.level, MAX_LEVEL + 1), maxAll = Math.max(24, Math.ceil((cur + 8) / ROWN) * ROWN);
+  const maxN = Math.min(maxAll, MAX_LEVEL), atEnd = maxAll > MAX_LEVEL;
+  const rows = Math.ceil(Math.min(maxAll, MAX_LEVEL + 1) / ROWN), H = BPAD * 2 + (rows - 1) * ROWH + 40;
   const from = Math.min(save.mapPos || cur, cur);
   // Felder, Schilder, Deko
   let cells = "", zones = "", deco = "";
@@ -5659,6 +5710,7 @@ function renderHome() {
       <span class="bn">${boss ? (cls === "locked" ? "🔒" : "🏅") : n}</span>${st ? `<span class="bst">${[1, 2, 3].map(i => `<i class="${i <= st ? "" : "off"}">⭐</i>`).join("")}</span>` : ""}
       ${ms && cls !== "done" ? `<span class="bms" title="${tx(ms[1])}">${ms[0]}</span>` : ""}
       ${(n - 1) % 10 === 0 ? `<span class="bflag">${tx("Kap.")} ${(n - 1) / 10 + 1}${(n - 1) / 10 < SECRET.length && secretFound((n - 1) / 10) ? ` <i class="mclue" data-sec="${(n - 1) / 10}">${SECRET[(n - 1) / 10].e}</i>` : ""}</span>` : ""}</button>`;
+    if (n === maxN && atEnd) { const q = boardPos(n + 1, H); cells += `<button class="bsoon" id="bSoon" style="left:${q.x}%;top:${q.y}px"><span>🚧</span><small>${tx("Neue Kapitel kommen bald")}</small></button>`; }
     if (n % ROWN === 2) { const z = zoneOf(n); deco += `<span class="bdeco" style="top:${p.y - 30}px;left:${Math.floor((n - 1) / ROWN) % 2 ? 3 : 91}%">${z.d[(n >> 2) % z.d.length]}</span>`; }
   }
   const fp = boardPos(from, H);
@@ -5682,7 +5734,8 @@ function renderHome() {
           <span class="gbar"><i style="width:${done / room.ups.length * 100}%"></i></span>
           ${g ? `<em class="${g.have >= g.u.c ? "ready" : ""}">${g.have >= g.u.c ? tx("Jetzt einrichten!") + " " : tx("Nächstes:") + " "}${tx(g.u.n)} · ⭐ ${g.u.c}</em>` : `<em>${tx("Alles eingerichtet!")} 🎉</em>`}</span>
       </div>
-      <button class="btn hplay" id="hPlay">${TX`Level ${save.level} spielen`}<small>${tx("Kapitel")} ${Math.floor((cur - 1) / 10) + 1} · ${chapterName(Math.floor((cur - 1) / 10))}</small></button>
+      ${save.level > MAX_LEVEL ? `<button class="btn hplay" id="hPlay">🚧 ${tx("Fortsetzung folgt …")}<small>${tx("Neue Kapitel kommen mit dem nächsten Update")}</small></button>`
+        : `<button class="btn hplay" id="hPlay">${TX`Level ${save.level} spielen`}<small>${tx("Kapitel")} ${Math.floor((cur - 1) / 10) + 1} · ${chapterName(Math.floor((cur - 1) / 10))}</small></button>`}
     </div>
     <nav class="hnav">
       <button class="on" id="nMap">🗺️<span>${tx("Karte")}</span></button>
@@ -5694,7 +5747,7 @@ function renderHome() {
   </div>`;
   // Weg zwischen den Feldern in Bildschirmpunkten
   const bw = app.querySelector(".board2").clientWidth, X = x => x * bw / 100;
-  const pts = range(maxN).map(i => boardPos(i + 1, H));
+  const pts = range(atEnd ? maxN + 1 : maxN).map(i => boardPos(i + 1, H));
   const d = pts.map((p, i) => { if (!i) return `M ${X(p.x)} ${p.y}`; const q = pts[i - 1]; return q.y === p.y ? `L ${X(p.x)} ${p.y}` : `C ${X(q.x) + (q.x > 50 ? 50 : -50)} ${q.y}, ${X(p.x) + (p.x > 50 ? 50 : -50)} ${p.y}, ${X(p.x)} ${p.y}`; }).join(" ");
   const sv = app.querySelector(".bpath"); sv.setAttribute("viewBox", `0 0 ${bw} ${H}`); sv.querySelector("path").setAttribute("d", d);
   // zum aktuellen Feld scrollen
@@ -5708,6 +5761,7 @@ function renderHome() {
     setTimeout(hop, 500);
   } else if (!save.mapPos) { save.mapPos = cur; persist(); }
   $("#hPlay").onclick = () => preLevel(save.level);
+  { const sn = $("#bSoon"); if (sn) sn.onclick = openToBeContinued; }
   $("#hRoom").onclick = () => renderShop(null, g && g.have >= g.u.c ? g.u.id : null);
   $("#hRoom").onkeydown = ev => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); $("#hRoom").click(); } };
   $("#hShop").onclick = () => renderShop(null, g && g.have >= g.u.c ? g.u.id : null);
@@ -5727,6 +5781,7 @@ function renderHome() {
   const hw = $("#hWeek"); if (hw) hw.onclick = openWeek;
   if (!save.introSeen) { setTimeout(() => { if (!$("#ov")) showIntro(() => { if (dailyDue()) openDaily(); }); }, 300); return; }
   if (save.feedbackPending) { save.feedbackPending = false; save.feedbackAsked = true; persist(); setTimeout(() => { if (!$("#ov")) openFeedback(true); }, 450); return; }
+  if (newChapterNews()) return;
   if (save.seenVer !== VERSION) {
     const prev = save.seenVer || (save.level > 1 ? "1.3" : VERSION); save.seenVer = VERSION; persist();
     if (prev !== VERSION) { setTimeout(() => { if (!$("#ov") && !G) showNews(prev); }, 450); return; }
@@ -5790,7 +5845,7 @@ function openSettings() {
     <button class="btn alt" id="tSeason">${tx("Jahreszeit:")} ${save.seasonOverride ? tx(SEASON_NAMES[save.seasonOverride]) : TX`automatisch (${tx(SEASON_NAMES[seasonNow()])})`}</button>
     <button class="btn alt" id="tReset">${tx("Fortschritt löschen")}</button>
     <button class="btn" id="tClose">${tx("Fertig")}</button>
-    <p style="font-size:12px">${tx("Prototyp 1.8 · Werbung und Käufe sind nur simuliert")}<br>${tx("Grafiken: Fluent Emoji von Microsoft (MIT-Lizenz)")}</p>
+    <p style="font-size:12px">${tx("Prototyp 1.9 · Werbung und Käufe sind nur simuliert")}<br>${tx("Grafiken: Fluent Emoji von Microsoft (MIT-Lizenz)")}</p>
   </div>`);
   o.querySelectorAll("[data-lang]").forEach(b => b.onclick = () => { if (b.dataset.lang === LANG) return; setLang(b.dataset.lang); closeOverlay(); renderHome(); openSettings(); });
   o.querySelector("#tMusic").onclick = e => { save.music = !save.music; persist(); e.currentTarget.setAttribute("aria-checked", save.music); save.music ? musicStart() : musicStop(); };
