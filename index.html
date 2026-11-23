@@ -772,6 +772,13 @@ a.btn { display: block; text-decoration: none; text-align: center; }
 .pz { display: inline-flex; gap: 4px; vertical-align: middle; } .pz i { width: 5px; height: 15px; border-radius: 2px; background: currentColor; }
 .bsoon { position: absolute; transform: translate(-50%, -50%); border: 0; border-radius: 14px; padding: 6px 10px; background: #f6d33c; color: #2a2116; box-shadow: 0 4px 0 #b9962a, 0 6px 14px rgba(0,0,0,.25); display: grid; justify-items: center; gap: 1px; width: 110px; z-index: 2; }
 .bsoon span { font-size: 24px; line-height: 1.1; } .bsoon small { font-weight: 800; font-size: 11px; line-height: 1.15; }
+.slot.hot::before { content: ""; position: absolute; inset: 4px; border-radius: 14px; background: radial-gradient(circle at 50% 75%, rgba(255,130,50,.6), rgba(255,130,50,0) 70%); animation: hotP 1.2s ease-in-out infinite alternate; pointer-events: none; }
+.slot.hot .item { filter: drop-shadow(0 0 5px rgba(255,110,30,.95)) saturate(1.2); }
+.slot .steam { position: absolute; left: 50%; top: -6%; width: 34%; transform: translateX(-50%); z-index: 3; font-size: calc(var(--slot) * .3); animation: steamUp 1.6s ease-in-out infinite; pointer-events: none; }
+.slot .steam img { width: 100%; height: auto; }
+.slot .hotb { position: absolute; top: 2%; right: 4%; z-index: 4; background: #e2562a; color: #fff; border-radius: 999px; font: 800 12px/20px var(--body); min-width: 20px; text-align: center; box-shadow: 0 0 0 2px #fff3e0; }
+@keyframes hotP { to { opacity: .55; } } @keyframes steamUp { 50% { transform: translate(-50%, -4px); } }
+@media (prefers-reduced-motion: reduce) { .slot.hot::before, .slot .steam { animation: none; } }
 @keyframes pop { 40% { transform: scale(1.3); } 100% { transform: scale(0); opacity: 0; } }
 @keyframes drop { from { transform: translateY(-14px); } to { transform: none; } }
 @keyframes reveal { from { transform: scale(.5); opacity: .3; } to { transform: none; opacity: 1; } }
@@ -827,10 +834,11 @@ const ITEMS = [
   { e: "🛷", n: "Schlitten" }, { e: "🔔", n: "Glöckchen" }, { e: "🦌", n: "Rentier" }, { e: "🌟", n: "Stern" },
   { e: "📷", n: "Kamera" }, { e: "💍", n: "Ring" }, { e: "🧭", n: "Kompass" }, { e: "🎺", n: "Trompete" }, { e: "🖋️", n: "Füller" }, { e: "👓", n: "Brille" },
   { e: "🐣", n: "Küken" }, { e: "🥚", n: "Osterei" }, { e: "🐰", n: "Osterhase" }, { e: "🌷", n: "Tulpe" }, { e: "🌼", n: "Gänseblümchen" }, { e: "🍫", n: "Schokolade" }, { e: "🪺", n: "Nest" }, { e: "🍬", n: "Bonbon" },
-  { e: "🍎", n: "Apfel" }, { e: "🍐", n: "Birne" }, { e: "🎃", n: "Kürbis" }, { e: "🍄", n: "Pilz" }, { e: "🌰", n: "Kastanie" }, { e: "🌽", n: "Maiskolben" }, { e: "🍇", n: "Trauben" }, { e: "🍯", n: "Honig" }
+  { e: "🍎", n: "Apfel" }, { e: "🍐", n: "Birne" }, { e: "🎃", n: "Kürbis" }, { e: "🍄", n: "Pilz" }, { e: "🌰", n: "Kastanie" }, { e: "🌽", n: "Maiskolben" }, { e: "🍇", n: "Trauben" }, { e: "🍯", n: "Honig" },
+  { e: "🥖", n: "Baguette" }, { e: "🗼", n: "Eiffelturm" }, { e: "🪗", n: "Akkordeon" }, { e: "🥞", n: "Crêpes" }, { e: "🧀", n: "Käse" }, { e: "🎨", n: "Farbpalette" }
 ];
 const GUESTS = ["👵", "👴", "🧑‍🎨", "👩‍🍳", "🧔", "👨‍🦳", "👩‍🦱", "🧓", "🧑‍🦰"];
-const SWEETS = [8, 9, 10, 11];
+const SWEETS = [8, 9, 10, 11, 49];
 // Sondergäste: Gesicht, Name, Rahmen, Geduld-Faktor
 const KINDS = {
   sammler: { g: "🧐", n: "Sammler", gold: true, pf: 1.6 },
@@ -863,7 +871,8 @@ function levelCfg(n) {
   if (n % 10 === 0) sp.boss = 1;
   const lk = n >= 60 && n % 4 === 0 ? 2 : 1, wr = n >= 46 ? 2 + n % 2 : 0;
   const du = n % 3 ? 1 + n % 3 : 0, mb = n % 5 === 1 || n % 5 === 3 ? 1 + (n >= 70 ? 1 : 0) : 0, ky = n % 4 === 2 && !mb ? 1 : 0;
-  return { ...L(8, 4, 23 + (k % 3), 10 + (k % 3), 7 + 2 * lk + (wr ? 1 : 0) + ky + (mb ? 1 : 0) + (n >= 50 ? 1 : 0), sp), lk, wr, du, mb, ky };
+  const ho = n > 80 ? 2 + n % 2 : 0;
+  return { ...L(8, 4, 23 + (k % 3), 10 + (k % 3), 7 + 2 * lk + (wr ? 1 : 0) + ky + (mb ? 1 : 0) + (n >= 50 ? 1 : 0) + (ho ? 1 : 0), sp), lk, wr, du, mb, ky, ho };
 }
 // Geduld der Gäste in Sekunden (ab Level 4)
 const patienceFor = n => n < 4 ? 0 : n >= 36 ? 60 : n >= 35 ? 55 : n >= 20 ? 45 : Math.max(25, Math.round(66 - n * 3.5));   // ab Level 20: 45 s, Level 35: 55 s, ab 36: 60 s
@@ -879,7 +888,8 @@ const LEVEL_TIPS = {
   17: "Neu: Die Naschkatze 👧 will immer etwas Süßes und schenkt dir ein ❤️ zurück.",
   22: "Neu: Der Kritiker 🕵️ testet dein Café. Bedienst du ihn schnell, gibt es einen Extra-Stern ⭐.",
   41: "Neu: Verschlossene Fächer 🔒 öffnen sich, wenn du genug Sets abgeräumt hast. Die Zahl zeigt, wie viele noch fehlen.",
-  46: "Neu: Verpackte Teile 🎀 lassen sich nicht bewegen. Räume ein Fach direkt daneben ab, dann packen sie sich aus."
+  46: "Neu: Verpackte Teile 🎀 lassen sich nicht bewegen. Räume ein Fach direkt daneben ab, dann packen sie sich aus.",
+  81: "Neu: Ofenfrisch ♨️! Heiße Teile kannst du erst bewegen, wenn sie abgekühlt sind. Die Zahl zeigt, wie viele Züge das noch dauert."
 };
 // Erklärung, wenn ein Hindernis zum ersten Mal vorkommt
 const OB_TIPS = {
@@ -1007,7 +1017,17 @@ const MEMORIES = {
   "c-books": "Krimis, Kochbücher, Liebesromane – im Wintergarten habe ich sie alle gelesen. Manche zweimal.",
   "c-lemon": "Aus diesen Zitronen habe ich Limonade für die ganze Straße gemacht. Sauer macht lustig!",
   "c-hang": "Die Ranken wachsen jedes Jahr ein Stück weiter. Irgendwann erobern sie das ganze Dach.",
-  "c-bird": "Pieps singt jeden Morgen um sieben. Wecker brauchte ich nie."
+  "c-bird": "Pieps singt jeden Morgen um sieben. Wecker brauchte ich nie.",
+  "p-clean": "Als ich 1965 nach Paris kam, war diese Ladenfront frisch gestrichen – in genau diesem Grün. Henri sagte: „Grün wie die Hoffnung, Hilde.“",
+  "p-sign": "Henri hat die Buchstaben selbst vergoldet. Beim „H“ hat er so lange gepinselt, bis ich lachen musste.",
+  "p-awning": "Unter der Markise haben wir an Regentagen gestanden und den Leuten zugeschaut, die mit Zeitungen über dem Kopf vorbeirannten.",
+  "p-bread": "Um vier Uhr morgens kamen die ersten Baguettes aus dem Ofen. Der Duft zog bis zur Kirche hinauf.",
+  "p-cakes": "Das Schaufenster mit den Törtchen war Henris Bühne. Jeden Morgen hat er es neu dekoriert, wie ein Maler sein Bild.",
+  "p-plants": "Madame Dupont von gegenüber hat jeden Morgen ihre Geranien gegossen und dabei gesungen. Immer dasselbe Lied.",
+  "p-tables": "An dem kleinen Tisch links habe ich meinen ersten Café au Lait getrunken. Viel zu stark – aber ich habe es nie zugegeben.",
+  "p-lamp": "Abends, wenn die Laternen angingen, sah die Straße aus wie ein Bild aus einem Märchenbuch.",
+  "p-bike": "Mit diesem Fahrrad hat Henri die Baguettes ausgeliefert. Einmal durfte ich fahren – und bin direkt in den Brunnen gerollt.",
+  "p-dog": "Fifi gehörte der Nachbarin, saß aber jeden Tag vor der Bäckerei. Henri hat ihr heimlich die Croissant-Enden gegeben."
 };
 const INTRO_LETTERS = [
   "Mein liebes Enkelkind,\n\nwenn du diesen Brief liest, gehört mein kleiner Trödelladen dir. Ich weiß, er ist ein bisschen verstaubt …",
@@ -1019,7 +1039,8 @@ const ROOM_LETTERS = {
   backstube: "Ohne Backstube keine Törtchen! Heiz den Ofen an – die Gäste warten schon.",
   dachboden: "Unterm Dach liegen meine größten Schätze. Sei behutsam mit ihnen.",
   garten: "Zum Schluss mein Lieblingsort: der Rosengarten. Hier habe ich Opa kennengelernt.",
-  wintergarten: "Eine Überraschung habe ich noch: meinen Wintergarten! Hier habe ich im Winter die Sonne gesucht – und meistens gefunden."
+  wintergarten: "Eine Überraschung habe ich noch: meinen Wintergarten! Hier habe ich im Winter die Sonne gesucht – und meistens gefunden.",
+  paris: "Ein ganz besonderer Ort wartet auf dich: Henris Bäckerei in Paris. Ein Jahr lang habe ich dort gearbeitet. Hilf Camille, sie wieder zum Duften zu bringen!"
 };
 
 /* ================= Sammelalbum ================= */
@@ -1032,6 +1053,7 @@ const EVENT = { id: "winter26", n: "Wintermarkt", start: new Date(2026, 10, 1), 
 const WINTER_POOL = [16, 17, 18, 19, 20, 21, 22, 23, 4, 11, 7, 5];
 const NORMAL_POOL = Array.from({ length: 16 }, (_, i) => i);
 const EXTRA_POOL = NORMAL_POOL.concat([24, 25, 26, 27, 28, 29]);   // ab Level 50 kommen neue Schätze dazu
+const PARIS_ITEMS = [10, 46, 47, 48, 49, 50, 51];                     // ab Kapitel 9: Paris
 const EVENT_LEVELS = [
   L(5, 2, 6, 4, 5), L(5, 2, 7, 5, 5), L(6, 2, 9, 6, 5), L(6, 3, 12, 6, 4, { sammler: 1 }), L(6, 3, 13, 7, 4, { eilig: 1 }),
   L(7, 3, 15, 7, 4, { nasch: 1 }), L(7, 3, 16, 7, 5, { sammler: 1, eilig: 1 }), L(8, 3, 18, 8, 5, { kritiker: 1 }), L(8, 3, 19, 8, 5, { nasch: 1, eilig: 1 }), L(8, 3, 20, 8, 5, { boss: 1 }),
@@ -1082,6 +1104,7 @@ const PETS = {
   garten: [{ id: "g-duck", x: 322, y: 228, w: 40, name: "Frieda", msgs: ["Quak!", "Frieda dreht eine Runde"] },
            { id: "g-bunny", x: 150, y: 264, w: 40, name: "Hoppel", msgs: ["Hoppel hoppelt", "Hoppel wackelt mit den Ohren"] }],
   wintergarten: [{ id: "c-bird", x: 300, y: 104, w: 28, name: "Pieps", msgs: ["Pieps trällert ein Lied", "Tschiep!", "Pieps putzt sich die Federn"] }],
+  paris: [{ id: "p-dog", x: 292, y: 276, w: 36, name: "Fifi", msgs: ["Fifi wedelt mit dem Schwanz", "Wuff!", "Fifi hätte gern ein Croissant"] }],
   fruehling: [{ id: "s-lamb", x: 336, y: 254, w: 44, name: "Flocke", msgs: ["Määäh!", "Flocke hüpft vor Freude", "Flocke knabbert am Gras"] }],
   herbst: [{ id: "h-hedgehog", x: 228, y: 282, w: 36, name: "Stachel", msgs: ["Stachel schnüffelt im Laub", "Stachel rollt sich ein", "Grunz!"] }],
   winter: [{ id: "w-snowman", x: 348, y: 228, w: 48, name: "Schneemann", msgs: ["Der Schneemann winkt", "Brrr, ist das kalt!"] }]
@@ -1089,7 +1112,7 @@ const PETS = {
 const PET_COINS = 10;
 
 /* ================= Tages- und Jahreszeit ================= */
-const OUTDOOR = { terrasse: true, garten: true };
+const OUTDOOR = { terrasse: true, garten: true, paris: true };
 const TOD_NAMES = { morgen: "Morgen", tag: "Tag", abend: "Abend", nacht: "Nacht" };
 const SEASON_NAMES = { fruehling: "Frühling", sommer: "Sommer", herbst: "Herbst", winter: "Winter" };
 const GREET = { morgen: "Guten Morgen!", tag: "Schön, dass du da bist!", abend: "Guten Abend!", nacht: "Noch wach?" };
@@ -1110,7 +1133,8 @@ const LIGHTS = {
   backstube: o => [[200, 165, 140, o("b-fire")], [339, 84, 40, true]],
   dachboden: o => [[200, 76, 110, o("d-clean")], [200, 150, 46, true]],
   garten: o => [[51, 127, 22, o("g-house")], [88, 127, 22, o("g-house")]],
-  wintergarten: o => [[214, 238, 46, o("c-table")], [300, 100, 34, o("c-bird")], [146, 214, 60, o("c-wicker")]]
+  wintergarten: o => [[214, 238, 46, o("c-table")], [300, 100, 34, o("c-bird")], [146, 214, 60, o("c-wicker")]],
+  paris: o => [[82, 198, 70, o("p-clean")], [318, 198, 70, o("p-clean")], [200, 190, 40, o("p-clean")], [148, 194, 26, o("p-lamp")], [252, 194, 26, o("p-lamp")]]
 };
 function ambienceSVG(id, o) {
   if (id === "winter" || id === "fruehling" || id === "herbst") return "";
@@ -2263,6 +2287,115 @@ wintergarten: {
     { id: "c-bird", n: "Kanarienvogel Pieps", d: "Singt jeden Morgen", c: 6, e: "🐤" }
   ]
 },
+/* ======================= HENRIS BÄCKEREI IN PARIS (ab Kapitel 9) ======================= */
+paris: {
+  dirt: [["🕸️", 2, 102, 32], ["🕸️", 366, 102, 30], ["📦", 104, 252, 36], ["📦", 268, 258, 30], ["🍂", 40, 274, 20], ["🍂", 316, 280, 18], ["🍂", 214, 284, 16]],
+  svg: o => {
+    const clean = o("p-clean"), night = todNow() === "nacht" || todNow() === "abend";
+    const green = clean ? "url(#paGreen)" : "#46524b", trim = clean ? "#e2b04a" : "#7d7868";
+    // Fenster im Obergeschoss mit schmiedeeisernem Balkon
+    const upper = R(5).map(i => { const x = 14 + i * 78; return `
+      <rect x="${x}" y="12" width="44" height="64" rx="2" fill="${night ? "#f3d58a" : "#8fa9b8"}" opacity="${clean ? 1 : .7}"/>
+      <rect x="${x}" y="12" width="44" height="64" rx="2" fill="#fff" opacity=".14"/>
+      <line x1="${x + 22}" y1="12" x2="${x + 22}" y2="76" stroke="#efe1c8" stroke-width="3"/><line x1="${x}" y1="42" x2="${x + 44}" y2="42" stroke="#efe1c8" stroke-width="2"/>
+      <rect x="${x - 4}" y="7" width="52" height="6" rx="1" fill="#d8c3a0"/>
+      <rect x="${x - 6}" y="76" width="56" height="4" fill="#2b2b28"/>${R(9).map(j => `<line x1="${x - 4 + j * 6.5}" y1="76" x2="${x - 4 + j * 6.5}" y2="92" stroke="#2b2b28" stroke-width="1.3"/>`).join("")}
+      <path d="M${x - 4} 86 q3.2 -6 6.5 0 q3.2 -6 6.5 0 q3.2 -6 6.5 0 q3.2 -6 6.5 0 q3.2 -6 6.5 0 q3.2 -6 6.5 0 q3.2 -6 6.5 0 q3.2 -6 6.5 0" stroke="#2b2b28" stroke-width="1" fill="none"/>
+      <rect x="${x - 6}" y="91" width="56" height="3" fill="#2b2b28"/>`; }).join("");
+    // Schaufenster: innen warm beleuchtet, mit Regalbrettern
+    const win = x => clean ? `
+      <rect x="${x}" y="150" width="128" height="96" rx="3" fill="url(#paGlow)"/>
+      ${o(x < 200 ? "p-bread" : "p-cakes") ? [198, 225].map(y => `<rect x="${x + 5}" y="${y}" width="118" height="4" rx="1" fill="#8f5526"/><rect x="${x + 5}" y="${y + 4}" width="118" height="2" fill="#000" opacity=".15"/>`).join("") : `<rect x="${x + 5}" y="232" width="118" height="4" fill="#8f5526"/>`}
+      <rect x="${x}" y="150" width="128" height="96" rx="3" fill="url(#paGlass)"/>
+      <path d="M${x + 14} 152 L${x + 42} 244" stroke="#fff" stroke-width="6" opacity=".18"/><path d="M${x + 56} 152 L${x + 70} 200" stroke="#fff" stroke-width="3" opacity=".14"/>`
+      : `<rect x="${x}" y="150" width="128" height="96" rx="3" fill="#6a665a"/>
+      ${R(8).map(i => `<rect x="${x}" y="${151 + i * 12}" width="128" height="10" fill="${i % 2 ? "#858071" : "#7b7668"}"/><rect x="${x}" y="${160 + i * 12}" width="128" height="1.5" fill="#5a564a"/>`).join("")}
+      <rect x="${x + 30}" y="180" width="68" height="32" rx="2" fill="#f4efe6" transform="rotate(-3 ${x + 64} 196)"/>
+      <text x="${x + 64}" y="201" text-anchor="middle" font-family="Caveat, cursive" font-size="17" fill="#8a2a1a" transform="rotate(-3 ${x + 64} 196)">À vendre</text>`;
+    return `
+  <defs>${FXDEFS}
+    <linearGradient id="paStone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#efe1c8"/><stop offset="1" stop-color="#e0ccaa"/></linearGradient>
+    <linearGradient id="paGreen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2d5a46"/><stop offset="1" stop-color="#1f4434"/></linearGradient>
+    <linearGradient id="paGlow" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe3a6"/><stop offset="1" stop-color="#f6b866"/></linearGradient>
+    <linearGradient id="paGlass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".45"/><stop offset=".4" stop-color="#fff" stop-opacity=".05"/><stop offset="1" stop-color="#fff" stop-opacity=".2"/></linearGradient>
+    <linearGradient id="paWalk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b9ab95"/><stop offset="1" stop-color="#d4c6ae"/></linearGradient>
+    <radialGradient id="paWarm" cx=".5" cy=".55" r=".7"><stop offset="0" stop-color="#ffcf7a" stop-opacity=".22"/><stop offset="1" stop-color="#ffcf7a" stop-opacity="0"/></radialGradient>
+    <radialGradient id="paLamp" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffe7a0" stop-opacity=".9"/><stop offset="1" stop-color="#ffe7a0" stop-opacity="0"/></radialGradient>
+  </defs>
+  <!-- Haus darüber -->
+  <rect width="400" height="104" fill="url(#paStone)"/>
+  ${R(4).map(i => `<rect x="${i * 100 + 99}" y="0" width="2" height="100" fill="#d8c3a0" opacity=".6"/>`).join("")}
+  ${upper}
+  <rect y="96" width="400" height="8" fill="#d8c3a0"/><rect y="103" width="400" height="2" fill="#b8a280"/>
+  <!-- Ladenfront -->
+  <rect y="104" width="400" height="156" fill="${green}"/>
+  ${R(9).map(i => `<rect x="${i * 50 - 2}" y="246" width="2" height="14" fill="#000" opacity=".12"/>`).join("")}
+  <rect x="0" y="246" width="400" height="14" fill="#000" opacity=".1"/>
+  <!-- Schild -->
+  <rect x="34" y="108" width="332" height="24" rx="3" fill="${clean ? "#183628" : "#3b453f"}" stroke="${trim}" stroke-width="1.5"/>
+  ${o("p-sign") ? `<text x="200" y="126" text-anchor="middle" font-family="Grandstander, sans-serif" font-weight="800" font-size="15" fill="#f3c766" letter-spacing="2.6">BOULANGERIE · HENRI</text>
+    <path d="M52 120 h16 M332 120 h16" stroke="#e2b04a" stroke-width="1.5"/>`
+    : `<text x="200" y="126" text-anchor="middle" font-family="Grandstander, sans-serif" font-weight="800" font-size="15" fill="#8a8676" opacity=".55" letter-spacing="2.6">BOUL NGER E · H  RI</text>`}
+  <!-- Schaufenster und Tür -->
+  ${win(18)}${win(254)}
+  <rect x="14" y="146" width="136" height="104" rx="4" fill="none" stroke="${trim}" stroke-width="2.5"/><rect x="250" y="146" width="136" height="104" rx="4" fill="none" stroke="${trim}" stroke-width="2.5"/>
+  <rect x="160" y="146" width="80" height="114" rx="3" fill="${clean ? "#183628" : "#3b453f"}" stroke="${trim}" stroke-width="2"/>
+  ${clean ? `<rect x="168" y="154" width="64" height="72" rx="2" fill="url(#paGlow)"/><rect x="168" y="154" width="64" height="72" fill="url(#paGlass)"/>
+    <line x1="200" y1="100" x2="200" y2="0" stroke="none"/>
+    <path d="M186 160 L200 168 L214 160" stroke="#8a6a3a" stroke-width="1" fill="none"/>
+    <rect x="178" y="166" width="44" height="17" rx="3" fill="#fff" stroke="#c8253f" stroke-width="1"/><text x="200" y="178.5" text-anchor="middle" font-family="Grandstander, sans-serif" font-weight="800" font-size="9.5" fill="#c8253f">OUVERT</text>
+    <rect x="170" y="232" width="60" height="20" rx="2" fill="none" stroke="#2d5a46" stroke-width="1.5"/><circle cx="226" cy="214" r="3" fill="#e2b04a"/>`
+    : `<rect x="168" y="154" width="64" height="72" rx="2" fill="#5d5a50"/><path d="M168 160 l64 62 M232 160 l-64 62" stroke="#8a7a5a" stroke-width="6" stroke-linecap="round"/>
+    <rect x="186" y="180" width="28" height="20" rx="1" fill="#f4efe6" transform="rotate(6 200 190)"/><text x="200" y="194" text-anchor="middle" font-family="Caveat, cursive" font-size="10" fill="#8a2a1a" transform="rotate(6 200 190)">Fermé</text>`}
+  <!-- Wandlaternen -->
+  ${o("p-lamp") ? [148, 252].map(x => `${night ? `<circle cx="${x}" cy="196" r="30" fill="url(#paLamp)"/>` : ""}
+    <path d="M${x} 176 v-6 h${x < 200 ? -8 : 8}" stroke="#1e1e1c" stroke-width="2" fill="none"/>
+    <path d="M${x - 7} 182 L${x - 5} 204 H${x + 5} L${x + 7} 182 Z" fill="${night ? "#ffe39a" : "#f6e7bf"}" stroke="#1e1e1c" stroke-width="1.6"/>
+    <path d="M${x - 9} 182 L${x} 174 L${x + 9} 182 Z M${x - 6} 204 h12 l-2 4 h-8 Z" fill="#1e1e1c"/><line x1="${x}" y1="182" x2="${x}" y2="204" stroke="#1e1e1c" stroke-width="1"/>`).join("") : ""}
+  <!-- Markise -->
+  ${o("p-awning") ? `${shd(200, 164, 190, 6, .25)}
+    <path d="M6 158 L22 134 H378 L394 158 Z" fill="#c8253f"/>
+    ${R(12).map(i => `<path d="M${22 + i * 29.7} 134 h14.8 L${6 + (i + .5) * 32.3} 158 H${6 + i * 32.3} Z" fill="#fbf3e4"/>`).join("")}
+    ${R(13).map(i => `<path d="M${6 + i * 29.8} 158 q7.4 8 14.9 0 q7.4 8 14.9 0" fill="${i % 2 ? "#fbf3e4" : "#c8253f"}"/>`).join("")}
+    <rect x="18" y="130" width="364" height="6" rx="3" fill="#1e1e1c"/>
+    <path d="M30 158 L18 136 M370 158 L382 136" stroke="#1e1e1c" stroke-width="1.5"/>`
+    : `<rect x="18" y="130" width="364" height="5" rx="2.5" fill="${clean ? "#1e1e1c" : "#4a4a44"}"/>${clean ? "" : `<path d="M60 135 L80 152 L100 135" stroke="#a09a8a" stroke-width="2" fill="none"/>`}`}
+  <!-- Gehweg -->
+  <rect y="260" width="400" height="40" fill="url(#paWalk)"/>
+  ${R(32).map(i => `<rect x="${(i % 16) * 27 - (Math.floor(i / 16)) * 13 - 6}" y="${264 + Math.floor(i / 16) * 18}" width="25" height="16" rx="4" fill="#c9bba3" stroke="#a99a82" stroke-width=".8"/>`).join("")}
+  <rect y="258" width="400" height="4" fill="#9a8c76"/>
+  <!-- Bistrotische -->
+  ${o("p-tables") ? [62, 338].map(x => `${shd(x, 296, 30, 4, .3)}
+    <path d="M${x - 34} 248 q-4 22 0 46 M${x - 34} 268 h13 v26" stroke="#2b2b28" stroke-width="2.6" fill="none"/>
+    <path d="M${x + 34} 248 q4 22 0 46 M${x + 34} 268 h-13 v26" stroke="#2b2b28" stroke-width="2.6" fill="none"/>
+    ${seat(x < 200 ? 0 : 1)}
+    <rect x="${x - 2}" y="264" width="4" height="28" fill="#2b2b28"/><ellipse cx="${x}" cy="293" rx="12" ry="3" fill="#2b2b28"/>
+    <ellipse cx="${x}" cy="262" rx="23" ry="6.5" fill="#f4efe6" stroke="#cfc3ad"/>`).join("") : ""}
+  ${clean ? `<rect width="400" height="300" fill="url(#paWarm)"/>` : `<rect width="400" height="300" fill="#5a5040" opacity=".18"/>`}
+  ${PAPER}`;
+  },
+  fixed: [],
+  ups: [
+    { id: "p-clean", n: "Ladenfront streichen", d: "Rollläden hoch, frisches Grün", c: 2, e: "🧹" },
+    { id: "p-sign", n: "Goldene Schrift", d: "Boulangerie · Henri", c: 3, e: "✨" },
+    { id: "p-awning", n: "Markise", d: "Rot-weiß gestreift", c: 4, e: "⛱️" },
+    { id: "p-bread", n: "Brot im Schaufenster", d: "Baguettes, Brote, Croissants", c: 4, e: "🥖",
+      p: [[34, 198, 26, "b"], [62, 198, 26, "b"], [94, 198, 26, "b"], [124, 198, 26, "b"], [36, 225, 24, "b"], [64, 225, 24, "b"], [94, 225, 24, "b"], [124, 225, 24, "b"], [36, 249, 22, "b"], [64, 249, 22, "b"], [94, 249, 22, "b"], [124, 249, 22, "b"]],
+      pe: ["🥖", "🥖", "🍞", "🥐", "🍞", "🥐", "🥨", "🥖", "🥨", "🍞", "🥐", "🥨"] },
+    { id: "p-cakes", n: "Kuchen im Schaufenster", d: "Torten, Törtchen, Donuts", c: 5, e: "🎂",
+      p: [[272, 198, 26, "b"], [302, 198, 26, "b"], [332, 198, 26, "b"], [362, 198, 26, "b"], [272, 225, 24, "b"], [302, 225, 24, "b"], [332, 225, 24, "b"], [362, 225, 24, "b"], [272, 249, 22, "b"], [302, 249, 22, "b"], [332, 249, 22, "b"], [362, 249, 22, "b"]],
+      pe: ["🎂", "🍰", "🧁", "🍩", "🍰", "🧁", "🍩", "🥧", "🍪", "🍪", "🧁", "🍮"] },
+    { id: "p-plants", n: "Blumen und Pflanzen", d: "Auf dem Gehweg und den Balkonen", c: 4, e: "🪴",
+      p: [[146, 270, 30, "b"], [254, 270, 30, "b"], [100, 79, 15, "b"], [116, 79, 15, "b"], [256, 79, 15, "b"], [272, 79, 15, "b"], [22, 79, 14, "b"], [334, 79, 14, "b"]],
+      pe: ["🪴", "🪴", "🌷", "🌼", "🌷", "🌷", "🌼", "🌷"] },
+    { id: "p-tables", n: "Bistrotische", d: "Für einen Café au Lait in der Sonne", c: 5, e: "☕",
+      p: [[50, 260, 18, "b"], [74, 260, 16, "b"], [326, 260, 18, "b"], [350, 260, 16, "b"]], pe: ["☕", "🥐", "☕", "🥐"] },
+    { id: "p-lamp", n: "Wandlaternen", d: "Leuchten neben der Tür", c: 5, e: "🏮" },
+    { id: "p-bike", n: "Fahrrad mit Baguette", d: "Henris Lieferfahrrad", c: 5, e: "🚲",
+      p: [[200, 296, 56, "b"], [212, 268, 20]], pe: ["🚲", "🥖"] },
+    { id: "p-dog", n: "Pudel Fifi", d: "Wartet auf Croissant-Enden", c: 6, e: "🐩", p: [[292, 292, 36, "b"]] }
+  ]
+},
 /* ======================= FRÜHLINGSMARKT (Saison-Event) ======================= */
 fruehling: {
   dirt: [["📦", 58, 266, 30], ["📦", 318, 270, 28], ["🕸️", 160, 150, 24]],
@@ -2539,10 +2672,11 @@ const SCENE_ORDER = [
   { id: "backstube", n: "Backstube" },
   { id: "dachboden", n: "Dachboden" },
   { id: "garten", n: "Rosengarten" },
-  { id: "wintergarten", n: "Wintergarten" }
+  { id: "wintergarten", n: "Wintergarten" },
+  { id: "paris", n: "Henris Bäckerei" }
 ];
 
-const ROOM_PREV = ["", "den Laden", "die Café-Terrasse", "die Backstube", "den Dachboden", "den Rosengarten"];
+const ROOM_PREV = ["", "den Laden", "die Café-Terrasse", "die Backstube", "den Dachboden", "den Rosengarten", "den Wintergarten"];
 const ROOMS = SCENE_ORDER.map((r, i) => ({ ...r, ups: SCENES[r.id].ups, lockText: i ? `Richte zuerst ${ROOM_PREV[i]} komplett ein.` : "" }));
 const roomDone = r => r.ups.every(u => save.owned.includes(u.id));
 const roomUnlocked = r => { const i = ROOMS.indexOf(r); return i <= 0 || roomDone(ROOMS[i - 1]); };
@@ -2888,7 +3022,7 @@ Object.assign(EN, {
   "Für jeden Erfolg gibt es eine Belohnung. Tippe auf „Holen“, sobald einer geschafft ist.": "Every achievement comes with a reward. Tap “Claim” once you've earned one.",
   // Startseite, Tagesbonus, Einstellungen, Shop
   "Einstellungen": "Settings", "Sortiere Omas Trödel, bediene die Gäste, richte dein Café ein.": "Sort Grandma's trinkets, serve the guests, furnish your café.",
-  "⭐ {} frei": "⭐ {} free", "Album": "Album", "Shop (Demo)": "Shop (demo)", "Prototyp 1.9 · Werbung und Käufe sind nur simuliert": "Prototype 1.2 · Ads and purchases are only simulated",
+  "⭐ {} frei": "⭐ {} free", "Album": "Album", "Shop (Demo)": "Shop (demo)", "Prototyp 2.0 · Werbung und Käufe sind nur simuliert": "Prototype 1.2 · Ads and purchases are only simulated",
   "Tag {}": "Day {}", "Tagesbonus": "Daily bonus", "Komm jeden Tag wieder. Am 7. Tag gibt es einen Extra-Stern.": "Come back every day. On day 7 you get an extra star.",
   "{} 🪙 abholen": "Collect {} 🪙", "+{} 🪙{}. Bis morgen!": "+{} 🪙{}. See you tomorrow!", " und 1 ⭐": " and 1 ⭐",
   "Sprache": "Language", "Musik": "Music", "Umgebungsgeräusche": "Ambient sounds", "Soundeffekte": "Sound effects", "Vibration": "Vibration",
@@ -2914,7 +3048,7 @@ const clone = o => JSON.parse(JSON.stringify(o));
 
 /* ================= Grafiken (Fluent Emoji 3D, MIT-Lizenz) ================= */
 // Ersetzt jedes Emoji im Text automatisch durch das passende Bild, damit es auf jedem Handy gleich aussieht.
-const EMO = {"☕":"img/2615.webp","🕰️":"img/1f570-fe0f.webp","🏺":"img/1f3fa.webp","📚":"img/1f4da.webp","🕯️":"img/1f56f-fe0f.webp","🧸":"img/1f9f8.webp","🎩":"img/1f3a9.webp","🫖":"img/1fad6.webp","🧁":"img/1f9c1.webp","🍰":"img/1f370.webp","🥐":"img/1f950.webp","🍪":"img/1f36a.webp","📻":"img/1f4fb.webp","🗝️":"img/1f5dd-fe0f.webp","🪆":"img/1fa86.webp","🎻":"img/1f3bb.webp","🧣":"img/1f9e3.webp","🧤":"img/1f9e4.webp","🎄":"img/1f384.webp","⛄":"img/26c4.webp","🛷":"img/1f6f7.webp","🔔":"img/1f514.webp","🦌":"img/1f98c.webp","🌟":"img/1f31f.webp","👵":"img/1f475.webp","👴":"img/1f474.webp","🧑‍🎨":"img/1f9d1-200d-1f3a8.webp","👩‍🍳":"img/1f469-200d-1f373.webp","🧔":"img/1f9d4.webp","👨‍🦳":"img/1f468-200d-1f9b3.webp","👩‍🦱":"img/1f469-200d-1f9b1.webp","🧓":"img/1f9d3.webp","🧑‍🦰":"img/1f9d1-200d-1f9b0.webp","🧐":"img/1f9d0.webp","🧑‍💼":"img/1f9d1-200d-1f4bc.webp","👧":"img/1f467.webp","🕵️":"img/1f575-fe0f.webp","🤵":"img/1f935.webp","💬":"img/1f4ac.webp","❤️":"img/2764-fe0f.webp","🪙":"img/1fa99.webp","🏆":"img/1f3c6.webp","⭐":"img/2b50.webp","🔒":"img/1f512.webp","🎀":"img/1f380.webp","❄️":"img/2744-fe0f.webp","👨‍🦱":"img/1f468-200d-1f9b1.webp","👩‍🦳":"img/1f469-200d-1f9b3.webp","💑":"img/1f491.webp","💍":"img/1f48d.webp","👦":"img/1f466.webp","👨‍⚕️":"img/1f468-200d-2695-fe0f.webp","🕸️":"img/1f578-fe0f.webp","📦":"img/1f4e6.webp","🧹":"img/1f9f9.webp","🎂":"img/1f382.webp","💡":"img/1f4a1.webp","🖼️":"img/1f5bc-fe0f.webp","🪴":"img/1fab4.webp","🛋️":"img/1f6cb-fe0f.webp","🐈":"img/1f408.webp","💐":"img/1f490.webp","🍂":"img/1f342.webp","⛱️":"img/26f1-fe0f.webp","🪑":"img/1fa91.webp","🌷":"img/1f337.webp","🏮":"img/1f3ee.webp","🪧":"img/1faa7.webp","🍦":"img/1f366.webp","🚲":"img/1f6b2.webp","⛲":"img/26f2.webp","🐕":"img/1f415.webp","🔥":"img/1f525.webp","🥖":"img/1f956.webp","🥣":"img/1f963.webp","🥧":"img/1f967.webp","🍓":"img/1f353.webp","🍯":"img/1f36f.webp","🫙":"img/1fad9.webp","🍵":"img/1f375.webp","🐁":"img/1f401.webp","🧳":"img/1f9f3.webp","🗺️":"img/1f5fa-fe0f.webp","🎠":"img/1f3a0.webp","🪞":"img/1fa9e.webp","🧵":"img/1f9f5.webp","🧶":"img/1f9f6.webp","🔭":"img/1f52d.webp","🎶":"img/1f3b6.webp","🦉":"img/1f989.webp","🌿":"img/1f33f.webp","🏡":"img/1f3e1.webp","🌳":"img/1f333.webp","🌹":"img/1f339.webp","🌻":"img/1f33b.webp","🐝":"img/1f41d.webp","🦆":"img/1f986.webp","🐇":"img/1f407.webp","🦋":"img/1f98b.webp","🧺":"img/1f9fa.webp","💝":"img/1f49d.webp","🍷":"img/1f377.webp","📷":"img/1f4f7.webp","✨":"img/2728.webp","💔":"img/1f494.webp","🤍":"img/1f90d.webp","↩️":"img/21a9-fe0f.webp","🔍":"img/1f50d.webp","🔀":"img/1f500.webp","☀️":"img/2600-fe0f.webp","⚙️":"img/2699-fe0f.webp","🚫":"img/1f6ab.webp","🎁":"img/1f381.webp","👛":"img/1f45b.webp","💌":"img/1f48c.webp","📖":"img/1f4d6.webp","⏳":"img/23f3.webp","🎨":"img/1f3a8.webp","👇":"img/1f447.webp","👆":"img/1f446.webp","🧩":"img/1f9e9.webp","🏅":"img/1f3c5.webp","🧭":"img/1f9ed.webp","🎺":"img/1f3ba.webp","🖋️":"img/1f58b-fe0f.webp","👓":"img/1f453.webp","🌴":"img/1f334.webp","🌸":"img/1f338.webp","🌵":"img/1f335.webp","🍋":"img/1f34b.webp","🐤":"img/1f424.webp","👀":"img/1f440.webp","📊":"img/1f4ca.webp","🎃":"img/1f383.webp","📲":"img/1f4f2.webp","🎉":"img/1f389.webp","💰":"img/1f4b0.webp","🐣":"img/1f423.webp","🥚":"img/1f95a.webp","🐰":"img/1f430.webp","🌼":"img/1f33c.webp","🍫":"img/1f36b.webp","🪺":"img/1faba.webp","🍬":"img/1f36c.webp","🍎":"img/1f34e.webp","🍐":"img/1f350.webp","🍄":"img/1f344.webp","🌰":"img/1f330.webp","🌽":"img/1f33d.webp","🍇":"img/1f347.webp","👑":"img/1f451.webp","🐑":"img/1f411.webp","🌾":"img/1f33e.webp","🧃":"img/1f9c3.webp","👒":"img/1f452.webp","🦔":"img/1f994.webp","⚡":"img/26a1.webp","⏱️":"img/23f1-fe0f.webp","📅":"img/1f4c5.webp","🌍":"img/1f30d.webp","📜":"img/1f4dc.webp","🧰":"img/1f9f0.webp","🔑":"img/1f511.webp","❔":"img/2754.webp"};
+const EMO = {"☕":"img/2615.webp","🕰️":"img/1f570-fe0f.webp","🏺":"img/1f3fa.webp","📚":"img/1f4da.webp","🕯️":"img/1f56f-fe0f.webp","🧸":"img/1f9f8.webp","🎩":"img/1f3a9.webp","🫖":"img/1fad6.webp","🧁":"img/1f9c1.webp","🍰":"img/1f370.webp","🥐":"img/1f950.webp","🍪":"img/1f36a.webp","📻":"img/1f4fb.webp","🗝️":"img/1f5dd-fe0f.webp","🪆":"img/1fa86.webp","🎻":"img/1f3bb.webp","🧣":"img/1f9e3.webp","🧤":"img/1f9e4.webp","🎄":"img/1f384.webp","⛄":"img/26c4.webp","🛷":"img/1f6f7.webp","🔔":"img/1f514.webp","🦌":"img/1f98c.webp","🌟":"img/1f31f.webp","👵":"img/1f475.webp","👴":"img/1f474.webp","🧑‍🎨":"img/1f9d1-200d-1f3a8.webp","👩‍🍳":"img/1f469-200d-1f373.webp","🧔":"img/1f9d4.webp","👨‍🦳":"img/1f468-200d-1f9b3.webp","👩‍🦱":"img/1f469-200d-1f9b1.webp","🧓":"img/1f9d3.webp","🧑‍🦰":"img/1f9d1-200d-1f9b0.webp","🧐":"img/1f9d0.webp","🧑‍💼":"img/1f9d1-200d-1f4bc.webp","👧":"img/1f467.webp","🕵️":"img/1f575-fe0f.webp","🤵":"img/1f935.webp","💬":"img/1f4ac.webp","❤️":"img/2764-fe0f.webp","🪙":"img/1fa99.webp","🏆":"img/1f3c6.webp","⭐":"img/2b50.webp","🔒":"img/1f512.webp","🎀":"img/1f380.webp","❄️":"img/2744-fe0f.webp","👨‍🦱":"img/1f468-200d-1f9b1.webp","👩‍🦳":"img/1f469-200d-1f9b3.webp","💑":"img/1f491.webp","💍":"img/1f48d.webp","👦":"img/1f466.webp","👨‍⚕️":"img/1f468-200d-2695-fe0f.webp","🕸️":"img/1f578-fe0f.webp","📦":"img/1f4e6.webp","🧹":"img/1f9f9.webp","🎂":"img/1f382.webp","💡":"img/1f4a1.webp","🖼️":"img/1f5bc-fe0f.webp","🪴":"img/1fab4.webp","🛋️":"img/1f6cb-fe0f.webp","🐈":"img/1f408.webp","💐":"img/1f490.webp","🍂":"img/1f342.webp","⛱️":"img/26f1-fe0f.webp","🪑":"img/1fa91.webp","🌷":"img/1f337.webp","🏮":"img/1f3ee.webp","🪧":"img/1faa7.webp","🍦":"img/1f366.webp","🚲":"img/1f6b2.webp","⛲":"img/26f2.webp","🐕":"img/1f415.webp","🔥":"img/1f525.webp","🥖":"img/1f956.webp","🥣":"img/1f963.webp","🥧":"img/1f967.webp","🍓":"img/1f353.webp","🍯":"img/1f36f.webp","🫙":"img/1fad9.webp","🍵":"img/1f375.webp","🐁":"img/1f401.webp","🧳":"img/1f9f3.webp","🗺️":"img/1f5fa-fe0f.webp","🎠":"img/1f3a0.webp","🪞":"img/1fa9e.webp","🧵":"img/1f9f5.webp","🧶":"img/1f9f6.webp","🔭":"img/1f52d.webp","🎶":"img/1f3b6.webp","🦉":"img/1f989.webp","🌿":"img/1f33f.webp","🏡":"img/1f3e1.webp","🌳":"img/1f333.webp","🌹":"img/1f339.webp","🌻":"img/1f33b.webp","🐝":"img/1f41d.webp","🦆":"img/1f986.webp","🐇":"img/1f407.webp","🦋":"img/1f98b.webp","🧺":"img/1f9fa.webp","💝":"img/1f49d.webp","🍷":"img/1f377.webp","📷":"img/1f4f7.webp","✨":"img/2728.webp","💔":"img/1f494.webp","🤍":"img/1f90d.webp","↩️":"img/21a9-fe0f.webp","🔍":"img/1f50d.webp","🔀":"img/1f500.webp","☀️":"img/2600-fe0f.webp","⚙️":"img/2699-fe0f.webp","🚫":"img/1f6ab.webp","🎁":"img/1f381.webp","👛":"img/1f45b.webp","💌":"img/1f48c.webp","📖":"img/1f4d6.webp","⏳":"img/23f3.webp","🎨":"img/1f3a8.webp","👇":"img/1f447.webp","👆":"img/1f446.webp","🧩":"img/1f9e9.webp","🏅":"img/1f3c5.webp","🧭":"img/1f9ed.webp","🎺":"img/1f3ba.webp","🖋️":"img/1f58b-fe0f.webp","👓":"img/1f453.webp","🌴":"img/1f334.webp","🌸":"img/1f338.webp","🌵":"img/1f335.webp","🍋":"img/1f34b.webp","🐤":"img/1f424.webp","👀":"img/1f440.webp","📊":"img/1f4ca.webp","🎃":"img/1f383.webp","📲":"img/1f4f2.webp","🎉":"img/1f389.webp","💰":"img/1f4b0.webp","🐣":"img/1f423.webp","🥚":"img/1f95a.webp","🐰":"img/1f430.webp","🌼":"img/1f33c.webp","🍫":"img/1f36b.webp","🪺":"img/1faba.webp","🍬":"img/1f36c.webp","🍎":"img/1f34e.webp","🍐":"img/1f350.webp","🍄":"img/1f344.webp","🌰":"img/1f330.webp","🌽":"img/1f33d.webp","🍇":"img/1f347.webp","👑":"img/1f451.webp","🐑":"img/1f411.webp","🌾":"img/1f33e.webp","🧃":"img/1f9c3.webp","👒":"img/1f452.webp","🦔":"img/1f994.webp","⚡":"img/26a1.webp","⏱️":"img/23f1-fe0f.webp","📅":"img/1f4c5.webp","🌍":"img/1f30d.webp","📜":"img/1f4dc.webp","🧰":"img/1f9f0.webp","🔑":"img/1f511.webp","❔":"img/2754.webp","🗼":"img/1f5fc.webp","🪗":"img/1fa97.webp","🥞":"img/1f95e.webp","🧀":"img/1f9c0.webp","♨️":"img/2668-fe0f.webp","🍞":"img/1f35e.webp","🥨":"img/1f968.webp","🍩":"img/1f369.webp","🍮":"img/1f36e.webp","🐩":"img/1f429.webp","🐚":"img/1f41a.webp","🚧":"img/1f6a7.webp","📬":"img/1f4ec.webp","💾":"img/1f4be.webp","❓":"img/2753.webp","📔":"img/1f4d4.webp","🐞":"img/1f41e.webp","🫐":"img/1fad0.webp","📤":"img/1f4e4.webp","📋":"img/1f4cb.webp"};
 const EMO_RE = new RegExp(Object.keys(EMO).sort((a, b) => b.length - a.length)
   .map(k => k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|"), "gu");
 // Schneller Vorfilter: Emoji liegen alle oberhalb von U+2000 – normaler Text wird gar nicht erst durchsucht
@@ -3119,6 +3253,10 @@ function setAmbience(id) {
     ambLoop(c, out, 420, .4, .012, "lowpass");                                        // leises Raumrauschen
     if (has("c-bird") && !night) ambEvery(3000, 8000, () => { for (let i = 0; i < 5; i++) ablip(c, out, 3200 + Math.random() * 1400, .07, .012, "sine", 600, i * .09); }); // Pieps trällert
     ambEvery(5000, 11000, () => ablip(c, out, 1100 + Math.random() * 300, .1, .012, "sine", 500)); // Tropfen beim Gießen
+  } else if (id === "paris") {
+    ambLoop(c, out, 600, .5, .014, "lowpass");                                        // Straßengeräusche
+    night ? ambEvery(800, 1700, () => crickets(c, out)) : ambEvery(2500, 6500, () => chirp(c, out));
+    if (has("p-bike")) ambEvery(9000, 18000, () => { ablip(c, out, 2400, .18, .02); ablip(c, out, 2400, .18, .02, "sine", 0, .16); }); // Fahrradklingel
   } else if (id === "fruehling") {
     ambLoop(c, out, 520, .4, .014, "lowpass");
     night ? ambEvery(700, 1500, () => crickets(c, out)) : ambEvery(1200, 3500, () => chirp(c, out));
@@ -3186,7 +3324,8 @@ function genLevel(n, ev = false, cfgIn = null, seedBase = null) {
   const cfg = cfgIn || (ev ? EVENT_LEVELS[Math.min(n, EVENT_LEVELS.length) - 1] : levelCfg(n));
   for (let attempt = 0; attempt < 400; attempt++) {
     const rnd = mulberry32((seedBase !== null ? seedBase : ev ? 900001 + EVENTS.indexOf(ev) * 7001 : 0) + n * 7919 + attempt * 104729 + 17);
-    const pool = shuffle(ev ? ev.pool : !cfgIn && n >= 50 ? EXTRA_POOL : NORMAL_POOL, rnd).slice(0, cfg.types);
+    const pool = !ev && !cfgIn && n > 80 ? shuffle(PARIS_ITEMS, rnd).slice(0, 4).concat(shuffle(EXTRA_POOL.filter(t => !PARIS_ITEMS.includes(t)), rnd).slice(0, cfg.types - 4))
+      : shuffle(ev ? ev.pool : !cfgIn && n >= 50 ? EXTRA_POOL : NORMAL_POOL, rnd).slice(0, cfg.types);
     if (cfg.sp.nasch && !pool.some(t => SWEETS.includes(t))) pool[pool.length - 1] = SWEETS[Math.floor(rnd() * SWEETS.length)];
     const setTypes = range(cfg.sets).map(i => pool[i % cfg.types]);
     const items = shuffle(setTypes.flatMap(t => [t, t, t]), rnd);
@@ -3195,7 +3334,7 @@ function genLevel(n, ev = false, cfgIn = null, seedBase = null) {
     const minFront = Math.min(maxFront, Math.max(N - backSlots, Math.ceil(frontSlots * .55)));
     const nFront = minFront + Math.floor(rnd() * (maxFront - minFront + 1));
     if (N - nFront > backSlots) continue;
-    const shelves = range(cfg.sh).map(() => ({ layers: range(cfg.ly).map(() => [null, null, null]), wrap: [false, false, false], dust: [false, false, false], lock: 0 }));
+    const shelves = range(cfg.sh).map(() => ({ layers: range(cfg.ly).map(() => [null, null, null]), wrap: [false, false, false], dust: [false, false, false], hot: [0, 0, 0], lock: 0 }));
     const fpos = [], bpos = [];
     range(cfg.sh).forEach(s => range(3).forEach(k => {
       fpos.push([s, 0, k]);
@@ -3231,6 +3370,12 @@ function genLevel(n, ev = false, cfgIn = null, seedBase = null) {
       const opts = [];
       shelves.forEach((sh, s) => { if (!sh.lock && !sh.mbox) sh.layers[0].forEach((x, k) => { if (x !== null && !sh.wrap[k]) opts.push([s, k]); }); });
       shuffle(opts, rnd).slice(0, cfg.du).forEach(([s, k]) => shelves[s].dust[k] = true);
+    }
+    // Ofenfrisch: heiße Teile kühlen erst ein paar Züge ab
+    if (cfg.ho) {
+      const opts = [];
+      shelves.forEach((sh, s) => { if (!sh.lock && !sh.mbox) sh.layers[0].forEach((x, k) => { if (x !== null && !sh.wrap[k] && !sh.dust[k]) opts.push([s, k]); }); });
+      shuffle(opts, rnd).slice(0, cfg.ho).forEach(([s, k]) => shelves[s].hot[k] = 3 + Math.floor(rnd() * 3));
     }
     // Schlüsselfach: öffnet sich, wenn der Gast mit dem Schlüssel bedient ist
     let keyShelf = -1;
@@ -3304,6 +3449,10 @@ function preLevel(n, ev = false, mode = null) {
   if (save.feedbackPending) { save.feedbackPending = false; save.feedbackAsked = true; persist(); return openFeedback(true, () => preLevel(n, ev, mode)); }
   if (mode === "bonus") return startLevel(n, false, {}, "bonus");
   if (!ev && !mode && n > MAX_LEVEL) return openToBeContinued();
+  if (!ev && !mode && CH_INTRO[n] && !(save.chIntro || []).includes(n)) {
+    save.chIntro = (save.chIntro || []).concat(n); persist(); const ci = CH_INTRO[n];
+    return showLetter(ci.t, { title: tx("Ein Brief aus Paris"), icon: ci.e, sign: ci.from, btn: tx("Ich helfe dir!") }, () => preLevel(n, ev, mode));
+  }
   if (!ev && !mode && n >= 4 && ((save.fails || {})[n] || 0) >= OMA_HELP_AFTER) return omaHelp(n);
   if (!ev && !mode && n < 4) return startLevel(n, ev);
   const total = () => PRE.filter(b => preSel.has(b.id) && !save.inv[b.id]).reduce((a, b) => a + b.c, 0);
@@ -3368,6 +3517,9 @@ function startLevel(n, ev = false, bo = {}, mode = null) {
 const front = s => G.shelves[s].layers[0];
 const snapshot = () => ({ shelves: clone(G.shelves), queue: clone(G.queue), moves: G.moves, levelCoins: G.levelCoins, bonusStars: G.bonusStars, trophy: G.trophy, cleared: clone(G.cleared) });
 const isWrapped = (s, k) => !!(G.shelves[s].wrap && G.shelves[s].wrap[k]);
+const isHot = (s, k) => !!(G.shelves[s].hot && G.shelves[s].hot[k] > 0 && front(s)[k] !== null);
+const hotMsg = (s, k) => { sfx("tap"); toast(TX`Noch heiß! In ${G.shelves[s].hot[k]} Zügen ist es abgekühlt.`); };
+const coolAll = sh => { sh.hot = [0, 0, 0]; };
 const isDusty = (s, k) => !!(G.shelves[s].dust && G.shelves[s].dust[k] && front(s)[k] !== null);
 const retryLevel = () => preLevel(G.n, G.ev, G.daily ? "daily" : G.bonus ? "bonus" : null);
 function dustOff(s, k) {
@@ -3388,7 +3540,7 @@ function tapSlot(s, k) {
   if (G.shelves[s].lock) { sfx("tap"); toast(G.shelves[s].key ? tx("Dieses Fach öffnet sich, sobald du den Gast mit dem Schlüssel 🗝️ bedient hast.") : TX`Dieses Fach ist verschlossen. Noch ${G.shelves[s].lock} Sets abräumen!`); return; }
   const wrapMsg = () => { sfx("tap"); toast(tx("Verpackt! Räume ein Fach direkt daneben ab, dann packt es sich aus.")); };
   if (!sel) {
-    if (item !== null) { if (isWrapped(s, k)) return wrapMsg(); if (isDusty(s, k)) return dustOff(s, k); sel = { s, k }; sfx("pick"); renderBoard(); }
+    if (item !== null) { if (isWrapped(s, k)) return wrapMsg(); if (isHot(s, k)) return hotMsg(s, k); if (isDusty(s, k)) return dustOff(s, k); sel = { s, k }; sfx("pick"); renderBoard(); }
     return;
   }
   if (sel.s === s && sel.k === k) { sel = null; renderBoard(); return; }
@@ -3397,7 +3549,7 @@ function tapSlot(s, k) {
   if (item === null) target = k;
   else if (s !== sel.s) { const e = f.indexOf(null); if (e >= 0) target = e; }
   if (target === null) {
-    if (item !== null) { if (isWrapped(s, k)) return wrapMsg(); if (isDusty(s, k)) return dustOff(s, k); sel = { s, k }; sfx("pick"); renderBoard(); }
+    if (item !== null) { if (isWrapped(s, k)) return wrapMsg(); if (isHot(s, k)) return hotMsg(s, k); if (isDusty(s, k)) return dustOff(s, k); sel = { s, k }; sfx("pick"); renderBoard(); }
     return;
   }
   doMove(sel.s, sel.k, s, target);
@@ -3411,6 +3563,7 @@ function doMove(s, k, t, kt) {
   front(s)[k] = null;
   G.moves++;
   G.shelves.forEach(sh => { if (sh.mbox && sh.layers.length > 1) sh.mleft--; });
+  G.shelves.forEach((sh, i) => { if (sh.hot && sh.hot.some(v => v > 0)) { sh.hot = sh.hot.map(v => Math.max(0, v - 1)); if (!sh.hot.some(v => v > 0)) fx.unwrap.add(i); } });
   sel = null;
   sfx("place"); buzz(8);
   fx.placed = { s: t, k: kt };
@@ -3420,7 +3573,7 @@ function doMove(s, k, t, kt) {
 function advance(i) {
   const sh = G.shelves[i];
   if (sh.layers.length > 1 && allNull(sh.layers[0])) {
-    sh.layers.shift(); sh.wrap = [false, false, false]; sh.dust = [false, false, false]; fx.reveal.add(i);
+    sh.layers.shift(); sh.wrap = [false, false, false]; sh.dust = [false, false, false]; coolAll(sh); fx.reveal.add(i);
     if (G.tutBack) { G.tutBack = false; save.tutBackDone = true; persist(); setTimeout(() => tutNote(i, "Genau so! Das Fach war leer – jetzt sind die Teile von hinten nach vorn gerückt."), 420); }
     return true;
   }
@@ -3450,7 +3603,7 @@ function resolve(touched) {
         const t = front(s)[0];
         G.cleared[t] = (G.cleared[t] || 0) + 1;
         G.shelves[s].layers[0] = [null, null, null];
-        G.shelves[s].wrap = [false, false, false]; G.shelves[s].dust = [false, false, false];
+        G.shelves[s].wrap = [false, false, false]; G.shelves[s].dust = [false, false, false]; coolAll(G.shelves[s]);
         fx.pop.delete(s);
         serve(t, s);
       });
@@ -3518,7 +3671,9 @@ function finish() {
   busy = false; setTimeout(tutUpdate, 60); fx.reveal.clear(); fx.placed = null;
   // Spieluhren, die jetzt dran sind, spielen: vordere Reihe nach hinten
   const spin = range(G.shelves.length).filter(i => { const sh = G.shelves[i]; return sh.mbox && !sh.lock && sh.layers.length > 1 && sh.mleft <= 0; });
-  spin.forEach(i => { const sh = G.shelves[i]; sh.layers.push(sh.layers.shift()); sh.mleft = sh.mbox; sh.wrap = [false, false, false]; sh.dust = [false, false, false]; fx.reveal.add(i); });
+  spin.forEach(i => { const sh = G.shelves[i]; sh.layers.push(sh.layers.shift()); sh.mleft = sh.mbox; sh.wrap = [false, false, false]; sh.dust = [false, false, false]; coolAll(sh); fx.reveal.add(i); });
+  // Geht gar nichts mehr außer heißen Teilen, kühlen sie sofort ab (damit man nie feststeckt)
+  if (G.shelves.some(sh => sh.hot && sh.hot.some(v => v > 0)) && !findHint()) G.shelves.forEach(coolAll);
   if (spin.length) { sfx("musicbox"); setTimeout(() => { fx.reveal.clear(); }, 400); }
   renderGame();
   if (G.queue.length === 0 && G.shelves.every(sh => sh.layers.every(allNull))) return setTimeout(win, 350);
@@ -3579,7 +3734,7 @@ function lose() {
 
 /* ================= Booster ================= */
 function findHint() {
-  const F = G.shelves.map(sh => sh.lock ? [-2, -2, -2] : sh.layers[0].map((x, k) => ((sh.wrap && sh.wrap[k]) || (sh.dust && sh.dust[k])) && x !== null ? -1 : x));
+  const F = G.shelves.map(sh => sh.lock ? [-2, -2, -2] : sh.layers[0].map((x, k) => ((sh.wrap && sh.wrap[k]) || (sh.dust && sh.dust[k]) || (sh.hot && sh.hot[k] > 0)) && x !== null ? -1 : x));
   const cnt = (f, t) => f.filter(x => x === t).length;
   const emp = f => f.filter(x => x === null).length;
   for (let t = 0; t < F.length; t++) {
@@ -3626,7 +3781,7 @@ function doShuffle() {
   const rnd = mulberry32(Date.now());
   const pos = [], items = [];
   G.helped = true; statHelp("s");
-  G.shelves.forEach((sh, s) => { if (sh.lock) return; sh.wrap = [false, false, false]; sh.dust = [false, false, false]; sh.layers[0].forEach((x, k) => { pos.push([s, k]); if (x !== null) items.push(x); }); });
+  G.shelves.forEach((sh, s) => { if (sh.lock) return; sh.wrap = [false, false, false]; sh.dust = [false, false, false]; coolAll(sh); sh.layers[0].forEach((x, k) => { pos.push([s, k]); if (x !== null) items.push(x); }); });
   let placed;
   for (let tries = 0; tries < 50; tries++) {
     placed = shuffle(pos, rnd);
@@ -3850,10 +4005,11 @@ function renderBoard() {
       if (fx.reveal.has(s) || fx.unwrap.has(s) || (fx.dusted && fx.dusted.s === s && fx.dusted.k === k)) cls.push("reveal");
       if (fx.hint && ((fx.hint.s === s && fx.hint.k === k) || (fx.hint.t === s && fx.hint.kt === k))) cls.push("hint");
       const ghost = back && back[k] !== null ? `<span class="ghost">${ITEMS[back[k]].e}</span>` : "";
-      const wr = x !== null && sh.wrap && sh.wrap[k], du = x !== null && !wr && sh.dust && sh.dust[k];
-      const label = tx(x === null ? "Freier Platz" : wr ? "Verpacktes Teil" : du ? "Verstaubtes Teil" : ITEMS[x].n);
+      const wr = x !== null && sh.wrap && sh.wrap[k], du = x !== null && !wr && sh.dust && sh.dust[k], ho = x !== null && !wr && !du && sh.hot && sh.hot[k] > 0;
+      if (ho) cls.push("hot");
+      const label = tx(x === null ? "Freier Platz" : wr ? "Verpacktes Teil" : du ? "Verstaubtes Teil" : ITEMS[x].n) + (ho ? " · " + tx("heiß") : "");
       return `<button class="${cls.join(" ")}" data-s="${s}" data-k="${k}" aria-label="${label}">${ghost}${x === null ? "" : wr ? `<span class="item wrapped"><span class="bow">🎀</span></span>`
-        : du ? `<span class="item dusty"><span>🕸️</span></span>` : `<span class="item">${ITEMS[x].e}</span>`}</button>`;
+        : du ? `<span class="item dusty"><span>🕸️</span></span>` : `<span class="item">${ITEMS[x].e}</span>`}${ho ? `<span class="steam" aria-hidden="true">♨️</span><b class="hotb">${sh.hot[k]}</b>` : ""}</button>`;
     }).join("");
     return `<div class="shelf ${sh.extra ? "extra" : ""} ${sh.lock ? "locked" : ""} ${fx.unlock.has(s) ? "unlocked" : ""}" data-s="${s}">
       ${hidden ? `<span class="depth" title="${tx("Reihen dahinter")}">+${hidden}</span>` : ""}
@@ -4049,7 +4205,7 @@ function showLetter(text, opts = {}, onClose) {
   const o = overlay(`<div class="card letter">
     <div class="lhead">${opts.icon ? `<span class="licon">${opts.icon}</span>` : `<span class="licon">💌</span>`}<span>${opts.title || tx("Ein Brief von Oma")}</span></div>
     <p class="ltext">${esc(tx(text)).replace(/\n/g, "<br>")}</p>
-    ${opts.sign === false ? "" : `<p class="lsign">– ${tx("Oma Hilde")}</p>`}
+    ${opts.sign === false ? "" : `<p class="lsign">– ${typeof opts.sign === "string" ? esc(opts.sign) : tx("Oma Hilde")}</p>`}
     ${opts.dots ? `<div class="ldots">${opts.dots}</div>` : ""}
     <button class="btn" id="lOk">${opts.btn || tx("Weiter")}</button>
   </div>`);
@@ -4140,6 +4296,7 @@ function renderAlbum() {
     const upd = () => { const v = +baIn.value; $("#baB").style.clipPath = `inset(0 ${100 - v}% 0 0)`; $("#baL").style.left = v + "%"; };
     baIn.oninput = upd; upd();
   }
+  app.querySelectorAll("[data-intro]").forEach(b => b.onclick = () => { const ci = CH_INTRO[+b.dataset.intro]; showLetter(ci.t, { title: tx("Ein Brief aus Paris"), icon: ci.e, sign: ci.from, btn: tx("Schließen") }); });
   app.querySelectorAll("[data-rec]").forEach(b => b.onclick = () => { const c = +b.dataset.rec; recipeOpen(c) ? showRecipe(c, renderAlbum) : toast(TX`Schaff Level ${(c + 1) * 10}, um dieses Rezept zu bekommen.`); });
   app.querySelectorAll("[data-sec]").forEach(b => b.onclick = () => { const c = +b.dataset.sec; secretFound(c) ? showSecret(c, null, true) : toast(TX`Schaff Level ${(c + 1) * 10}, um diesen Hinweis zu finden.`); });
   app.querySelectorAll("[data-reg]").forEach(b => b.onclick = () => {
@@ -4547,7 +4704,8 @@ const SEATS = {
   laden: [{ need: "armchair", x: 84, y: 207, w: 30 }],
   terrasse: [{ need: "t-chairs", x: 186, y: 207, w: 30 }, { need: "t-chairs", x: 260, y: 207, w: 30 }],
   garten: [{ need: "g-picnic", x: 68, y: 258, w: 30 }],
-  wintergarten: [{ need: "c-wicker", x: 146, y: 206, w: 28 }]
+  wintergarten: [{ need: "c-wicker", x: 146, y: 206, w: 28 }],
+  paris: [{ need: "p-tables", x: 28, y: 238, w: 26 }, { need: "p-tables", x: 372, y: 238, w: 26 }]
 };
 const CHATTER = ["Herrlich gemütlich hier!", "Noch ein Tässchen, bitte!", "Wie bei Oma Hilde früher.", "Der Kuchen ist ein Gedicht!",
   "Ich komme morgen wieder.", "Hier vergisst man die Zeit.", "Was für ein schöner Ort!", "Das Törtchen war himmlisch."];
@@ -4618,9 +4776,72 @@ const catWalker = () => `<g transform="translate(0 294)"><g class="catwalk"><g c
 LEVEL_TIPS[50] = "Neu: In Omas Truhe sind weitere Schätze aufgetaucht – Kamera, Ring, Kompass und mehr! Jeder hat eine eigene Albumkarte.";
 
 /* ================= Levelkarte ================= */
-const CHAPTERS = ["Der verstaubte Laden", "Neue Nachbarn", "Sonntagskuchen", "Omas Geheimnisse", "Hinter verschlossenen Türen", "Schätze aus der Truhe", "Die große Feier", "Durch die Jahreszeiten"];
+const CHAPTERS = ["Der verstaubte Laden", "Neue Nachbarn", "Sonntagskuchen", "Omas Geheimnisse", "Hinter verschlossenen Türen", "Schätze aus der Truhe", "Die große Feier", "Durch die Jahreszeiten", "Ein Brief aus Paris"];
 // So weit reicht das Spiel: 10 Level pro fertigem Kapitel. Neue Kapitel kommen per Update dazu (Anleitung: docs/neues-kapitel.md).
 const MAX_LEVEL = CHAPTERS.length * 10;
+Object.assign(EN, {
+  "Baguette": "Baguette",
+  "Eiffelturm": "Eiffel Tower",
+  "Akkordeon": "Accordion",
+  "Crêpes": "Crêpes",
+  "Käse": "Cheese",
+  "Farbpalette": "Paint palette",
+  "Noch heiß! In {} Zügen ist es abgekühlt.": "Still hot! It will have cooled down in {} moves.",
+  "heiß": "hot",
+  "Ofenfrisch": "Fresh from the oven",
+  "Neu: Ofenfrisch ♨️! Heiße Teile kannst du erst bewegen, wenn sie abgekühlt sind. Die Zahl zeigt, wie viele Züge das noch dauert.": "New: Fresh from the oven ♨️! You can only move hot items once they've cooled down. The number shows how many moves that takes.",
+  "Ein Brief aus Paris": "A letter from Paris",
+  "Briefe aus Paris": "Letters from Paris",
+  "Camilles erster Brief": "Camille's first letter",
+  "Ich helfe dir!": "I'll help you!",
+  "Henris Tagebuch": "Henri's diary",
+  "Bonjour!\n\nIch heiße Camille und bin die Enkelin von Henri, dem Bäcker aus Paris. Beim Aufräumen seiner alten Bäckerei habe ich eine Schachtel mit Briefen gefunden – alle unterschrieben mit „Hilde“.\n\nIn einem steht, dass ihr Enkelkind ihr Café übernommen hat. Das bist du, oder?\n\nDie Bäckerei soll verkauft werden. Opa Henri hat immer gesagt: Wenn du nicht weiterweißt, frag Hilde. Darf ich stattdessen dich fragen?": "Bonjour!\n\nMy name is Camille and I'm the granddaughter of Henri, the baker from Paris. While clearing out his old bakery I found a box of letters – all signed “Hilde”.\n\nOne of them says that her grandchild has taken over her café. That's you, isn't it?\n\nThe bakery is about to be sold. Grandpa Henri always said: when you don't know what to do, ask Hilde. May I ask you instead?",
+  "Bonjour!\n\nDie Bäckerei ist wieder offen – heute Morgen stand die Schlange bis zur Ecke. Madame Dupont hat vor Freude geweint.\n\nAber gestern kam ein Herr von der Bank. Er sagt, wir haben noch drei Monate. Dann muss genug Geld da sein, sonst …\n\nUnd dann habe ich in Opas Werkstatt etwas gefunden: ein altes Tagebuch. Auf der ersten Seite steht ein Name. Hilde.": "Bonjour!\n\nThe bakery is open again – this morning the queue reached the corner. Madame Dupont cried with joy.\n\nBut yesterday a man from the bank came. He says we have three more months. By then there has to be enough money, otherwise …\n\nAnd then I found something in Grandpa's workshop: an old diary. There's a name on the first page. Hilde.",
+  "Henris Bäckerei": "Henri's bakery",
+  "den Wintergarten": "the conservatory",
+  "Ein ganz besonderer Ort wartet auf dich: Henris Bäckerei in Paris. Ein Jahr lang habe ich dort gearbeitet. Hilf Camille, sie wieder zum Duften zu bringen!": "A very special place is waiting for you: Henri's bakery in Paris. I worked there for a whole year. Help Camille make it smell of fresh bread again!",
+  "Die Boulangerie Henri duftet wieder! Ich sehe Henri vor mir, wie er in der Tür steht und jedem „Bonjour!“ zuruft. Danke, mein Schatz.": "The Boulangerie Henri smells of fresh bread again! I can picture Henri standing in the doorway calling “Bonjour!” to everyone. Thank you, my darling.",
+  "Ladenfront streichen": "Paint the shopfront",
+  "Rollläden hoch, frisches Grün": "Shutters up, fresh green",
+  "Goldene Schrift": "Golden lettering",
+  "Boulangerie · Henri": "Boulangerie · Henri",
+  "Markise": "Awning",
+  "Rot-weiß gestreift": "Red and white stripes",
+  "Brot im Schaufenster": "Bread in the window",
+  "Baguettes, Brote, Croissants": "Baguettes, loaves, croissants",
+  "Kuchen im Schaufenster": "Cakes in the window",
+  "Torten, Törtchen, Donuts": "Gateaux, tartlets, doughnuts",
+  "Blumen und Pflanzen": "Flowers and plants",
+  "Auf dem Gehweg und den Balkonen": "On the pavement and the balconies",
+  "Bistrotische": "Bistro tables",
+  "Für einen Café au Lait in der Sonne": "For a café au lait in the sun",
+  "Wandlaternen": "Wall lanterns",
+  "Leuchten neben der Tür": "Glowing next to the door",
+  "Fahrrad mit Baguette": "Bicycle with baguette",
+  "Henris Lieferfahrrad": "Henri's delivery bike",
+  "Pudel Fifi": "Fifi the poodle",
+  "Wartet auf Croissant-Enden": "Waiting for croissant ends",
+  "Fifi": "Fifi",
+  "Fifi wedelt mit dem Schwanz": "Fifi wags her tail",
+  "Wuff!": "Woof!",
+  "Fifi hätte gern ein Croissant": "Fifi would love a croissant",
+  "Richte zuerst den Wintergarten komplett ein.": "First fully furnish the conservatory.",
+  "Als ich 1965 nach Paris kam, war diese Ladenfront frisch gestrichen – in genau diesem Grün. Henri sagte: „Grün wie die Hoffnung, Hilde.“": "When I came to Paris in 1965, this shopfront had just been painted – in exactly this green. Henri said: “Green like hope, Hilde.”",
+  "Henri hat die Buchstaben selbst vergoldet. Beim „H“ hat er so lange gepinselt, bis ich lachen musste.": "Henri gilded the letters himself. He painted the “H” for so long that I had to laugh.",
+  "Unter der Markise haben wir an Regentagen gestanden und den Leuten zugeschaut, die mit Zeitungen über dem Kopf vorbeirannten.": "On rainy days we stood under the awning and watched people run past with newspapers over their heads.",
+  "Um vier Uhr morgens kamen die ersten Baguettes aus dem Ofen. Der Duft zog bis zur Kirche hinauf.": "At four in the morning the first baguettes came out of the oven. The smell drifted all the way up to the church.",
+  "Das Schaufenster mit den Törtchen war Henris Bühne. Jeden Morgen hat er es neu dekoriert, wie ein Maler sein Bild.": "The window with the tartlets was Henri's stage. Every morning he arranged it anew, like a painter his picture.",
+  "Madame Dupont von gegenüber hat jeden Morgen ihre Geranien gegossen und dabei gesungen. Immer dasselbe Lied.": "Every morning Madame Dupont across the street watered her geraniums and sang. Always the same song.",
+  "An dem kleinen Tisch links habe ich meinen ersten Café au Lait getrunken. Viel zu stark – aber ich habe es nie zugegeben.": "At the little table on the left I drank my first café au lait. Far too strong – but I never admitted it.",
+  "Abends, wenn die Laternen angingen, sah die Straße aus wie ein Bild aus einem Märchenbuch.": "In the evening, when the lanterns came on, the street looked like a picture from a fairy-tale book.",
+  "Mit diesem Fahrrad hat Henri die Baguettes ausgeliefert. Einmal durfte ich fahren – und bin direkt in den Brunnen gerollt.": "Henri delivered the baguettes on this bicycle. Once he let me ride it – and I rolled straight into the fountain.",
+  "Fifi gehörte der Nachbarin, saß aber jeden Tag vor der Bäckerei. Henri hat ihr heimlich die Croissant-Enden gegeben.": "Fifi belonged to the neighbour but sat outside the bakery every day. Henri secretly gave her the ends of the croissants.",
+  "🗼 Kapitel 9: „Ein Brief aus Paris“ – eine neue Geschichte beginnt.": "🗼 Chapter 9: “A letter from Paris” – a new story begins.",
+  "🥖 Neuer Raum: Henris Bäckerei in Paris.": "🥖 New room: Henri's bakery in Paris.",
+  "♨️ Neues Hindernis: Ofenfrisch.": "♨️ New obstacle: Fresh from the oven.",
+  "🥐 Neue Gegenstände: Baguette, Eiffelturm, Akkordeon, Crêpes, Käse und Farbpalette.": "🥐 New items: baguette, Eiffel Tower, accordion, crêpes, cheese and paint palette.",
+  "🐚 Neues Rezept: Henris Madeleines.": "🐚 New recipe: Henri's madeleines."
+});
 function openToBeContinued() {
   const o = overlay(`<div class="card letter">
     <div class="lhead"><span class="licon">🚧</span><span>${tx("Fortsetzung folgt …")}</span></div>
@@ -4921,7 +5142,7 @@ Object.assign(EN, {
   "iPhone/iPad: Tippe in Safari unten auf „Teilen“ und dann auf „Zum Home-Bildschirm“.": "iPhone/iPad: In Safari, tap “Share” at the bottom and then “Add to Home Screen”.",
   "Android: Tippe in Chrome oben rechts auf ⋮ und dann auf „App installieren“ oder „Zum Startbildschirm hinzufügen“.": "Android: In Chrome, tap ⋮ at the top right and then “Install app” or “Add to Home screen”.",
   "Danach hat das Spiel ein eigenes Symbol, startet im Vollbild und läuft auch ohne Internet.": "Then the game gets its own icon, starts in full screen and works without internet too.",
-  "Prototyp 1.9 · Werbung und Käufe sind nur simuliert": "Prototype 1.3 · Ads and purchases are only simulated",
+  "Prototyp 2.0 · Werbung und Käufe sind nur simuliert": "Prototype 1.3 · Ads and purchases are only simulated",
   "{} gehört dir! Die neuen Farben findest du beim Einrichten.": "{} is yours! You'll find the new colours when furnishing."
 });
 
@@ -5042,9 +5263,10 @@ function openWeek() {
 }
 
 /* ================= Was ist neu? ================= */
-const VERSION = "1.9";
+const VERSION = "2.0";
 const vnum = v => v.split(".").map(Number).reduce((a, x) => a * 1000 + x, 0);
 const CHANGES = [
+  { v: "2.0", items: ["🗼 Kapitel 9: „Ein Brief aus Paris“ – eine neue Geschichte beginnt.", "🥖 Neuer Raum: Henris Bäckerei in Paris.", "♨️ Neues Hindernis: Ofenfrisch.", "🥐 Neue Gegenstände: Baguette, Eiffelturm, Akkordeon, Crêpes, Käse und Farbpalette.", "🐚 Neues Rezept: Henris Madeleines."] },
   { v: "1.9", items: ["🚧 Nach dem letzten Kapitel heißt es jetzt „Fortsetzung folgt“ – neue Kapitel kommen per Update."] },
   { v: "1.8", items: ["💾 Spielstand sichern: Mit einem Code holst du deinen Fortschritt zurück – auch auf einem neuen Handy. Zu finden unter „Mehr“.", "👵 Oma hilft: Wenn ein Level dreimal nicht klappt, bietet Oma dir ihre Hilfe an.", "📜 Omas Rezeptbuch: Nach jedem Kapitel ein echtes Rezept zum Nachbacken – im Album.", "❓ „Wie geht das?“: Alle Gäste, Hindernisse und Hilfsmittel auf einen Blick.", "⏸ Pause-Knopf im Level – und „Problem melden“ direkt aus dem Spiel."] },
   { v: "1.7", items: ["⏳ Die Gäste haben mehr Geduld: ab Level 20 45 Sekunden, in Level 35 55 Sekunden und ab Level 36 60 Sekunden."] },
@@ -5175,7 +5397,7 @@ Object.assign(EN, {
   "🌍 Englische Version": "🌍 English version", "🧩 Tagesrätsel": "🧩 Daily puzzle", "🏅 Erfolge": "🏅 Achievements",
   "🕸️ Neue Hindernisse ab Level 25": "🕸️ New obstacles from level 25", "🐈 Gäste und Tiere in den Räumen": "🐈 Guests and animals in the rooms",
   "Eine neue Version ist da. Starte das Spiel neu, um sie zu sehen.": "A new version is available. Restart the game to see it.",
-  "Prototyp 1.9 · Werbung und Käufe sind nur simuliert": "Prototype 1.9 · Ads and purchases are only simulated",
+  "Prototyp 2.0 · Werbung und Käufe sind nur simuliert": "Prototype 2.0 · Ads and purchases are only simulated",
   "🗝️ Omas Geheimnis: Am Ende jedes Kapitels wartet ein Hinweis auf dich. Was hat Oma versteckt?": "🗝️ Grandma's secret: a clue awaits you at the end of every chapter. What did Grandma hide?"
 });
 
@@ -5190,9 +5412,15 @@ const SECRET = [
   { e: "🧰", n: "Das Kästchen mit zwei Schlössern", coins: 90, t: "Unter dem Rosenbogen ist ein Blechkästchen vergraben. Ich weiß, du hast es gefunden.\n\nEs hat zwei Schlösser. Der Messingschlüssel passt nur in eins. Das andere habe ich mit Absicht jemandem anvertraut, der gut auf Dinge aufpasst.\n\nWer könnte das sein? Jemand, der schon sehr lange gegenüber wohnt …" },
   { e: "🔑", n: "Frau Krügers Schlüssel", coins: 100, t: "Frau Krüger hat dir den zweiten Schlüssel gegeben, nicht wahr?\n\nIch habe ihr vor 30 Jahren gesagt: „Gib ihn nur dem, der den Laden wieder zum Leuchten bringt.“ Sie hat drei Jahrzehnte gewartet – und dann dich gesehen.\n\nJetzt hast du beide Schlüssel. Fast geschafft." },
   { e: "🎁", n: "Was im Kästchen lag", coins: 120, t: "Im Kästchen liegt die Seite 68: das Rezept für mein Herztörtchen. Henri hat es nur mir verraten, und ich habe ihm versprochen, es eines Tages an jemanden weiterzugeben, der mit dem Herzen backt.\n\nDarunter liegt noch ein Brief. Lies ihn erst, wenn das Café ganz fertig ist." },
-  { e: "❤️", n: "Hildes Herztörtchen", coins: 300, stars: 2, t: "Jetzt ist es so weit.\n\nDas Herztörtchen war nie ein Geheimnis, weil es so besonders schmeckt. Es war ein Geheimnis, weil es für den Menschen ist, dem man den liebsten Ort der Welt anvertraut.\n\nDer Laden, die Terrasse, die Backstube, der Garten – das alles gehört jetzt dir. Und mein Rezept auch. Back es für deine Gäste. Henri wäre stolz. Ich bin es schon lange.\n\nIn Liebe,\ndeine Oma Hilde" }
+  { e: "❤️", n: "Hildes Herztörtchen", coins: 300, stars: 2, t: "Jetzt ist es so weit.\n\nDas Herztörtchen war nie ein Geheimnis, weil es so besonders schmeckt. Es war ein Geheimnis, weil es für den Menschen ist, dem man den liebsten Ort der Welt anvertraut.\n\nDer Laden, die Terrasse, die Backstube, der Garten – das alles gehört jetzt dir. Und mein Rezept auch. Back es für deine Gäste. Henri wäre stolz. Ich bin es schon lange.\n\nIn Liebe,\ndeine Oma Hilde" },
+  { e: "📔", n: "Henris Tagebuch", arc: "paris", from: "Camille", coins: 300, stars: 2, t: "Bonjour!\n\nDie Bäckerei ist wieder offen – heute Morgen stand die Schlange bis zur Ecke. Madame Dupont hat vor Freude geweint.\n\nAber gestern kam ein Herr von der Bank. Er sagt, wir haben noch drei Monate. Dann muss genug Geld da sein, sonst …\n\nUnd dann habe ich in Opas Werkstatt etwas gefunden: ein altes Tagebuch. Auf der ersten Seite steht ein Name. Hilde." }
 ];
 const secretFound = c => (save.secret || []).includes(c);
+const ARCS = { paris: "Briefe aus Paris" };
+// Brief zu Beginn eines Kapitels (einmalig, vor dem ersten Level)
+const CH_INTRO = {
+  81: { e: "🗼", from: "Camille", t: "Bonjour!\n\nIch heiße Camille und bin die Enkelin von Henri, dem Bäcker aus Paris. Beim Aufräumen seiner alten Bäckerei habe ich eine Schachtel mit Briefen gefunden – alle unterschrieben mit „Hilde“.\n\nIn einem steht, dass ihr Enkelkind ihr Café übernommen hat. Das bist du, oder?\n\nDie Bäckerei soll verkauft werden. Opa Henri hat immer gesagt: Wenn du nicht weiterweißt, frag Hilde. Darf ich stattdessen dich fragen?" }
+};
 // Hinweis zeigen und Belohnung geben (nur beim ersten Mal)
 function showSecret(c, onDone, reread = false) {
   const x = SECRET[c]; if (!x) return onDone && onDone();
@@ -5201,7 +5429,8 @@ function showSecret(c, onDone, reread = false) {
     save.coins += x.coins; if (x.stars) save.bonus = (save.bonus || 0) + x.stars; persist();
   }
   sfx("win");
-  showLetter(x.t, { title: `${tx("Omas Geheimnis")} · ${c + 1}/${SECRET.length}`, icon: x.e, sign: false,
+  const arc = SECRET.filter(y => y.arc === x.arc), ai = arc.indexOf(x);
+  showLetter(x.t, { title: x.arc ? `${tx(ARCS[x.arc])} · ${ai + 1}` : `${tx("Omas Geheimnis")} · ${c + 1}/${arc.length}`, icon: x.e, sign: x.from ? x.from : false,
     btn: reread ? tx("Schließen") : `${tx(x.n)} · +${x.coins} 🪙${x.stars ? ` · +${x.stars} ⭐` : ""}` }, onDone);
 }
 // Hinweise, die man schon „verdient“ hat (z. B. bei älteren Spielständen), nachreichen
@@ -5209,7 +5438,9 @@ const secretDue = () => SECRET.findIndex((x, c) => !secretFound(c) && save.best[
 function secretRow() {
   return `<h3 class="ah">${tx("Omas Geheimnis")}</h3>
     <p class="tag">${tx("Am Ende jedes Kapitels findest du einen Hinweis. Tippe auf einen gefundenen, um ihn nochmal zu lesen.")}</p>
-    <div class="secrets">${SECRET.map((x, c) => `<button class="sec ${secretFound(c) ? "" : "locked"}" data-sec="${c}"><span class="si">${secretFound(c) ? x.e : "❔"}</span><small>${secretFound(c) ? tx(x.n) : TX`Kapitel ${c + 1}`}</small></button>`).join("")}</div>`;
+    <div class="secrets">${SECRET.map((x, c) => x.arc ? "" : `<button class="sec ${secretFound(c) ? "" : "locked"}" data-sec="${c}"><span class="si">${secretFound(c) ? x.e : "❔"}</span><small>${secretFound(c) ? tx(x.n) : TX`Kapitel ${c + 1}`}</small></button>`).join("")}</div>
+    ${Object.keys(ARCS).filter(a => save.level > SECRET.findIndex(x => x.arc === a) * 10).map(a => `<h3 class="ah">${tx(ARCS[a])}</h3>
+    <div class="secrets">${(save.chIntro || []).includes(81) && a === "paris" ? `<button class="sec" data-intro="81"><span class="si">🗼</span><small>${tx("Camilles erster Brief")}</small></button>` : ""}${SECRET.map((x, c) => x.arc !== a ? "" : `<button class="sec ${secretFound(c) ? "" : "locked"}" data-sec="${c}"><span class="si">${secretFound(c) ? x.e : "❔"}</span><small>${secretFound(c) ? tx(x.n) : TX`Kapitel ${c + 1}`}</small></button>`).join("")}</div>`).join("")}`;
 }
 
 Object.assign(EN, {
@@ -5242,7 +5473,7 @@ function openMore() {
       <button class="btn alt" id="mNews">✨ ${tx("Was ist neu?")}</button>
       <button class="btn alt" id="mSet">⚙️ ${tx("Einstellungen")}</button>
     </div>
-    <p style="font-size:12px">${tx("Prototyp 1.9 · Werbung und Käufe sind nur simuliert")}</p>
+    <p style="font-size:12px">${tx("Prototyp 2.0 · Werbung und Käufe sind nur simuliert")}</p>
     <button class="btn" id="mClose">${tx("Schließen")}</button>
   </div>`);
   o.querySelector("#mAch").onclick = () => { closeOverlay(); renderAch(); };
@@ -5322,7 +5553,15 @@ const RECIPES = [
     en: { n: "Hilde's heart tartlets", meta: "approx. 15 tartlets · approx. 1 hr + chilling",
       ing: ["250 g flour, 125 g cold butter, 80 g icing sugar, 1 egg yolk, 1 pinch of salt, grated zest of one lemon", "150 g raspberry jam", "Icing sugar for dusting"],
       steps: ["Quickly knead all the dough ingredients into a smooth dough and chill for 30 minutes.", "Roll the dough out 3 mm thin and cut out hearts. Cut a small heart out of the centre of half of them.", "Bake at 180 °C (conventional) for 8–10 minutes until light golden and let cool.", "Spread the whole hearts with jam, dust the hearts with a hole with icing sugar and place them on top."],
-      note: "Henri said: the little hole in the middle is the window you look into the heart through. Bake them for the people you love." } }
+      note: "Henri said: the little hole in the middle is the window you look into the heart through. Bake them for the people you love." } },
+  { e: "🐚", de: { n: "Henris Madeleines", meta: "ca. 20 Stück · ca. 30 Min. + 1 Std. Kühlen",
+      ing: ["100 g Butter, 2 Eier, 80 g Zucker, 1 Päckchen Vanillezucker", "100 g Mehl, 1 TL Backpulver, 1 Prise Salz", "Abgeriebene Schale einer Zitrone", "Puderzucker zum Bestäuben"],
+      steps: ["Butter schmelzen und abkühlen lassen. Eier, Zucker und Vanillezucker schaumig schlagen.", "Mehl, Backpulver, Salz und Zitronenschale unterheben, dann die Butter unterrühren. Den Teig 1 Stunde kalt stellen.", "Eine Madeleine-Form fetten und mehlen und je einen Teelöffel Teig in jede Mulde geben.", "Bei 200 °C (Ober-/Unterhitze) 8–10 Minuten backen, bis sie ihren typischen Buckel haben. Mit Puderzucker bestäuben."],
+      note: "Henri sagte: Eine Madeleine braucht einen kalten Teig und einen heißen Ofen. Wie ein Abschied und ein Wiedersehen." },
+    en: { n: "Henri's madeleines", meta: "approx. 20 pieces · approx. 30 min + 1 hr chilling",
+      ing: ["100 g butter, 2 eggs, 80 g sugar, 1 tsp vanilla sugar", "100 g flour, 1 tsp baking powder, 1 pinch of salt", "Grated zest of one lemon", "Icing sugar for dusting"],
+      steps: ["Melt the butter and let it cool. Beat the eggs, sugar and vanilla sugar until fluffy.", "Fold in the flour, baking powder, salt and lemon zest, then stir in the butter. Chill the batter for 1 hour.", "Grease and flour a madeleine tin and put one teaspoon of batter into each mould.", "Bake at 200 °C (conventional) for 8–10 minutes until they have their typical hump. Dust with icing sugar."],
+      note: "Henri said: a madeleine needs a cold batter and a hot oven. Like a goodbye and a reunion." } }
 ];
 const recipeOpen = c => !!save.best[(c + 1) * 10];
 const recipeNew = () => RECIPES.filter((_, c) => recipeOpen(c) && !(save.recipesSeen || []).includes(c)).length;
@@ -5505,6 +5744,7 @@ function openHelp(onClose) {
       ${row("🗝️", "Schlüsselfach", OB_TIPS.ky, 33)}
       ${row("🔒", "Verschlossene Fächer", LEVEL_TIPS[41], 41)}
       ${row("🎀", "Verpackte Teile", LEVEL_TIPS[46], 46)}
+      ${row("♨️", "Ofenfrisch", LEVEL_TIPS[81], 81)}
     </div>
     <h4>${tx("Hilfsmittel")}</h4>
     <div class="bilist">
@@ -5638,7 +5878,8 @@ const ROOM_DONE_LETTERS = {
   backstube: "Es duftet wieder nach frischem Brot. Eine Backstube ohne Duft ist nur eine Küche – deine ist jetzt ein Zuhause.",
   dachboden: "All meine Erinnerungen haben wieder ihren Platz. Danke, dass du sie so behutsam ausgepackt hast.",
   garten: "Mein Rosengarten blüht! Wenn du an einem Sommerabend hier sitzt, bin ich ganz nah bei dir.",
-  wintergarten: "Jetzt ist alles fertig. Jeder Raum erzählt wieder eine Geschichte – und die schönste davon ist deine."
+  wintergarten: "Jetzt ist alles fertig. Jeder Raum erzählt wieder eine Geschichte – und die schönste davon ist deine.",
+  paris: "Die Boulangerie Henri duftet wieder! Ich sehe Henri vor mir, wie er in der Tür steht und jedem „Bonjour!“ zuruft. Danke, mein Schatz."
 };
 function celebrateRoom(room, onDone) {
   save.roomsDone = (save.roomsDone || []).concat(room.id);
@@ -5678,7 +5919,8 @@ const ZONES = [
   { c1: "#bfe0a0", c2: "#a6d18a", d: ["☕", "🧁", "🌷"] }, { c1: "#b4dca8", c2: "#97c98e", d: ["🌳", "💬", "🌻"] },
   { c1: "#d6e2a0", c2: "#bfd385", d: ["🍰", "🫖", "🌼"] }, { c1: "#b8d8c4", c2: "#9cc6ae", d: ["🗝️", "📚", "🕯️"] },
   { c1: "#c8d6a8", c2: "#adc48c", d: ["🕰️", "🔒", "🌿"] }, { c1: "#e0d8a8", c2: "#cdc28a", d: ["📷", "🎩", "🧭"] },
-  { c1: "#e6d0b8", c2: "#d6b896", d: ["🎉", "🎀", "🍓"] }, { c1: "#c4d8e0", c2: "#a8c4d0", d: ["🍂", "❄️", "🌸"] }
+  { c1: "#e6d0b8", c2: "#d6b896", d: ["🎉", "🎀", "🍓"] }, { c1: "#c4d8e0", c2: "#a8c4d0", d: ["🍂", "❄️", "🌸"] },
+  { c1: "#ddd3ee", c2: "#c6badf", d: ["🗼", "🥐", "🪗"] }
 ];
 const zoneOf = n => ZONES[Math.floor((n - 1) / 10) % ZONES.length];
 function boardPos(n, H) {
@@ -5845,7 +6087,7 @@ function openSettings() {
     <button class="btn alt" id="tSeason">${tx("Jahreszeit:")} ${save.seasonOverride ? tx(SEASON_NAMES[save.seasonOverride]) : TX`automatisch (${tx(SEASON_NAMES[seasonNow()])})`}</button>
     <button class="btn alt" id="tReset">${tx("Fortschritt löschen")}</button>
     <button class="btn" id="tClose">${tx("Fertig")}</button>
-    <p style="font-size:12px">${tx("Prototyp 1.9 · Werbung und Käufe sind nur simuliert")}<br>${tx("Grafiken: Fluent Emoji von Microsoft (MIT-Lizenz)")}</p>
+    <p style="font-size:12px">${tx("Prototyp 2.0 · Werbung und Käufe sind nur simuliert")}<br>${tx("Grafiken: Fluent Emoji von Microsoft (MIT-Lizenz)")}</p>
   </div>`);
   o.querySelectorAll("[data-lang]").forEach(b => b.onclick = () => { if (b.dataset.lang === LANG) return; setLang(b.dataset.lang); closeOverlay(); renderHome(); openSettings(); });
   o.querySelector("#tMusic").onclick = e => { save.music = !save.music; persist(); e.currentTarget.setAttribute("aria-checked", save.music); save.music ? musicStart() : musicStop(); };
