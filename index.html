@@ -779,6 +779,40 @@ a.btn { display: block; text-decoration: none; text-align: center; }
 .slot .hotb { position: absolute; top: 2%; right: 4%; z-index: 4; background: #e2562a; color: #fff; border-radius: 999px; font: 800 12px/20px var(--body); min-width: 20px; text-align: center; box-shadow: 0 0 0 2px #fff3e0; }
 @keyframes hotP { to { opacity: .55; } } @keyframes steamUp { 50% { transform: translate(-50%, -4px); } }
 @media (prefers-reduced-motion: reduce) { .slot.hot::before, .slot .steam { animation: none; } }
+/* Postkarte */
+.pcwrap { gap: 10px; } .pcard { position: relative; aspect-ratio: 3 / 2; perspective: 900px; cursor: pointer; }
+.pcard > div { position: absolute; inset: 0; border-radius: 8px; backface-visibility: hidden; transition: transform .7s cubic-bezier(.3,1.2,.5,1); box-shadow: 0 8px 18px rgba(0,0,0,.28); }
+.pfront { display: grid; place-items: center; border: 6px solid #fffaf0; overflow: hidden; }
+.pfront .pe { font-size: 74px; line-height: 1; filter: drop-shadow(0 6px 6px rgba(0,0,0,.18)); }
+.pfront .pn { position: absolute; left: 10px; bottom: 8px; font-family: var(--hand); font-size: 24px; color: #2a3a5c; }
+.pfront .pparis { position: absolute; right: 10px; top: 8px; font: 800 12px/1 var(--display); letter-spacing: 3px; color: #8a3b2b; opacity: .8; }
+.pback { background: #fffaf0; transform: rotateY(180deg); text-align: left; padding: 14px 70px 12px 16px; display: grid; align-content: start;
+  background-image: linear-gradient(90deg, transparent calc(100% - 64px), #e6d9bf calc(100% - 64px), #e6d9bf calc(100% - 62px), transparent calc(100% - 62px)); }
+.pback p { font-family: var(--hand); font-size: 19px !important; line-height: 1.15; color: #2a3a5c !important; margin: 0; }
+.pback .psign { font-family: var(--hand); font-size: 20px; color: #8a3b2b; margin-top: 4px; }
+.pback .pstamp { position: absolute; right: 10px; top: 10px; width: 44px; height: 52px; display: grid; place-items: center; font-size: 24px; background: #fff; outline: 2px dashed #d9c6a3; outline-offset: -4px; transform: rotate(4deg); }
+.pcard.flip .pfront { transform: rotateY(180deg); } .pcard.flip .pback { transform: rotateY(360deg); }
+/* Familien-Rätsel */
+.famstats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.famstats div { background: #f1e4c8; border-radius: 12px; padding: 8px 4px; display: grid; } .famstats b { font: 800 24px/1.1 var(--display); color: var(--ink); } .famstats small { font-size: 12px; font-weight: 800; color: #7a6552; }
+/* Sternejagd */
+.huntlist { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; max-height: 42vh; overflow-y: auto; }
+.hunt { border: 0; border-radius: 12px; background: #f1e4c8; padding: 7px 10px; display: grid; grid-template-columns: 1fr auto; align-items: center; text-align: left; font: inherit; color: var(--ink); }
+.hunt b { font-size: 14px; } .hunt span { grid-column: 1; font-size: 12px; } .hunt i { font-style: normal; } .hunt i.off { filter: grayscale(1); opacity: .35; } .hunt em { grid-row: 1 / 3; grid-column: 2; font-style: normal; color: var(--raspberry); }
+.bcell.done.miss::after { content: ""; position: absolute; inset: -5px; border-radius: 50%; border: 2px dashed rgba(226,176,74,.9); pointer-events: none; }
+/* Wochenkalender */
+.doors { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; }
+.door { position: relative; aspect-ratio: 3 / 4; border-radius: 10px; background: linear-gradient(#b9783f, #8f5526); box-shadow: inset 0 0 0 3px #e2b04a33, 0 3px 0 #6a3a17; color: #fff3d6; display: grid; place-items: center; overflow: hidden; }
+.door.big { grid-column: span 2; aspect-ratio: auto; background: linear-gradient(#c8253f, #8e1a2c); box-shadow: inset 0 0 0 3px #f3c76655, 0 3px 0 #6a1a2c; }
+.door .dnum { font: 800 26px/1 var(--display); transition: opacity .3s; }
+.door .dback { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; gap: 2px; background: #fff7e6; color: var(--ink); font-size: 24px; opacity: 0; transition: opacity .35s; }
+.door .dback small { font-size: 12px; font-weight: 800; color: #7a6552; }
+.door.open .dback { opacity: 1; } .door.open .dnum { opacity: 0; } .door.open { background: #e9dcc0; box-shadow: inset 0 0 0 2px #d9c6a3; }
+.door.today { animation: doorGlow 1.2s ease-in-out infinite alternate; cursor: pointer; } .door.today .dback { opacity: 0; }
+.door.today.opening .dback { opacity: 1; } .door.opening { animation: doorOpen .6s ease-out forwards; }
+@keyframes doorGlow { to { box-shadow: 0 0 0 3px #f6d33c, 0 0 16px #f6d33c; } }
+@keyframes doorOpen { 0% { transform: perspective(300px) rotateY(0); } 50% { transform: perspective(300px) rotateY(-70deg); } 100% { transform: perspective(300px) rotateY(0); } }
+@media (prefers-reduced-motion: reduce) { .pcard > div { transition: none; } .door.today, .door.opening { animation: none; } }
 @keyframes pop { 40% { transform: scale(1.3); } 100% { transform: scale(0); opacity: 0; } }
 @keyframes drop { from { transform: translateY(-14px); } to { transform: none; } }
 @keyframes reveal { from { transform: scale(.5); opacity: .3; } to { transform: none; opacity: 1; } }
@@ -2689,7 +2723,7 @@ const fresh = () => ({ level: 1, best: {}, coins: 100, spent: 0, owned: [], noAd
   ev: { level: 1, best: {}, spent: 0, owned: [], premium: false, claimed: [] }, variants: {}, varOwned: {}, pets: {}, regulars: {}, todOverride: null, seasonOverride: null,
   puzzle: { last: 0, streak: 0, total: 0, maxStreak: 0 }, stats: { sets: 0, guests: 0, combo: 0, nohelp: 0, dust: 0, critic: 0 }, ach: { claimed: [], seen: [] }, seenOb: {},
   packs: [], decoOff: {}, inv: {}, offer: null, tstats: { lv: {}, time: 0, sess: 0 },
-  evs: {}, evOverride: null, week: null, bonusReady: false, bonusNo: 0, seenVer: null, roomsDone: [], maxSeen: 0, fails: {}, recipesSeen: [], backupAsked: false, backupAt: 0, omaHelped: 0 });
+  evs: {}, evOverride: null, week: null, bonusReady: false, bonusNo: 0, seenVer: null, roomsDone: [], maxSeen: 0, cards: [], cardsSeen: [], calDecos: [], family: null, fails: {}, recipesSeen: [], backupAsked: false, backupAt: 0, omaHelped: 0 });
 let save = fresh();
 try { const raw = localStorage.getItem(KEY); if (raw) { const f = fresh(); save = Object.assign(f, JSON.parse(raw)); ["puzzle", "stats", "ach"].forEach(k => save[k] = Object.assign(fresh()[k], save[k]));
   // Alter Wintermarkt-Fortschritt wandert in die neue Event-Ablage
@@ -3022,7 +3056,7 @@ Object.assign(EN, {
   "Für jeden Erfolg gibt es eine Belohnung. Tippe auf „Holen“, sobald einer geschafft ist.": "Every achievement comes with a reward. Tap “Claim” once you've earned one.",
   // Startseite, Tagesbonus, Einstellungen, Shop
   "Einstellungen": "Settings", "Sortiere Omas Trödel, bediene die Gäste, richte dein Café ein.": "Sort Grandma's trinkets, serve the guests, furnish your café.",
-  "⭐ {} frei": "⭐ {} free", "Album": "Album", "Shop (Demo)": "Shop (demo)", "Prototyp 2.0 · Werbung und Käufe sind nur simuliert": "Prototype 1.2 · Ads and purchases are only simulated",
+  "⭐ {} frei": "⭐ {} free", "Album": "Album", "Shop (Demo)": "Shop (demo)", "Prototyp 2.1 · Werbung und Käufe sind nur simuliert": "Prototype 1.2 · Ads and purchases are only simulated",
   "Tag {}": "Day {}", "Tagesbonus": "Daily bonus", "Komm jeden Tag wieder. Am 7. Tag gibt es einen Extra-Stern.": "Come back every day. On day 7 you get an extra star.",
   "{} 🪙 abholen": "Collect {} 🪙", "+{} 🪙{}. Bis morgen!": "+{} 🪙{}. See you tomorrow!", " und 1 ⭐": " and 1 ⭐",
   "Sprache": "Language", "Musik": "Music", "Umgebungsgeräusche": "Ambient sounds", "Soundeffekte": "Sound effects", "Vibration": "Vibration",
@@ -3048,7 +3082,7 @@ const clone = o => JSON.parse(JSON.stringify(o));
 
 /* ================= Grafiken (Fluent Emoji 3D, MIT-Lizenz) ================= */
 // Ersetzt jedes Emoji im Text automatisch durch das passende Bild, damit es auf jedem Handy gleich aussieht.
-const EMO = {"☕":"img/2615.webp","🕰️":"img/1f570-fe0f.webp","🏺":"img/1f3fa.webp","📚":"img/1f4da.webp","🕯️":"img/1f56f-fe0f.webp","🧸":"img/1f9f8.webp","🎩":"img/1f3a9.webp","🫖":"img/1fad6.webp","🧁":"img/1f9c1.webp","🍰":"img/1f370.webp","🥐":"img/1f950.webp","🍪":"img/1f36a.webp","📻":"img/1f4fb.webp","🗝️":"img/1f5dd-fe0f.webp","🪆":"img/1fa86.webp","🎻":"img/1f3bb.webp","🧣":"img/1f9e3.webp","🧤":"img/1f9e4.webp","🎄":"img/1f384.webp","⛄":"img/26c4.webp","🛷":"img/1f6f7.webp","🔔":"img/1f514.webp","🦌":"img/1f98c.webp","🌟":"img/1f31f.webp","👵":"img/1f475.webp","👴":"img/1f474.webp","🧑‍🎨":"img/1f9d1-200d-1f3a8.webp","👩‍🍳":"img/1f469-200d-1f373.webp","🧔":"img/1f9d4.webp","👨‍🦳":"img/1f468-200d-1f9b3.webp","👩‍🦱":"img/1f469-200d-1f9b1.webp","🧓":"img/1f9d3.webp","🧑‍🦰":"img/1f9d1-200d-1f9b0.webp","🧐":"img/1f9d0.webp","🧑‍💼":"img/1f9d1-200d-1f4bc.webp","👧":"img/1f467.webp","🕵️":"img/1f575-fe0f.webp","🤵":"img/1f935.webp","💬":"img/1f4ac.webp","❤️":"img/2764-fe0f.webp","🪙":"img/1fa99.webp","🏆":"img/1f3c6.webp","⭐":"img/2b50.webp","🔒":"img/1f512.webp","🎀":"img/1f380.webp","❄️":"img/2744-fe0f.webp","👨‍🦱":"img/1f468-200d-1f9b1.webp","👩‍🦳":"img/1f469-200d-1f9b3.webp","💑":"img/1f491.webp","💍":"img/1f48d.webp","👦":"img/1f466.webp","👨‍⚕️":"img/1f468-200d-2695-fe0f.webp","🕸️":"img/1f578-fe0f.webp","📦":"img/1f4e6.webp","🧹":"img/1f9f9.webp","🎂":"img/1f382.webp","💡":"img/1f4a1.webp","🖼️":"img/1f5bc-fe0f.webp","🪴":"img/1fab4.webp","🛋️":"img/1f6cb-fe0f.webp","🐈":"img/1f408.webp","💐":"img/1f490.webp","🍂":"img/1f342.webp","⛱️":"img/26f1-fe0f.webp","🪑":"img/1fa91.webp","🌷":"img/1f337.webp","🏮":"img/1f3ee.webp","🪧":"img/1faa7.webp","🍦":"img/1f366.webp","🚲":"img/1f6b2.webp","⛲":"img/26f2.webp","🐕":"img/1f415.webp","🔥":"img/1f525.webp","🥖":"img/1f956.webp","🥣":"img/1f963.webp","🥧":"img/1f967.webp","🍓":"img/1f353.webp","🍯":"img/1f36f.webp","🫙":"img/1fad9.webp","🍵":"img/1f375.webp","🐁":"img/1f401.webp","🧳":"img/1f9f3.webp","🗺️":"img/1f5fa-fe0f.webp","🎠":"img/1f3a0.webp","🪞":"img/1fa9e.webp","🧵":"img/1f9f5.webp","🧶":"img/1f9f6.webp","🔭":"img/1f52d.webp","🎶":"img/1f3b6.webp","🦉":"img/1f989.webp","🌿":"img/1f33f.webp","🏡":"img/1f3e1.webp","🌳":"img/1f333.webp","🌹":"img/1f339.webp","🌻":"img/1f33b.webp","🐝":"img/1f41d.webp","🦆":"img/1f986.webp","🐇":"img/1f407.webp","🦋":"img/1f98b.webp","🧺":"img/1f9fa.webp","💝":"img/1f49d.webp","🍷":"img/1f377.webp","📷":"img/1f4f7.webp","✨":"img/2728.webp","💔":"img/1f494.webp","🤍":"img/1f90d.webp","↩️":"img/21a9-fe0f.webp","🔍":"img/1f50d.webp","🔀":"img/1f500.webp","☀️":"img/2600-fe0f.webp","⚙️":"img/2699-fe0f.webp","🚫":"img/1f6ab.webp","🎁":"img/1f381.webp","👛":"img/1f45b.webp","💌":"img/1f48c.webp","📖":"img/1f4d6.webp","⏳":"img/23f3.webp","🎨":"img/1f3a8.webp","👇":"img/1f447.webp","👆":"img/1f446.webp","🧩":"img/1f9e9.webp","🏅":"img/1f3c5.webp","🧭":"img/1f9ed.webp","🎺":"img/1f3ba.webp","🖋️":"img/1f58b-fe0f.webp","👓":"img/1f453.webp","🌴":"img/1f334.webp","🌸":"img/1f338.webp","🌵":"img/1f335.webp","🍋":"img/1f34b.webp","🐤":"img/1f424.webp","👀":"img/1f440.webp","📊":"img/1f4ca.webp","🎃":"img/1f383.webp","📲":"img/1f4f2.webp","🎉":"img/1f389.webp","💰":"img/1f4b0.webp","🐣":"img/1f423.webp","🥚":"img/1f95a.webp","🐰":"img/1f430.webp","🌼":"img/1f33c.webp","🍫":"img/1f36b.webp","🪺":"img/1faba.webp","🍬":"img/1f36c.webp","🍎":"img/1f34e.webp","🍐":"img/1f350.webp","🍄":"img/1f344.webp","🌰":"img/1f330.webp","🌽":"img/1f33d.webp","🍇":"img/1f347.webp","👑":"img/1f451.webp","🐑":"img/1f411.webp","🌾":"img/1f33e.webp","🧃":"img/1f9c3.webp","👒":"img/1f452.webp","🦔":"img/1f994.webp","⚡":"img/26a1.webp","⏱️":"img/23f1-fe0f.webp","📅":"img/1f4c5.webp","🌍":"img/1f30d.webp","📜":"img/1f4dc.webp","🧰":"img/1f9f0.webp","🔑":"img/1f511.webp","❔":"img/2754.webp","🗼":"img/1f5fc.webp","🪗":"img/1fa97.webp","🥞":"img/1f95e.webp","🧀":"img/1f9c0.webp","♨️":"img/2668-fe0f.webp","🍞":"img/1f35e.webp","🥨":"img/1f968.webp","🍩":"img/1f369.webp","🍮":"img/1f36e.webp","🐩":"img/1f429.webp","🐚":"img/1f41a.webp","🚧":"img/1f6a7.webp","📬":"img/1f4ec.webp","💾":"img/1f4be.webp","❓":"img/2753.webp","📔":"img/1f4d4.webp","🐞":"img/1f41e.webp","🫐":"img/1fad0.webp","📤":"img/1f4e4.webp","📋":"img/1f4cb.webp"};
+const EMO = {"☕":"img/2615.webp","🕰️":"img/1f570-fe0f.webp","🏺":"img/1f3fa.webp","📚":"img/1f4da.webp","🕯️":"img/1f56f-fe0f.webp","🧸":"img/1f9f8.webp","🎩":"img/1f3a9.webp","🫖":"img/1fad6.webp","🧁":"img/1f9c1.webp","🍰":"img/1f370.webp","🥐":"img/1f950.webp","🍪":"img/1f36a.webp","📻":"img/1f4fb.webp","🗝️":"img/1f5dd-fe0f.webp","🪆":"img/1fa86.webp","🎻":"img/1f3bb.webp","🧣":"img/1f9e3.webp","🧤":"img/1f9e4.webp","🎄":"img/1f384.webp","⛄":"img/26c4.webp","🛷":"img/1f6f7.webp","🔔":"img/1f514.webp","🦌":"img/1f98c.webp","🌟":"img/1f31f.webp","👵":"img/1f475.webp","👴":"img/1f474.webp","🧑‍🎨":"img/1f9d1-200d-1f3a8.webp","👩‍🍳":"img/1f469-200d-1f373.webp","🧔":"img/1f9d4.webp","👨‍🦳":"img/1f468-200d-1f9b3.webp","👩‍🦱":"img/1f469-200d-1f9b1.webp","🧓":"img/1f9d3.webp","🧑‍🦰":"img/1f9d1-200d-1f9b0.webp","🧐":"img/1f9d0.webp","🧑‍💼":"img/1f9d1-200d-1f4bc.webp","👧":"img/1f467.webp","🕵️":"img/1f575-fe0f.webp","🤵":"img/1f935.webp","💬":"img/1f4ac.webp","❤️":"img/2764-fe0f.webp","🪙":"img/1fa99.webp","🏆":"img/1f3c6.webp","⭐":"img/2b50.webp","🔒":"img/1f512.webp","🎀":"img/1f380.webp","❄️":"img/2744-fe0f.webp","👨‍🦱":"img/1f468-200d-1f9b1.webp","👩‍🦳":"img/1f469-200d-1f9b3.webp","💑":"img/1f491.webp","💍":"img/1f48d.webp","👦":"img/1f466.webp","👨‍⚕️":"img/1f468-200d-2695-fe0f.webp","🕸️":"img/1f578-fe0f.webp","📦":"img/1f4e6.webp","🧹":"img/1f9f9.webp","🎂":"img/1f382.webp","💡":"img/1f4a1.webp","🖼️":"img/1f5bc-fe0f.webp","🪴":"img/1fab4.webp","🛋️":"img/1f6cb-fe0f.webp","🐈":"img/1f408.webp","💐":"img/1f490.webp","🍂":"img/1f342.webp","⛱️":"img/26f1-fe0f.webp","🪑":"img/1fa91.webp","🌷":"img/1f337.webp","🏮":"img/1f3ee.webp","🪧":"img/1faa7.webp","🍦":"img/1f366.webp","🚲":"img/1f6b2.webp","⛲":"img/26f2.webp","🐕":"img/1f415.webp","🔥":"img/1f525.webp","🥖":"img/1f956.webp","🥣":"img/1f963.webp","🥧":"img/1f967.webp","🍓":"img/1f353.webp","🍯":"img/1f36f.webp","🫙":"img/1fad9.webp","🍵":"img/1f375.webp","🐁":"img/1f401.webp","🧳":"img/1f9f3.webp","🗺️":"img/1f5fa-fe0f.webp","🎠":"img/1f3a0.webp","🪞":"img/1fa9e.webp","🧵":"img/1f9f5.webp","🧶":"img/1f9f6.webp","🔭":"img/1f52d.webp","🎶":"img/1f3b6.webp","🦉":"img/1f989.webp","🌿":"img/1f33f.webp","🏡":"img/1f3e1.webp","🌳":"img/1f333.webp","🌹":"img/1f339.webp","🌻":"img/1f33b.webp","🐝":"img/1f41d.webp","🦆":"img/1f986.webp","🐇":"img/1f407.webp","🦋":"img/1f98b.webp","🧺":"img/1f9fa.webp","💝":"img/1f49d.webp","🍷":"img/1f377.webp","📷":"img/1f4f7.webp","✨":"img/2728.webp","💔":"img/1f494.webp","🤍":"img/1f90d.webp","↩️":"img/21a9-fe0f.webp","🔍":"img/1f50d.webp","🔀":"img/1f500.webp","☀️":"img/2600-fe0f.webp","⚙️":"img/2699-fe0f.webp","🚫":"img/1f6ab.webp","🎁":"img/1f381.webp","👛":"img/1f45b.webp","💌":"img/1f48c.webp","📖":"img/1f4d6.webp","⏳":"img/23f3.webp","🎨":"img/1f3a8.webp","👇":"img/1f447.webp","👆":"img/1f446.webp","🧩":"img/1f9e9.webp","🏅":"img/1f3c5.webp","🧭":"img/1f9ed.webp","🎺":"img/1f3ba.webp","🖋️":"img/1f58b-fe0f.webp","👓":"img/1f453.webp","🌴":"img/1f334.webp","🌸":"img/1f338.webp","🌵":"img/1f335.webp","🍋":"img/1f34b.webp","🐤":"img/1f424.webp","👀":"img/1f440.webp","📊":"img/1f4ca.webp","🎃":"img/1f383.webp","📲":"img/1f4f2.webp","🎉":"img/1f389.webp","💰":"img/1f4b0.webp","🐣":"img/1f423.webp","🥚":"img/1f95a.webp","🐰":"img/1f430.webp","🌼":"img/1f33c.webp","🍫":"img/1f36b.webp","🪺":"img/1faba.webp","🍬":"img/1f36c.webp","🍎":"img/1f34e.webp","🍐":"img/1f350.webp","🍄":"img/1f344.webp","🌰":"img/1f330.webp","🌽":"img/1f33d.webp","🍇":"img/1f347.webp","👑":"img/1f451.webp","🐑":"img/1f411.webp","🌾":"img/1f33e.webp","🧃":"img/1f9c3.webp","👒":"img/1f452.webp","🦔":"img/1f994.webp","⚡":"img/26a1.webp","⏱️":"img/23f1-fe0f.webp","📅":"img/1f4c5.webp","🌍":"img/1f30d.webp","📜":"img/1f4dc.webp","🧰":"img/1f9f0.webp","🔑":"img/1f511.webp","❔":"img/2754.webp","🗼":"img/1f5fc.webp","🪗":"img/1fa97.webp","🥞":"img/1f95e.webp","🧀":"img/1f9c0.webp","♨️":"img/2668-fe0f.webp","🍞":"img/1f35e.webp","🥨":"img/1f968.webp","🍩":"img/1f369.webp","🍮":"img/1f36e.webp","🐩":"img/1f429.webp","🐚":"img/1f41a.webp","🚧":"img/1f6a7.webp","📬":"img/1f4ec.webp","💾":"img/1f4be.webp","❓":"img/2753.webp","📔":"img/1f4d4.webp","🐞":"img/1f41e.webp","🫐":"img/1fad0.webp","📤":"img/1f4e4.webp","📋":"img/1f4cb.webp","👣":"img/1f463.webp","🎵":"img/1f3b5.webp","⛪":"img/26ea.webp","⛵":"img/26f5.webp","🌧️":"img/1f327-fe0f.webp","✉️":"img/2709-fe0f.webp","😉":"img/1f609.webp","👉":"img/1f449.webp","🐦":"img/1f426.webp","🪁":"img/1fa81.webp"};
 const EMO_RE = new RegExp(Object.keys(EMO).sort((a, b) => b.length - a.length)
   .map(k => k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|"), "gu");
 // Schneller Vorfilter: Emoji liegen alle oberhalb von U+2000 – normaler Text wird gar nicht erst durchsucht
@@ -3176,12 +3210,18 @@ function musicTick() {
   const c = actx; if (!c || !mus.on) return;
   const T = THEMES[mus.theme], e8 = 60 / T.bpm / 2;
   while (mus.next < c.currentTime + .5) {
-    const s = mus.step % (T.chords.length * 8), bar = Math.floor(s / 8), i = s % 8, ch = T.chords[bar], t = mus.next;
-    if (i === 0) mnote(c, t, ch[0], e8 * 7, .07, "sine", mus.gain);                       // Bass
-    mnote(c, t, ch[[1, 2, 3, 2, 1, 2, 3, 2][i]] + 12, e8 * 2.2, .022, "triangle", mus.gain); // Begleitung
+    const N = T.waltz ? 6 : 8;                                                              // Walzer: 3/4-Takt
+    const s = mus.step % (T.chords.length * N), bar = Math.floor(s / N), i = s % N, ch = T.chords[bar], t = mus.next;
+    if (i === 0) mnote(c, t, ch[0], e8 * (N - 1), .07, "sine", mus.gain);                 // Bass
+    if (T.waltz) { if (i === 2 || i === 4) ch.slice(1).forEach(n => mnote(c, t, n + 12, e8 * 1.1, .011, "square", mus.gain)); } // Hm-ta-ta
+    else mnote(c, t, ch[[1, 2, 3, 2, 1, 2, 3, 2][i]] + 12, e8 * 2.2, .022, "triangle", mus.gain); // Begleitung
     if (i % 2 === 0) {                                                                    // Melodie
-      const m = T.melody[bar * 4 + i / 2];
-      if (m) { mnote(c, t, m, e8 * 3.2, .05, T.wave, mus.gain); if (T.bells) mnote(c, t, m + 24, e8 * 2, .012, "sine", mus.gain); }
+      const m = T.melody[bar * (N / 2) + i / 2];
+      if (m) {
+        mnote(c, t, m, e8 * 3.2, T.musette ? .022 : .05, T.wave, mus.gain);
+        if (T.musette) mnote(c, t, m + .12, e8 * 3.2, .018, T.wave, mus.gain);              // leicht verstimmt wie ein Akkordeon
+        if (T.bells) mnote(c, t, m + 24, e8 * 2, .012, "sine", mus.gain);
+      }
     }
     mus.step++; mus.next += e8;
   }
@@ -3268,7 +3308,7 @@ function setAmbience(id) {
     ambEvery(9000, 17000, () => { for (let i = 0; i < 6; i++) ablip(c, out, 2700 + Math.random() * 900, .18, .012, "sine", 0, i * .07); }); // Schlittenglöckchen
   }
 }
-function setScreenAudio(roomId, theme = "main") { musicTheme(theme); setAmbience(roomId); }
+function setScreenAudio(roomId, theme) { musicTheme(theme || ROOM_THEMES[roomId] || "main"); setAmbience(roomId); }
 document.addEventListener("visibilitychange", () => { if (!actx) return; try { document.hidden ? actx.suspend() : actx.resume(); } catch (e) {} });
 
 function buzz(ms) { if (!save.vibrate) return; try { if (navigator.vibrate) navigator.vibrate(ms); } catch (e) {} }
@@ -3448,6 +3488,7 @@ function preLevel(n, ev = false, mode = null) {
   if (ev === true) ev = curEvent() || EVENTS[0];
   if (save.feedbackPending) { save.feedbackPending = false; save.feedbackAsked = true; persist(); return openFeedback(true, () => preLevel(n, ev, mode)); }
   if (mode === "bonus") return startLevel(n, false, {}, "bonus");
+  if (mode === "family") { famSave(); return startLevel(n, false, {}, "family"); }
   if (!ev && !mode && n > MAX_LEVEL) return openToBeContinued();
   if (!ev && !mode && CH_INTRO[n] && !(save.chIntro || []).includes(n)) {
     save.chIntro = (save.chIntro || []).concat(n); persist(); const ci = CH_INTRO[n];
@@ -3485,12 +3526,12 @@ function startLevel(n, ev = false, bo = {}, mode = null) {
   if (G) statEnd(G.over ? "l" : "q");
   if (ev === true) ev = curEvent() || EVENTS[0];
   const daily = mode === "daily";
-  const bonus = mode === "bonus";
-  const lv = daily ? genLevel(n, false, puzzleCfg(n), 500009) : bonus ? genLevel(n, false, bonusCfg(), 700001) : genLevel(n, ev);
+  const bonus = mode === "bonus", fam = mode === "family";
+  const lv = fam ? genLevel(n, false, familyCfg(n), 800009) : daily ? genLevel(n, false, puzzleCfg(n), 500009) : bonus ? genLevel(n, false, bonusCfg(), 700001) : genLevel(n, ev);
   const hearts = bo.herz ? 4 : 3;
   G = { n, ev, daily, bonus: bonus ? { left: BONUS_TIME } : null, shelves: lv.shelves, queue: lv.queue, sets: lv.sets, moves: 0, levelCoins: 0, extraUsed: false, history: [],
-        hearts, maxHearts: hearts, pMax: bonus ? 0 : Math.round((daily ? puzzleCfg(n).pat : ev ? patienceFor(n + 3) : patienceFor(n)) * (bo.geduld ? 1.5 : 1)),
-        over: false, bonusStars: 0, trophy: false, cleared: {}, boosts: bo, helped: Object.keys(bo).length > 0 };
+        hearts, maxHearts: hearts, pMax: bonus || fam ? 0 : Math.round((daily ? puzzleCfg(n).pat : ev ? patienceFor(n + 3) : patienceFor(n)) * (bo.geduld ? 1.5 : 1)),
+        over: false, bonusStars: 0, trophy: false, cleared: {}, boosts: bo, helped: Object.keys(bo).length > 0, fam };
   if (bo.fach) G.shelves.push({ layers: [[null, null, null]], extra: true, wrap: [false, false, false], lock: 0 });
   // Erklärungen: Hand in Level 1, hintere Reihen beim ersten Level, in dem es sie gibt
   G.tut1 = !ev && !mode && n === 1 && !save.best[1] ? { clears: 0 } : null;
@@ -3521,7 +3562,7 @@ const isHot = (s, k) => !!(G.shelves[s].hot && G.shelves[s].hot[k] > 0 && front(
 const hotMsg = (s, k) => { sfx("tap"); toast(TX`Noch heiß! In ${G.shelves[s].hot[k]} Zügen ist es abgekühlt.`); };
 const coolAll = sh => { sh.hot = [0, 0, 0]; };
 const isDusty = (s, k) => !!(G.shelves[s].dust && G.shelves[s].dust[k] && front(s)[k] !== null);
-const retryLevel = () => preLevel(G.n, G.ev, G.daily ? "daily" : G.bonus ? "bonus" : null);
+const retryLevel = () => preLevel(G.n, G.ev, G.daily ? "daily" : G.bonus ? "bonus" : G.fam ? "family" : null);
 function dustOff(s, k) {
   G.shelves[s].dust[k] = false; sel = null; fx.dusted = { s, k };
   save.stats.dust++; sfx("dust"); buzz(6); renderBoard();
@@ -3718,7 +3759,7 @@ function guestLeaves(q) {
 }
 function lose() {
   sfx("lose");
-  if (!G.ev && !G.daily && !G.bonus) { save.fails = save.fails || {}; save.fails[G.n] = (save.fails[G.n] || 0) + 1; persist(); }
+  if (!G.ev && !G.daily && !G.bonus && !G.fam) { save.fails = save.fails || {}; save.fails[G.n] = (save.fails[G.n] || 0) + 1; persist(); }
   const o = overlay(`<div class="card">
     <h2>${tx("Die Gäste sind verärgert")}</h2>
     <p>${tx("Drei Gäste haben den Laden ohne ihre Bestellung verlassen.")}</p>
@@ -3836,7 +3877,7 @@ function showAd(kind, onDone) {
 /* ================= Ende eines Levels ================= */
 // Zwischenwerbung: ab Level 6 nach jedem zweiten gewonnenen Level (6, 8, 10 …), egal welcher Knopf danach gedrückt wird
 const AD_FROM_LEVEL = 6, AD_EVERY = 2;
-function afterWinAd(fn) { if (G && !G.daily && !G.bonus && G.n >= AD_FROM_LEVEL && (G.n - AD_FROM_LEVEL) % AD_EVERY === 0) showAd("interstitial", fn); else fn(); }
+function afterWinAd(fn) { if (G && !G.daily && !G.bonus && !G.fam && G.n >= AD_FROM_LEVEL && (G.n - AD_FROM_LEVEL) % AD_EVERY === 0) showAd("interstitial", fn); else fn(); }
 function starsFor() {
   if (G.pMax) return Math.max(1, Math.min(3, G.hearts));
   const par = Math.ceil(G.sets * 2.5); return G.moves <= par ? 3 : G.moves <= par * 1.5 ? 2 : 1;
@@ -3855,15 +3896,19 @@ function win() {
     }
   }
   // Am Ende eines Kapitels: ein Hinweis zu Omas Geheimnis
-  if (!G.ev && !G.daily && !G.bonus && G.n % 10 === 0 && !G.secretShown) {
+  if (!G.ev && !G.daily && !G.bonus && !G.fam && G.n % 10 === 0 && !G.secretShown) {
     const c = G.n / 10 - 1;
     if (c < SECRET.length && !secretFound(c)) { G.secretShown = true; G.over = true; return showSecret(c, () => recipeUnlocked(c, win)); }
   }
+  if (!G.ev && !G.daily && !G.bonus && !G.fam && !G.cardShown && !save.best[G.n] && cardFor(G.n) >= 0 && !cardHas(cardFor(G.n))) {
+    G.cardShown = true; G.over = true; save.cards = (save.cards || []).concat(cardFor(G.n)); persist(); return showCard(cardFor(G.n), win, true);
+  }
   G.over = true; statEnd("w");
-  if (!G.ev && !G.daily && !G.bonus && save.fails && save.fails[G.n]) { delete save.fails[G.n]; persist(); }
+  if (!G.ev && !G.daily && !G.bonus && !G.fam && save.fails && save.fails[G.n]) { delete save.fails[G.n]; persist(); }
   const st = starsFor();
   const news = mergeAlbum();
   if (G.bonus) return winBonus(news);
+  if (G.fam) return winFamily(st);
   weekAdd("wins"); if (st === 3) weekAdd("stars3");
   if (G.daily) return winDaily(st, news);
   if (G.ev) return winEvent(st, news);
@@ -3872,6 +3917,8 @@ function win() {
   const prev = save.best[G.n] || 0;
   if (st > prev) save.best[G.n] = st;
   const firstClear = prev === 0;
+  const hunted = !firstClear && prev < 3 && st === 3;
+  if (hunted) { save.coins += HUNT_COINS; save.stats.hunt = (save.stats.hunt || 0) + 1; }
   if (G.n === 10 && firstClear && !save.feedbackAsked) save.feedbackPending = true;
   if (G.n === 10 && firstClear && !save.offer) save.offer = { until: Date.now() + OFFER_HOURS * 36e5 };
   const bonus = firstClear ? G.bonusStars : 0;
@@ -3890,6 +3937,7 @@ function win() {
     <div class="stars">${[1, 2, 3].map(i => `<span class="${i <= st ? "" : "off"}">⭐</span>`).join("")}</div>
     <p>${TX`${G.moves} Züge`} · +${G.levelCoins + 20} 🪙${gained ? ` · ${TX`+${gained} ⭐ neu`}` : ""}</p>
     ${bonus ? `<p style="color:#1d6b46">${TX`Der Kritiker war begeistert: +${bonus} ⭐ extra`}</p>` : ""}
+    ${hunted ? `<p style="color:#1d6b46">⭐ ${TX`Sternejagd: jetzt mit 3 Sternen! +${HUNT_COINS} 🪙`}</p>` : ""}
     ${trophy ? `<p style="color:#1d6b46">${tx("Der Bürgermeister überreicht dir einen Pokal 🏆")}</p>` : ""}
     ${albumNewsHTML(news)}
     ${goal ? goalHTML(goal, "wGoal") : ""}
@@ -3940,14 +3988,14 @@ function layout() {
 function renderGame() {
   if (!G) return;
   setScreenAudio(null, G.ev ? G.ev.theme : "main");
-  const tipText = tx(G.obTip || (G.bonus ? "Bonusrunde: Räum so viel ab, wie du in 75 Sekunden schaffst. Alle Münzen zählen doppelt!" : G.daily ? "Das Tagesrätsel ist heute für alle gleich. Schaffst du es?" : (G.ev ? G.ev.tips[G.n] : LEVEL_TIPS[G.n]) || ""));
-  const hearts = G.bonus ? `<span class="pill timer ${G.bonus.left < 15 ? "low" : ""}" id="bTime">⏱️ ${Math.max(0, Math.ceil(G.bonus.left))}</span>` : G.pMax ? `<span class="pill" aria-label="${TX`${G.hearts} Herzen`}">${"❤️".repeat(Math.max(0, G.hearts))}${"🤍".repeat(Math.max(0, (G.maxHearts || 3) - G.hearts))}</span>` : `<span class="pill">${TX`Züge ${G.moves}`}</span>`;
+  const tipText = tx(G.obTip || (G.fam ? "Familien-Rätsel: Alle spielen dasselbe. Wenig Züge sind gut – Zeit hast du genug." : G.bonus ? "Bonusrunde: Räum so viel ab, wie du in 75 Sekunden schaffst. Alle Münzen zählen doppelt!" : G.daily ? "Das Tagesrätsel ist heute für alle gleich. Schaffst du es?" : (G.ev ? G.ev.tips[G.n] : LEVEL_TIPS[G.n]) || ""));
+  const hearts = G.fam ? `<span class="pill">${TX`${G.moves} Züge`}</span>` : G.bonus ? `<span class="pill timer ${G.bonus.left < 15 ? "low" : ""}" id="bTime">⏱️ ${Math.max(0, Math.ceil(G.bonus.left))}</span>` : G.pMax ? `<span class="pill" aria-label="${TX`${G.hearts} Herzen`}">${"❤️".repeat(Math.max(0, G.hearts))}${"🤍".repeat(Math.max(0, (G.maxHearts || 3) - G.hearts))}</span>` : `<span class="pill">${TX`Züge ${G.moves}`}</span>`;
   app.innerHTML = `<div class="screen">
     <div class="topbar">
       <button class="iconbtn" id="gHome" aria-label="${tx("Zurück zum Laden")}">‹</button>
-      <div class="lvl">${G.bonus ? "⚡ " + tx("Bonusrunde") : G.daily ? tx("Tagesrätsel") : G.ev ? tx(G.ev.n) + " " + G.n : "Level " + G.n}</div>
+      <div class="lvl">${G.fam ? "🏆 " + tx("Woche") + " " + G.n : G.bonus ? "⚡ " + tx("Bonusrunde") : G.daily ? tx("Tagesrätsel") : G.ev ? tx(G.ev.n) + " " + G.n : "Level " + G.n}</div>
       ${hearts}
-      <span class="pill">🪙 ${save.coins + G.levelCoins}</span>
+      ${G.fam ? "" : `<span class="pill">🪙 ${save.coins + G.levelCoins}</span>`}
       <button class="iconbtn" id="gMenu" aria-label="${tx("Pause")}"><span class="pz"><i></i><i></i></span></button>
     </div>
     <div class="guests" id="guests"></div>
@@ -4112,7 +4160,8 @@ function sceneHTML(room, newId, ownedList = save.owned) {
   const im = (e, x, y, w, cls = "", b = false) => (b ? `<span class="cshadow" style="left:${pc(x, 400)};top:${pc(y, 300)};width:${pc(w * .78, 400)}"></span>` : "")
     + `<img class="scimg ${cls} ${b ? "b" : ""}" src="${EMO[e] || ""}" alt="" draggable="false" style="left:${pc(x, 400)};top:${pc(y, 300)};width:${pc(w, 400)}">`;
   const fixed = S.fixed.map(([e, x, y, w]) => im(e, x, y, w)).join("");
-  const decos = S.ups.filter(u => u.p && o(u.id)).flatMap(u => u.p.map(([x, y, w, a], i) => im((u.pe && u.pe[i]) || u.e, x, y, w, u.id === newId ? "new" : "", a === "b"))).join("");
+  const decos = S.ups.filter(u => u.p && o(u.id)).flatMap(u => u.p.map(([x, y, w, a], i) => im((u.pe && u.pe[i]) || u.e, x, y, w, u.id === newId ? "new" : "", a === "b"))).join("")
+    + (ownedList === save.owned ? CAL_DECOS.filter(d => d.room === room.id && (save.calDecos || []).includes(d.id)).map(d => im(d.e, d.p[0], d.p[1], d.p[2], "", d.p[3] !== "f")).join("") : "");
   const dirt = dusty ? S.dirt.map(([e, x, y, w]) => im(e, x, y, w, "dirt")).join("") : "";
   const pets = (PETS[room.id] || []).filter(pt => o(pt.id)).map(pt => `<button class="pethot" data-pet="${pt.id}" data-scene="${room.id}" aria-label="${TX`${tx(pt.name)} antippen`}" style="left:${pc(pt.x, 400)};top:${pc(pt.y, 300)};width:${pc(pt.w, 400)}"></button>`).join("");
   const seats = dusty ? "" : seatedGuests(room.id).map((st, i) => !o(st.need) ? "" : `<button class="pethot seathot" data-room="${room.id}" data-seat="${i}" aria-label="${tx("Gast")}" style="left:${pc(st.x, 400)};top:${pc(st.y, 300)};width:${pc(st.w, 400)}"></button>`).join("");
@@ -4278,6 +4327,7 @@ function renderAlbum() {
     ${ba}
     ${secretRow()}
     ${recipeRow()}
+    ${cardRow()}
     <h3 class="ah">${tx("Stammgäste")}</h3>
     <div class="regs">${REGULARS.map(r => { const st = save.regulars[r.id] || 0; return `<button class="reg" data-reg="${r.id}">
       <span class="rf ${st ? "" : "locked"}">${r.g}</span><b>${st ? tx(r.n) : "???"}</b><small>${st}/${r.s.length}</small></button>`; }).join("")}</div>
@@ -4297,6 +4347,7 @@ function renderAlbum() {
     baIn.oninput = upd; upd();
   }
   app.querySelectorAll("[data-intro]").forEach(b => b.onclick = () => { const ci = CH_INTRO[+b.dataset.intro]; showLetter(ci.t, { title: tx("Ein Brief aus Paris"), icon: ci.e, sign: ci.from, btn: tx("Schließen") }); });
+  app.querySelectorAll("[data-card]").forEach(b => b.onclick = () => { const c = +b.dataset.card; cardHas(c) ? showCard(c, renderAlbum) : toast(TX`Schaff Level ${CARD_FROM + c}, um diese Postkarte zu finden.`); });
   app.querySelectorAll("[data-rec]").forEach(b => b.onclick = () => { const c = +b.dataset.rec; recipeOpen(c) ? showRecipe(c, renderAlbum) : toast(TX`Schaff Level ${(c + 1) * 10}, um dieses Rezept zu bekommen.`); });
   app.querySelectorAll("[data-sec]").forEach(b => b.onclick = () => { const c = +b.dataset.sec; secretFound(c) ? showSecret(c, null, true) : toast(TX`Schaff Level ${(c + 1) * 10}, um diesen Hinweis zu finden.`); });
   app.querySelectorAll("[data-reg]").forEach(b => b.onclick = () => {
@@ -4779,6 +4830,7 @@ LEVEL_TIPS[50] = "Neu: In Omas Truhe sind weitere Schätze aufgetaucht – Kamer
 const CHAPTERS = ["Der verstaubte Laden", "Neue Nachbarn", "Sonntagskuchen", "Omas Geheimnisse", "Hinter verschlossenen Türen", "Schätze aus der Truhe", "Die große Feier", "Durch die Jahreszeiten", "Ein Brief aus Paris"];
 // So weit reicht das Spiel: 10 Level pro fertigem Kapitel. Neue Kapitel kommen per Update dazu (Anleitung: docs/neues-kapitel.md).
 const MAX_LEVEL = CHAPTERS.length * 10;
+Object.assign(EN, {"🏆 Familien-Rätsel: Jede Woche spielen alle dasselbe Rätsel. Wer braucht die wenigsten Züge? Ergebnis mit einem Tipp teilen.": "🏆 Family puzzle: every week everyone plays the same puzzle. Who needs the fewest moves? Share your result with one tap.", "🎵 Jeder Raum hat jetzt seine eigene Musik – in Paris spielt ein Akkordeon.": "🎵 Every room now has its own music – in Paris an accordion plays.", "💌 Postkarten aus Paris: In jedem Paris-Level findest du eine Karte von Henri.": "💌 Postcards from Paris: you find a card from Henri in every Paris level.", "⭐ Sternejagd: Hol dir in alten Leveln alle 3 Sterne – mit Belohnung. Unter „Mehr“.": "⭐ Star hunt: get all 3 stars in old levels – with a reward. Under “More”.", "📅 Der Tagesbonus ist jetzt ein Wochenkalender mit Türchen – am 7. Tag gibt es eine besondere Deko.": "📅 The daily bonus is now a weekly calendar with little doors – on day 7 there's a special decoration."});
 Object.assign(EN, {
   "Baguette": "Baguette",
   "Eiffelturm": "Eiffel Tower",
@@ -4848,10 +4900,12 @@ function openToBeContinued() {
     <p class="ltext">${esc(tx("Du hast alle Kapitel geschafft, die es bisher gibt! Aber mein Laden hat noch viele Geschichten zu erzählen. Neue Kapitel kommen mit den nächsten Updates – ich sag dir Bescheid.\n\nBis dahin: Spiel ältere Level nochmal für mehr Sterne, löse das Tagesrätsel und mach dein Café noch schöner.")).replace(/\n/g, "<br>")}</p>
     <p class="lsign">– ${tx("Oma Hilde")}</p>
     <button class="btn" id="tbShop">🛋️ ${tx("Café einrichten")}</button>
+    ${huntList().length ? `<button class="btn alt" id="tbHunt">⭐ ${tx("Sternejagd")} · ${huntList().length}</button>` : ""}
     ${puzzleUnlocked() && !puzzleSolved() ? `<button class="btn alt" id="tbPuz">🧩 ${tx("Tagesrätsel")}</button>` : ""}
     <button class="btn alt" id="tbOk">${tx("Schließen")}</button>
   </div>`);
   o.querySelector("#tbShop").onclick = () => { closeOverlay(); renderShop(); };
+  { const h = o.querySelector("#tbHunt"); if (h) h.onclick = openStarHunt; }
   const pz = o.querySelector("#tbPuz"); if (pz) pz.onclick = () => { closeOverlay(); preLevel(puzzleNo(), false, "daily"); };
   o.querySelector("#tbOk").onclick = () => { closeOverlay(); if (!$(".homemap")) renderHome(); };
 }
@@ -5142,7 +5196,7 @@ Object.assign(EN, {
   "iPhone/iPad: Tippe in Safari unten auf „Teilen“ und dann auf „Zum Home-Bildschirm“.": "iPhone/iPad: In Safari, tap “Share” at the bottom and then “Add to Home Screen”.",
   "Android: Tippe in Chrome oben rechts auf ⋮ und dann auf „App installieren“ oder „Zum Startbildschirm hinzufügen“.": "Android: In Chrome, tap ⋮ at the top right and then “Install app” or “Add to Home screen”.",
   "Danach hat das Spiel ein eigenes Symbol, startet im Vollbild und läuft auch ohne Internet.": "Then the game gets its own icon, starts in full screen and works without internet too.",
-  "Prototyp 2.0 · Werbung und Käufe sind nur simuliert": "Prototype 1.3 · Ads and purchases are only simulated",
+  "Prototyp 2.1 · Werbung und Käufe sind nur simuliert": "Prototype 1.3 · Ads and purchases are only simulated",
   "{} gehört dir! Die neuen Farben findest du beim Einrichten.": "{} is yours! You'll find the new colours when furnishing."
 });
 
@@ -5263,9 +5317,10 @@ function openWeek() {
 }
 
 /* ================= Was ist neu? ================= */
-const VERSION = "2.0";
+const VERSION = "2.1";
 const vnum = v => v.split(".").map(Number).reduce((a, x) => a * 1000 + x, 0);
 const CHANGES = [
+  { v: "2.1", items: ["🏆 Familien-Rätsel: Jede Woche spielen alle dasselbe Rätsel. Wer braucht die wenigsten Züge? Ergebnis mit einem Tipp teilen.", "🎵 Jeder Raum hat jetzt seine eigene Musik – in Paris spielt ein Akkordeon.", "💌 Postkarten aus Paris: In jedem Paris-Level findest du eine Karte von Henri.", "⭐ Sternejagd: Hol dir in alten Leveln alle 3 Sterne – mit Belohnung. Unter „Mehr“.", "📅 Der Tagesbonus ist jetzt ein Wochenkalender mit Türchen – am 7. Tag gibt es eine besondere Deko."] },
   { v: "2.0", items: ["🗼 Kapitel 9: „Ein Brief aus Paris“ – eine neue Geschichte beginnt.", "🥖 Neuer Raum: Henris Bäckerei in Paris.", "♨️ Neues Hindernis: Ofenfrisch.", "🥐 Neue Gegenstände: Baguette, Eiffelturm, Akkordeon, Crêpes, Käse und Farbpalette.", "🐚 Neues Rezept: Henris Madeleines."] },
   { v: "1.9", items: ["🚧 Nach dem letzten Kapitel heißt es jetzt „Fortsetzung folgt“ – neue Kapitel kommen per Update."] },
   { v: "1.8", items: ["💾 Spielstand sichern: Mit einem Code holst du deinen Fortschritt zurück – auch auf einem neuen Handy. Zu finden unter „Mehr“.", "👵 Oma hilft: Wenn ein Level dreimal nicht klappt, bietet Oma dir ihre Hilfe an.", "📜 Omas Rezeptbuch: Nach jedem Kapitel ein echtes Rezept zum Nachbacken – im Album.", "❓ „Wie geht das?“: Alle Gäste, Hindernisse und Hilfsmittel auf einen Blick.", "⏸ Pause-Knopf im Level – und „Problem melden“ direkt aus dem Spiel."] },
@@ -5397,7 +5452,7 @@ Object.assign(EN, {
   "🌍 Englische Version": "🌍 English version", "🧩 Tagesrätsel": "🧩 Daily puzzle", "🏅 Erfolge": "🏅 Achievements",
   "🕸️ Neue Hindernisse ab Level 25": "🕸️ New obstacles from level 25", "🐈 Gäste und Tiere in den Räumen": "🐈 Guests and animals in the rooms",
   "Eine neue Version ist da. Starte das Spiel neu, um sie zu sehen.": "A new version is available. Restart the game to see it.",
-  "Prototyp 2.0 · Werbung und Käufe sind nur simuliert": "Prototype 2.0 · Ads and purchases are only simulated",
+  "Prototyp 2.1 · Werbung und Käufe sind nur simuliert": "Prototype 2.1 · Ads and purchases are only simulated",
   "🗝️ Omas Geheimnis: Am Ende jedes Kapitels wartet ein Hinweis auf dich. Was hat Oma versteckt?": "🗝️ Grandma's secret: a clue awaits you at the end of every chapter. What did Grandma hide?"
 });
 
@@ -5466,6 +5521,7 @@ function openMore() {
     <h2>${tx("Mehr")}</h2>
     <div class="morelist">
       <button class="btn alt" id="mAch">🏅 ${tx("Erfolge")}${a ? ` <span class="nbadge">${a}</span>` : ""}</button>
+      <button class="btn alt" id="mHunt">⭐ ${tx("Sternejagd")}${huntList().length ? ` <span class="nbadge">${huntList().length}</span>` : ""}</button>
       <button class="btn alt" id="mHelp">❓ ${tx("Wie geht das?")}</button>
       <button class="btn alt" id="mSave">💾 ${tx("Spielstand sichern")}</button>
       <button class="btn alt" id="mFb">💬 ${tx("Feedback geben")}</button>
@@ -5473,12 +5529,13 @@ function openMore() {
       <button class="btn alt" id="mNews">✨ ${tx("Was ist neu?")}</button>
       <button class="btn alt" id="mSet">⚙️ ${tx("Einstellungen")}</button>
     </div>
-    <p style="font-size:12px">${tx("Prototyp 2.0 · Werbung und Käufe sind nur simuliert")}</p>
+    <p style="font-size:12px">${tx("Prototyp 2.1 · Werbung und Käufe sind nur simuliert")}</p>
     <button class="btn" id="mClose">${tx("Schließen")}</button>
   </div>`);
   o.querySelector("#mAch").onclick = () => { closeOverlay(); renderAch(); };
   o.querySelector("#mFb").onclick = () => { closeOverlay(); openFeedback(false); };
   o.querySelector("#mHelp").onclick = () => openHelp(openMore);
+  o.querySelector("#mHunt").onclick = openStarHunt;
   o.querySelector("#mSave").onclick = openBackup;
   o.querySelector("#mBug").onclick = () => openFeedback(false, openMore, true);
   o.querySelector("#mNews").onclick = () => { closeOverlay(); showNews("1.1"); };
@@ -5631,7 +5688,7 @@ function deviceInfo() {
   return `${os} · ${br} · ${mode}`;
 }
 function infoText() {
-  const lvName = G ? (G.bonus ? tx("Bonusrunde") : G.daily ? tx("Tagesrätsel") + " #" + G.n : G.ev ? tx(G.ev.n) + " " + G.n : "Level " + G.n) : "";
+  const lvName = G ? (G.fam ? tx("Familien-Rätsel") + " " + G.n : G.bonus ? tx("Bonusrunde") : G.daily ? tx("Tagesrätsel") + " #" + G.n : G.ev ? tx(G.ev.n) + " " + G.n : "Level " + G.n) : "";
   return `[Info] Version ${VERSION} · ${new Date().toLocaleString(LANG === "de" ? "de-DE" : "en-GB")} · ${deviceInfo()} · ${innerWidth}×${innerHeight} · ${LANG}`
     + (G ? `\n${tx("Gerade im Spiel")}: ${lvName} · ${TX`Zug ${G.moves}`} · ❤️ ${G.hearts}/${G.maxHearts} · ${tx("Geduld")} ${G.pMax || "–"} s${G.boosts && Object.keys(G.boosts).length ? " · " + Object.keys(G.boosts).join("+") : ""}` : "");
 }
@@ -5870,6 +5927,243 @@ Object.assign(EN, {
   "Du hast schon richtig viel geschafft! Mit einem kurzen Code kannst du deinen Spielstand sichern – falls du mal das Handy wechselst oder das App-Symbol löschst.": "You've already achieved a lot! With a short code you can back up your progress – in case you switch phones or delete the app icon."
 });
 
+/* ================= Postkarten aus Paris ================= */
+// Henri hat Hilde nach ihrer Abreise Postkarten geschrieben. Eine pro Paris-Level (beim ersten Schaffen).
+const POSTCARDS = [
+  { e: "🗼", c: ["#f6b98a", "#fbe3c0"], n: "La Tour Eiffel", t: "Liebe Hilde,\nohne dich ist der Eiffelturm nur ein Haufen Eisen. Und die Croissants schmecken auch nicht mehr. Komm bald zu Besuch!",
+    en: "Dear Hilde,\nwithout you the Eiffel Tower is just a pile of iron. And the croissants don't taste the same. Come and visit soon!" },
+  { e: "⛪", c: ["#bcd7ef", "#f2f6fb"], n: "Sacré-Cœur", t: "Heute bin ich die 222 Stufen zur Sacré-Cœur hinaufgestiegen. Oben habe ich an dich gedacht – und an deinen Muskelkater damals.",
+    en: "Today I climbed the 222 steps up to Sacré-Cœur. At the top I thought of you – and of your sore legs back then." },
+  { e: "🎨", c: ["#f3c6d4", "#fff1e0"], n: "Place du Tertre", t: "Ein Maler auf der Place du Tertre wollte mein Porträt malen. Ich habe ihm stattdessen ein Baguette gegeben. Er war zufrieden.",
+    en: "A painter on the Place du Tertre wanted to paint my portrait. I gave him a baguette instead. He was happy." },
+  { e: "⛵", c: ["#9ccbe0", "#e3f2f2"], n: "La Seine", t: "An der Seine habe ich Brot an die Enten verfüttert. Die Pariser Enten sind wählerisch: Sie wollten nur Brioche.",
+    en: "By the Seine I fed bread to the ducks. Parisian ducks are picky: they only wanted brioche." },
+  { e: "🌷", c: ["#c9e6b8", "#fbf4dc"], n: "Jardin du Luxembourg", t: "Im Jardin du Luxembourg blühen die Tulpen. Ich habe eine gepresst und lege sie dir bei. Hoffentlich kommt sie heil an.",
+    en: "The tulips are blooming in the Jardin du Luxembourg. I pressed one and put it in for you. I hope it arrives in one piece." },
+  { e: "🥐", c: ["#f4d29a", "#fff5e2"], n: "Boulangerie Henri", t: "Dein Lieblingsplatz am Fenster ist noch frei. Ich stelle jeden Morgen ein Croissant hin – falls du doch vorbeikommst.",
+    en: "Your favourite spot by the window is still free. Every morning I put out a croissant – just in case you drop by." },
+  { e: "🎠", c: ["#e9c3ec", "#fff0f6"], n: "Le Carrousel", t: "Am Karussell unten am Hügel gibt es jetzt ein Holzpferd mit goldener Mähne. Es heißt Hilde. Ich war das nicht. Vielleicht doch.",
+    en: "The carousel at the foot of the hill now has a wooden horse with a golden mane. It's called Hilde. That wasn't me. Maybe it was." },
+  { e: "🌧️", c: ["#b8c4d4", "#eef1f6"], n: "Pluie à Paris", t: "Es regnet seit drei Tagen. Die Leute stellen sich unter meine Markise und kaufen aus Verlegenheit Brot. Regen ist gut fürs Geschäft.",
+    en: "It's been raining for three days. People shelter under my awning and buy bread out of embarrassment. Rain is good for business." },
+  { e: "🪗", c: ["#f2b8a8", "#fff1e6"], n: "Musique du soir", t: "Abends spielt der Akkordeonspieler wieder an der Ecke. Er spielt dein Lied. Ich habe ihm ein Brot gegeben, damit er aufhört. Er hat weitergespielt.",
+    en: "In the evenings the accordion player is back on the corner. He plays your song. I gave him a loaf so he'd stop. He kept playing." },
+  { e: "🕯️", c: ["#d9c7a8", "#f8f0e0"], n: "Notre-Dame", t: "In Notre-Dame habe ich eine Kerze angezündet. Für deinen neuen Laden. Möge er immer nach Kuchen duften.",
+    en: "In Notre-Dame I lit a candle. For your new shop. May it always smell of cake." },
+  { e: "❄️", c: ["#cfe3f2", "#ffffff"], n: "Neige sur Montmartre", t: "Schnee auf den Dächern von Montmartre! Ich habe Madeleines gebacken – mit kaltem Teig und heißem Ofen, so wie du es magst.",
+    en: "Snow on the rooftops of Montmartre! I baked madeleines – with cold batter and a hot oven, just the way you like them." },
+  { e: "💌", c: ["#f6c1c9", "#fff3f3"], n: "Un dernier mot", t: "Man sagt, Paris vergisst niemanden. Ich auch nicht. Alles Liebe aus der Rue des Martyrs.",
+    en: "They say Paris forgets no one. Neither do I. All my love from the Rue des Martyrs." }
+];
+const CARD_FROM = 81;
+const cardFor = n => n >= CARD_FROM && n < CARD_FROM + POSTCARDS.length ? n - CARD_FROM : -1;
+const cardHas = c => (save.cards || []).includes(c);
+const cardNew = () => (save.cards || []).filter(c => !(save.cardsSeen || []).includes(c)).length;
+function showCard(c, onClose, found = false) {
+  const x = POSTCARDS[c];
+  if (!(save.cardsSeen || []).includes(c)) { save.cardsSeen = (save.cardsSeen || []).concat(c); persist(); }
+  const o = overlay(`<div class="card pcwrap">
+    ${found ? `<h2>${tx("Eine Postkarte!")}</h2><p>${TX`Zwischen den Sachen lag eine Postkarte von Henri (${(save.cards || []).length}/${POSTCARDS.length}).`}</p>` : `<h2>${tx("Postkarte")} ${c + 1}/${POSTCARDS.length}</h2>`}
+    <div class="pcard" id="pcard" role="button" tabindex="0" aria-label="${tx("Postkarte umdrehen")}">
+      <div class="pfront" style="background:linear-gradient(160deg,${x.c[0]},${x.c[1]})"><span class="pe">${x.e}</span><span class="pn">${esc(x.n)}</span><span class="pparis">PARIS</span></div>
+      <div class="pback"><p>${esc(LANG === "de" ? x.t : x.en).replace(/\n/g, "<br>")}</p><span class="psign">– Henri</span><span class="pstamp">${x.e}</span></div>
+    </div>
+    <p class="fbnote">${tx("Tippe auf die Karte, um sie umzudrehen.")}</p>
+    <button class="btn" id="pcOk">${tx(found ? "Weiter" : "Schließen")}</button>
+  </div>`);
+  sfx(found ? "win" : "pick");
+  const card = o.querySelector("#pcard"); card.onclick = () => { card.classList.toggle("flip"); sfx("pick"); };
+  if (found) setTimeout(() => card.classList.add("flip"), 1100);
+  o.querySelector("#pcOk").onclick = () => { closeOverlay(); if (onClose) onClose(); };
+}
+function cardRow() {
+  if (save.level <= CARD_FROM && !(save.cards || []).length) return "";
+  return `<h3 class="ah">${tx("Postkarten aus Paris")} · ${(save.cards || []).length}/${POSTCARDS.length}</h3>
+    <p class="tag">${tx("Henri hat Oma nach ihrer Abreise Postkarten geschrieben. In jedem Paris-Level findest du eine.")}</p>
+    <div class="secrets">${POSTCARDS.map((x, c) => `<button class="sec ${cardHas(c) ? "" : "locked"}" data-card="${c}">${cardHas(c) && !(save.cardsSeen || []).includes(c) ? `<span class="rdot"></span>` : ""}<span class="si">${cardHas(c) ? x.e : "✉️"}</span><small>${cardHas(c) ? esc(x.n) : "Level " + (CARD_FROM + c)}</small></button>`).join("")}</div>`;
+}
+Object.assign(EN, {
+  "Eine Postkarte!": "A postcard!", "Zwischen den Sachen lag eine Postkarte von Henri ({}/{}).": "Among the things there was a postcard from Henri ({}/{}).", "Postkarte": "Postcard",
+  "Postkarte umdrehen": "Turn the postcard over", "Tippe auf die Karte, um sie umzudrehen.": "Tap the card to turn it over.", "Postkarten aus Paris": "Postcards from Paris",
+  "Henri hat Oma nach ihrer Abreise Postkarten geschrieben. In jedem Paris-Level findest du eine.": "Henri wrote Grandma postcards after she left. You'll find one in every Paris level.",
+  "Schaff Level {}, um diese Postkarte zu finden.": "Complete level {} to find this postcard."
+});
+
+/* ================= Familien-Wochenrätsel ================= */
+// Jede Woche (ab Montag) ein Rätsel, für alle gleich. Ziel: möglichst wenige Züge.
+const GAME_URL = "https://xmarvinpapex.github.io/troedel-und-toertchen/";
+const FAMILY_COINS = 100;
+const familyNo = (d = new Date()) => Math.floor((new Date(d.getFullYear(), d.getMonth(), d.getDate()) - new Date(2026, 0, 5)) / (7 * 864e5)) + 1;
+const familyDaysLeft = () => { const d = new Date(); return 7 - ((d.getDay() + 6) % 7); };
+function familyCfg(w) {
+  const rnd = mulberry32(w * 9173 + 11), ob = {};
+  const pick = ["du", "wr", "mb", "ho"][Math.floor(rnd() * 4)];
+  ob[pick] = pick === "du" ? 3 : pick === "wr" ? 2 : pick === "mb" ? 1 : 2;
+  return { ...L(8, 3, 20, 9, 6, {}), ...ob };
+}
+const famSave = () => { const w = familyNo(); if (!save.family || save.family.no !== w) save.family = { no: w, best: 0, tries: 0, stars: 0 }; return save.family; };
+const familyOpen = () => save.level >= PUZZLE_FROM;
+const familyText = f => `🧁 Trödel & Törtchen – ${tx("Familien-Rätsel")} ${f.no}\n👣 ${TX`${f.best} Züge`} ${"⭐".repeat(f.stars || 0)}\n${tx("Schafft ihr weniger? 😉")}\n👉 ${GAME_URL}`;
+function openFamily() {
+  const f = famSave();
+  const o = overlay(`<div class="card">
+    <div style="font-size:44px">🏆</div>
+    <h2>${tx("Familien-Rätsel")} ${f.no}</h2>
+    <p>${tx("Diese Woche spielen alle dasselbe Rätsel. Wer braucht die wenigsten Züge?")}</p>
+    <div class="famstats"><div><b>${f.best || "–"}</b><small>${tx("dein Rekord")}</small></div><div><b>${f.tries}</b><small>${tx("Versuche")}</small></div><div><b>${familyDaysLeft()}</b><small>${tx("Tage übrig")}</small></div></div>
+    <p class="fbnote">${tx("Keine Zeitnot, keine Herzen – nur Köpfchen. Du kannst so oft spielen, wie du willst. Beim ersten Lösen gibt es Münzen.")}</p>
+    <button class="btn" id="fmGo">${f.best ? tx("Rekord verbessern") : tx("Los geht's")}</button>
+    ${f.best ? `<button class="btn alt" id="fmShare">📤 ${tx("Rekord teilen")}</button>` : ""}
+    <button class="btn alt" id="fmClose">${tx("Schließen")}</button>
+  </div>`);
+  o.querySelector("#fmGo").onclick = () => { closeOverlay(); preLevel(f.no, false, "family"); };
+  const sh = o.querySelector("#fmShare"); if (sh) sh.onclick = () => shareText(familyText(f), tx("Text kopiert – füge ihn jetzt in WhatsApp oder eine Mail ein."));
+  o.querySelector("#fmClose").onclick = closeOverlay;
+}
+function winFamily(st) {
+  const f = famSave(), first = !f.best, record = !f.best || G.moves < f.best;
+  f.tries++;
+  if (record) { f.best = G.moves; f.stars = st; }
+  let coins = G.levelCoins + 20; if (first) coins += FAMILY_COINS;
+  save.coins += coins; persist();
+  sfx("win"); buzz(40);
+  const o = overlay(`<div class="card">
+    <div style="font-size:44px">🏆</div>
+    <h2>${record && !first ? tx("Neuer Rekord!") : tx("Rätsel gelöst!")}</h2>
+    <div class="stars">${[1, 2, 3].map(i => `<span class="${i <= st ? "" : "off"}">⭐</span>`).join("")}</div>
+    <p class="bigcoins">👣 ${TX`${G.moves} Züge`}</p>
+    <p>${record ? tx("Das ist dein bester Versuch diese Woche.") : TX`Dein Rekord bleibt bei ${f.best} Zügen.`} · +${coins} 🪙</p>
+    <button class="btn" id="fwShare">📤 ${tx("Ergebnis in der Familie teilen")}</button>
+    <button class="btn alt" id="fwAgain">${tx("Nochmal versuchen")}</button>
+    <button class="btn alt" id="wHome">${tx("Zum Laden")}</button>
+  </div>`);
+  o.querySelector("#fwShare").onclick = () => shareText(familyText(f), tx("Text kopiert – füge ihn jetzt in WhatsApp oder eine Mail ein."));
+  o.querySelector("#fwAgain").onclick = () => { closeOverlay(); preLevel(f.no, false, "family"); };
+  o.querySelector("#wHome").onclick = () => { closeOverlay(); renderHome(); };
+  achCheck();
+}
+Object.assign(EN, {
+  "Familien-Rätsel": "Family puzzle", "Woche": "Week", "Diese Woche spielen alle dasselbe Rätsel. Wer braucht die wenigsten Züge?": "This week everyone plays the same puzzle. Who needs the fewest moves?",
+  "dein Rekord": "your record", "Versuche": "tries", "Tage übrig": "days left", "Rekord verbessern": "Beat your record", "Rekord teilen": "Share record",
+  "Keine Zeitnot, keine Herzen – nur Köpfchen. Du kannst so oft spielen, wie du willst. Beim ersten Lösen gibt es Münzen.": "No time pressure, no hearts – just brains. Play as often as you like. You get coins the first time you solve it.",
+  "Neuer Rekord!": "New record!", "Rätsel gelöst!": "Puzzle solved!", "Das ist dein bester Versuch diese Woche.": "That's your best try this week.",
+  "Dein Rekord bleibt bei {} Zügen.": "Your record stays at {} moves.", "Ergebnis in der Familie teilen": "Share with the family", "Nochmal versuchen": "Try again",
+  "Schafft ihr weniger? 😉": "Can you do it in fewer? 😉", "{} Züge": "{} moves",
+  "Familien-Rätsel: Alle spielen dasselbe. Wenig Züge sind gut – Zeit hast du genug.": "Family puzzle: everyone plays the same one. Fewer moves is better – there's no time limit."
+});
+
+/* ================= Sternejagd ================= */
+const HUNT_COINS = 30;
+const huntList = () => range(Math.min(save.level - 1, MAX_LEVEL)).map(i => i + 1).filter(n => save.best[n] && save.best[n] < 3);
+function openStarHunt() {
+  const L2 = huntList();
+  const o = overlay(`<div class="card">
+    <div style="font-size:40px">⭐</div>
+    <h2>${tx("Sternejagd")}</h2>
+    <p>${L2.length ? TX`In ${L2.length} Leveln fehlen dir noch Sterne. Für jedes Level, das du auf 3 Sterne bringst, gibt es +${HUNT_COINS} 🪙 – und die neuen Sterne kannst du einrichten.` : tx("Du hast überall 3 Sterne. Großartig!")}</p>
+    <div class="huntlist">${L2.slice(0, 40).map(n => `<button class="hunt" data-hunt="${n}"><b>Level ${n}</b><span>${[1, 2, 3].map(i => `<i class="${i <= save.best[n] ? "" : "off"}">⭐</i>`).join("")}</span><em>▶</em></button>`).join("")}</div>
+    <button class="btn alt" id="huClose">${tx("Schließen")}</button>
+  </div>`);
+  o.querySelectorAll("[data-hunt]").forEach(b => b.onclick = () => { closeOverlay(); preLevel(+b.dataset.hunt); });
+  o.querySelector("#huClose").onclick = closeOverlay;
+}
+Object.assign(EN, {
+  "Sternejagd": "Star hunt", "Du hast überall 3 Sterne. Großartig!": "You have 3 stars everywhere. Brilliant!",
+  "In {} Leveln fehlen dir noch Sterne. Für jedes Level, das du auf 3 Sterne bringst, gibt es +{} 🪙 – und die neuen Sterne kannst du einrichten.": "You're still missing stars in {} levels. For every level you bring up to 3 stars you get +{} 🪙 – and you can spend the new stars on furnishing.",
+  "Sternejagd: jetzt mit 3 Sternen! +{} 🪙": "Star hunt: now with 3 stars! +{} 🪙"
+});
+
+/* ================= 7-Tage-Kalender: Geschenk am 7. Tag ================= */
+// Besondere Deko, die es nur im Kalender gibt (der Reihe nach, eine pro voller Woche)
+const CAL_DECOS = [
+  { id: "x-teddy", room: "laden", e: "🧸", n: "Teddy Bruno", p: [92, 292, 30] },
+  { id: "x-bird", room: "terrasse", e: "🐦", n: "Spatz auf dem Zaun", p: [318, 144, 22] },
+  { id: "x-basket", room: "backstube", e: "🧺", n: "Brotkorb", p: [74, 292, 30] },
+  { id: "x-hedgehog", room: "garten", e: "🦔", n: "Igel Stups", p: [318, 284, 28] },
+  { id: "x-kite", room: "dachboden", e: "🪁", n: "Alter Drachen", p: [82, 86, 34, "f"] },
+  { id: "x-yarn", room: "wintergarten", e: "🧶", n: "Wollknäuel", p: [262, 294, 22] },
+  { id: "x-bowl", room: "paris", e: "🥣", n: "Napf für Fifi", p: [326, 296, 18] }
+];
+const calNext = () => CAL_DECOS.find(d => !(save.calDecos || []).includes(d.id));
+function openDaily() {
+  const day = nextDay(), gift = calNext();
+  const doors = DAILY.map((c, i) => {
+    const d = i + 1, done = d < day, today = d === day;
+    return `<div class="door ${done ? "open" : ""} ${today ? "today" : ""} ${d === 7 ? "big" : ""}" ${today ? `id="dDoor"` : ""}>
+      <span class="dnum">${d}</span>
+      <span class="dback">${done ? "✓" : d === 7 ? `${gift ? gift.e : "⭐"}<small>${gift ? tx("Geschenk") : "+2 ⭐"}</small>` : `🪙<small>${c}</small>`}</span></div>`;
+  }).join("");
+  const o = overlay(`<div class="card cal">
+    <h2>${tx("Dein Wochenkalender")}</h2>
+    <p>${TX`Jeden Tag ein Türchen. Hinter dem 7. wartet ${gift ? `${gift.e} ${tx(gift.n)}` : tx("eine Überraschung")}!`}</p>
+    <div class="doors">${doors}</div>
+    <button class="btn berry" id="dDouble">${TX`${DAILY[day - 1] * 2} 🪙 abholen`} <span class="ad-tag">▶ ${tx("Werbung")}</span></button>
+    <button class="btn alt" id="dTake">${TX`${DAILY[day - 1]} 🪙 abholen`}</button>
+  </div>`);
+  const door = o.querySelector("#dDoor");
+  const claim = mult => {
+    save.coins += DAILY[day - 1] * mult;
+    let giftNow = null;
+    if (day === 7) { if (gift) { save.calDecos = (save.calDecos || []).concat(gift.id); save.bonus = (save.bonus || 0) + 1; giftNow = gift; } else save.bonus = (save.bonus || 0) + 2; }
+    save.daily = { last: dayKey(), streak: day };
+    persist(); sfx("buy"); buzz(20);
+    renderHome();
+    if (giftNow) return setTimeout(() => calGift(giftNow), 300);
+    toast(TX`+${DAILY[day - 1] * mult} 🪙${day === 7 ? tx(" und 2 ⭐") : ""}. Bis morgen!`);
+  };
+  const openDoor = fn => { if (door) { door.classList.add("open", "opening"); sfx("reveal"); } setTimeout(() => { closeOverlay(); fn(); }, door ? 650 : 0); };
+  o.querySelector("#dTake").onclick = () => openDoor(() => claim(1));
+  o.querySelector("#dDouble").onclick = () => openDoor(() => showAd("reward", () => claim(2)));
+  if (door) door.onclick = () => openDoor(() => claim(1));
+}
+function calGift(d) {
+  const room = ROOMS.find(r => r.id === d.room);
+  const o = overlay(`<div class="card">
+    <div style="font-size:56px">${d.e}</div>
+    <h2>${tx("Geschenk zum 7. Tag!")}</h2>
+    <p>${TX`${tx(d.n)} hat jetzt einen Platz: ${tx(room.n)}.`} ${tx("Dazu gibt es +1 ⭐.")}</p>
+    ${roomUnlocked(room) ? `<button class="btn" id="cgLook">${tx("Ansehen")}</button>` : `<p class="fbnote">${TX`Du siehst es, sobald ${tx(room.n)} freigeschaltet ist.`}</p>`}
+    <button class="btn alt" id="cgOk">${tx("Schließen")}</button>
+  </div>`);
+  sfx("win");
+  const lk = o.querySelector("#cgLook"); if (lk) lk.onclick = () => { closeOverlay(); shopRoom = room.id; renderShop(); };
+  o.querySelector("#cgOk").onclick = closeOverlay;
+}
+Object.assign(EN, {
+  "Dein Wochenkalender": "Your weekly calendar", "Geschenk": "Gift", "eine Überraschung": "a surprise",
+  "Jeden Tag ein Türchen. Hinter dem 7. wartet {}!": "A little door every day. Behind number 7 there's {}!",
+  " und 2 ⭐": " and 2 ⭐", "Geschenk zum 7. Tag!": "A gift for day 7!", "{} hat jetzt einen Platz: {}.": "{} now has a home: {}.", "Dazu gibt es +1 ⭐.": "Plus +1 ⭐.",
+  "Ansehen": "Take a look", "Du siehst es, sobald {} freigeschaltet ist.": "You'll see it as soon as {} is unlocked.",
+  "Teddy Bruno": "Bruno the teddy", "Spatz auf dem Zaun": "Sparrow on the fence", "Brotkorb": "Bread basket", "Igel Stups": "Spike the hedgehog",
+  "Alter Drachen": "Old kite", "Wollknäuel": "Ball of wool", "Napf für Fifi": "Bowl for Fifi"
+});
+
+/* ================= Musik je Raum ================= */
+const ROOM_THEMES = { laden: "main", terrasse: "terrace", backstube: "bakery", dachboden: "attic", garten: "garden", wintergarten: "conserv", paris: "paris" };
+Object.assign(THEMES, {
+  // Akkordeon-Walzer (Musette) für Paris
+  paris: { bpm: 150, waltz: true, wave: "square", musette: true,
+    chords: [[45, 57, 60, 64], [45, 57, 60, 64], [40, 56, 59, 62], [40, 56, 59, 62], [38, 57, 62, 65], [45, 57, 60, 64], [40, 56, 59, 62], [45, 57, 60, 64]],
+    melody: [76, 75, 76, 72, null, 69, 71, 72, 74, 76, null, 71, 74, 72, 74, 76, 72, 69, 71, 68, 71, 69, null, null] },
+  // Spieluhr auf dem Dachboden
+  attic: { bpm: 62, wave: "sine", bells: true,
+    chords: [[48, 60, 64, 67], [45, 57, 60, 64], [41, 57, 60, 65], [43, 55, 59, 62]],
+    melody: [79, 76, 72, 76, 81, 79, 76, null, 77, 76, 74, 72, 74, null, null, null] },
+  // Flötenmelodie im Garten
+  garden: { bpm: 96, wave: "sine",
+    chords: [[43, 55, 59, 62], [48, 55, 60, 64], [50, 57, 62, 66], [43, 55, 59, 62], [40, 55, 59, 64], [48, 55, 60, 64], [50, 57, 62, 66], [43, 55, 59, 62]],
+    melody: [74, 76, 78, 79, 79, null, 76, 74, 74, null, 72, 74, 71, null, null, null, 71, 72, 74, 76, 76, null, 74, 72, 72, 74, 76, 78, 79, null, null, null] },
+  terrace: { bpm: 100, wave: "triangle",
+    chords: [[41, 53, 57, 60], [46, 53, 58, 62], [48, 55, 60, 64], [41, 53, 57, 60]],
+    melody: [72, 74, 77, null, 77, 79, 77, 74, 72, null, 69, 72, 72, null, null, null] },
+  bakery: { bpm: 72, wave: "triangle",
+    chords: [[50, 57, 62, 66], [47, 54, 59, 62], [43, 55, 59, 62], [45, 57, 61, 64]],
+    melody: [74, null, 78, 76, 74, null, 71, null, 71, 74, 79, 78, 76, null, null, null] },
+  conserv: { bpm: 58, wave: "sine",
+    chords: [[48, 60, 64, 71], [41, 57, 60, 64], [45, 57, 60, 64], [43, 55, 59, 62]],
+    melody: [76, null, null, 79, 77, null, 72, null, 72, null, 76, 74, 74, null, null, null] }
+});
+
 /* ================= Feier, wenn ein Raum fertig ist ================= */
 const ROOM_DONE = { coins: 150, stars: 1 };
 const ROOM_DONE_LETTERS = {
@@ -5947,7 +6241,7 @@ function renderHome() {
   }
   for (let n = 1; n <= maxN; n++) {
     const p = boardPos(n, H), st = save.best[n] || 0, boss = n % 10 === 0, ms = MILESTONES[n];
-    const cls = n < cur || st ? "done" : n === cur ? "cur" : "locked";
+    const cls = (n < cur || st ? "done" : n === cur ? "cur" : "locked") + (st && st < 3 ? " miss" : "");
     cells += `<button class="bcell ${cls} ${boss ? "boss" : ""}" data-lv="${n}" style="left:${p.x}%;top:${p.y}px" aria-label="Level ${n}">
       <span class="bn">${boss ? (cls === "locked" ? "🔒" : "🏅") : n}</span>${st ? `<span class="bst">${[1, 2, 3].map(i => `<i class="${i <= st ? "" : "off"}">⭐</i>`).join("")}</span>` : ""}
       ${ms && cls !== "done" ? `<span class="bms" title="${tx(ms[1])}">${ms[0]}</span>` : ""}
@@ -5963,6 +6257,7 @@ function renderHome() {
       <span class="pill">⭐ ${freeStars()}</span><span class="pill" id="hCoins">🪙 ${save.coins}</span><span class="hsp"></span>
       ${save.bonusReady ? homeIcon("hBonus", "⚡", tx("Bonusrunde bereit!"), "!", "bonus") : ""}
       ${puzzleUnlocked() ? homeIcon("hPuzzle", "🧩", tx("Tagesrätsel"), puzzleSolved() ? "" : "1") : ""}
+      ${familyOpen() ? homeIcon("hFam", "🏆", tx("Familien-Rätsel"), famSave().tries ? "" : "1") : ""}
       ${e ? homeIcon("hEvent", e.icon, tx(e.n), "") : ""}
       ${save.level >= WEEK_FROM ? homeIcon("hWeek", "📅", tx("Wochenziele"), wk) : ""}
     </div>
@@ -5982,7 +6277,7 @@ function renderHome() {
     <nav class="hnav">
       <button class="on" id="nMap">🗺️<span>${tx("Karte")}</span></button>
       <button id="hShop">🛋️<span>${tx("Einrichten")}</span>${affordable ? `<b class="badge">${affordable}</b>` : ""}</button>
-      <button id="hAlbum">📖<span>${tx("Album")}</span>${recipeNew() ? `<i class="ndot"></i>` : ""}</button>
+      <button id="hAlbum">📖<span>${tx("Album")}</span>${recipeNew() || cardNew() ? `<i class="ndot"></i>` : ""}</button>
       <button id="hStore">🎁<span>Shop</span>${offerLeft() ? `<b class="badge">1</b>` : ""}</button>
       <button id="hMore">⚙️<span>${tx("Mehr")}</span>${achClaimable() ? `<b class="badge">${achClaimable()}</b>` : ""}</button>
     </nav>
@@ -6021,6 +6316,7 @@ function renderHome() {
   };
   const hb = $("#hBonus"); if (hb) hb.onclick = startBonus;
   const hw = $("#hWeek"); if (hw) hw.onclick = openWeek;
+  const hf = $("#hFam"); if (hf) hf.onclick = openFamily;
   if (!save.introSeen) { setTimeout(() => { if (!$("#ov")) showIntro(() => { if (dailyDue()) openDaily(); }); }, 300); return; }
   if (save.feedbackPending) { save.feedbackPending = false; save.feedbackAsked = true; persist(); setTimeout(() => { if (!$("#ov")) openFeedback(true); }, 450); return; }
   if (newChapterNews()) return;
@@ -6041,28 +6337,6 @@ const dayKey = (d = new Date()) => `${d.getFullYear()}-${d.getMonth() + 1}-${d.g
 const yesterday = () => { const y = new Date(); y.setDate(y.getDate() - 1); return y; };
 const dailyDue = () => save.daily.last !== dayKey();
 const nextDay = () => save.daily.last === dayKey(yesterday()) ? (save.daily.streak % 7) + 1 : 1;
-function openDaily() {
-  const day = nextDay();
-  const tiles = DAILY.map((c, i) => `<div class="day ${i + 1 < day ? "done" : ""} ${i + 1 === day ? "today" : ""} ${i === 6 ? "big" : ""}">
-    <b>${TX`Tag ${i + 1}`}</b>${i + 1 < day ? "✓" : `🪙 ${c}${i === 6 ? " + 1 ⭐" : ""}`}</div>`).join("");
-  const o = overlay(`<div class="card">
-    <h2>${tx("Tagesbonus")}</h2>
-    <p>${tx("Komm jeden Tag wieder. Am 7. Tag gibt es einen Extra-Stern.")}</p>
-    <div class="days">${tiles}</div>
-    <button class="btn berry" id="dDouble">${TX`${DAILY[day - 1] * 2} 🪙 abholen`} <span class="ad-tag">▶ ${tx("Werbung")}</span></button>
-    <button class="btn alt" id="dTake">${TX`${DAILY[day - 1]} 🪙 abholen`}</button>
-  </div>`);
-  const claim = mult => {
-    save.coins += DAILY[day - 1] * mult;
-    if (day === 7) save.bonus = (save.bonus || 0) + 1;
-    save.daily = { last: dayKey(), streak: day };
-    persist(); sfx("buy"); buzz(20);
-    renderHome();
-    toast(TX`+${DAILY[day - 1] * mult} 🪙${day === 7 ? tx(" und 1 ⭐") : ""}. Bis morgen!`);
-  };
-  o.querySelector("#dTake").onclick = () => { closeOverlay(); claim(1); };
-  o.querySelector("#dDouble").onclick = () => { closeOverlay(); showAd("reward", () => claim(2)); };
-}
 
 function openSettings() {
   const o = overlay(`<div class="card">
@@ -6087,7 +6361,7 @@ function openSettings() {
     <button class="btn alt" id="tSeason">${tx("Jahreszeit:")} ${save.seasonOverride ? tx(SEASON_NAMES[save.seasonOverride]) : TX`automatisch (${tx(SEASON_NAMES[seasonNow()])})`}</button>
     <button class="btn alt" id="tReset">${tx("Fortschritt löschen")}</button>
     <button class="btn" id="tClose">${tx("Fertig")}</button>
-    <p style="font-size:12px">${tx("Prototyp 2.0 · Werbung und Käufe sind nur simuliert")}<br>${tx("Grafiken: Fluent Emoji von Microsoft (MIT-Lizenz)")}</p>
+    <p style="font-size:12px">${tx("Prototyp 2.1 · Werbung und Käufe sind nur simuliert")}<br>${tx("Grafiken: Fluent Emoji von Microsoft (MIT-Lizenz)")}</p>
   </div>`);
   o.querySelectorAll("[data-lang]").forEach(b => b.onclick = () => { if (b.dataset.lang === LANG) return; setLang(b.dataset.lang); closeOverlay(); renderHome(); openSettings(); });
   o.querySelector("#tMusic").onclick = e => { save.music = !save.music; persist(); e.currentTarget.setAttribute("aria-checked", save.music); save.music ? musicStart() : musicStop(); };
