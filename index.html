@@ -1053,6 +1053,36 @@ const MEMORIES = {
   "c-lemon": "Aus diesen Zitronen habe ich Limonade für die ganze Straße gemacht. Sauer macht lustig!",
   "c-hang": "Die Ranken wachsen jedes Jahr ein Stück weiter. Irgendwann erobern sie das ganze Dach.",
   "c-bird": "Pieps singt jeden Morgen um sieben. Wecker brauchte ich nie.",
+  "n-clean": "In dieser Stube habe ich jeden Winterabend genäht. Unter den Kisten liegt noch mein Lieblingsteppich.",
+  "n-table": "Die Nähmaschine war mein Hochzeitsgeschenk. Opa hat meinen Namen in Gold daraufgemalt.",
+  "n-fabric": "Jeder Stoff hat eine Geschichte: Der gelbe war ein Sommerkleid, der blaue ein Faschingskostüm für deine Mutter.",
+  "n-form": "Das blaue Kleid habe ich zum Tanztee im Kurhaus getragen. Opa hat mich den ganzen Abend nicht losgelassen.",
+  "n-chair": "Hundert Flicken, hundert Erinnerungen. In jedem Viereck steckt ein altes Lieblingsstück.",
+  "n-lamp": "Für feine Stiche braucht man gutes Licht – und eine Tasse Tee daneben.",
+  "n-jars": "Knöpfe sortieren hat mich immer beruhigt. Deine Mutter hat es als Kind geliebt.",
+  "n-hats": "Ein Hut für jeden Anlass: einer für die Kirche, einer für den Markt und einer für Opas Geburtstag.",
+  "n-yarn": "Ich habe jedem in der Familie einen Schal gestrickt. Deiner war rot – weißt du das noch?",
+  "n-hamster": "Knopf hat einmal eine ganze Garnrolle in seinem Häuschen versteckt. Ich habe sie erst nach Wochen gefunden.",
+  "s-clean": "Der Strand war früher so sauber, dass wir barfuß bis zum Leuchtturm gelaufen sind.",
+  "s-deck": "Auf diesen Planken hat Opa mir das Tanzen beigebracht. Ohne Musik, nur mit dem Rauschen der Wellen.",
+  "s-kiosk": "Im Kiosk gab es die beste Limonade der Küste. Das Rezept war geheim – ich habe es trotzdem herausgefunden.",
+  "s-chairs": "Opa ist im Liegestuhl immer nach fünf Minuten eingeschlafen. Ich habe ihm dann einen Hut aufs Gesicht gelegt.",
+  "s-umbrella": "Rot-weiß gestreift, damit wir unseren Platz von weitem wiederfinden.",
+  "s-ice": "Erdbeer und Vanille – jeden Tag dasselbe. Opa hat nie etwas anderes probiert.",
+  "s-lights": "Abends haben die Lichter am Strand geleuchtet wie Glühwürmchen.",
+  "s-boat": "Mit dem Ruderboot sind wir einmal bis zur Sandbank gefahren. Zurück mussten wir schieben.",
+  "s-castle": "Deine Mutter hat hier ihre erste Sandburg gebaut. Mit einem Tor aus Muscheln.",
+  "s-crab": "Kalle wohnte unter dem Steg. Er hat jeden Sommer auf uns gewartet. Glaube ich jedenfalls.",
+  "m-clean": "1965 habe ich in diesem winzigen Zimmer gewohnt. Morgens roch es nach frischem Brot von unten.",
+  "m-window": "Aus diesem Fenster habe ich jeden Abend den Eiffelturm angeschaut. Er hat mir nie gute Nacht gesagt, aber ich ihm.",
+  "m-table": "Henri hat mir jeden Morgen ein Croissant hochgebracht. Er behauptete, es sei übrig geblieben.",
+  "m-sofa": "Ein rotes Sofa vom Flohmarkt – ich hatte genau so eins. Das Leben ist ein Kreis.",
+  "m-easel": "Camille malt die Dächer von Paris. Ich habe nur Kuchen verziert – mit Zuckerguss.",
+  "m-books": "Hier habe ich Französisch gelernt, mit einem Kochbuch und viel Geduld.",
+  "m-plants": "Auf der Fensterbank wuchs Basilikum. Henri hat es heimlich für seine Brote stibitzt.",
+  "m-lights": "Lichterketten an den Balken – so wird jede kleine Kammer ein Zuhause.",
+  "m-records": "Abends lief Édith Piaf. Die Nachbarn haben mitgesungen, durch die Wand.",
+  "m-cat": "Minou ist Fifis beste Freundin. Die beiden treffen sich jeden Morgen vor der Bäckerei.",
   "p-clean": "Als ich 1965 nach Paris kam, war diese Ladenfront frisch gestrichen – in genau diesem Grün. Henri sagte: „Grün wie die Hoffnung, Hilde.“",
   "p-sign": "Henri hat die Buchstaben selbst vergoldet. Beim „H“ hat er so lange gepinselt, bis ich lachen musste.",
   "p-awning": "Unter der Markise haben wir an Regentagen gestanden und den Leuten zugeschaut, die mit Zeitungen über dem Kopf vorbeirannten.",
@@ -1075,7 +1105,10 @@ const ROOM_LETTERS = {
   dachboden: "Unterm Dach liegen meine größten Schätze. Sei behutsam mit ihnen.",
   garten: "Zum Schluss mein Lieblingsort: der Rosengarten. Hier habe ich Opa kennengelernt.",
   wintergarten: "Eine Überraschung habe ich noch: meinen Wintergarten! Hier habe ich im Winter die Sonne gesucht – und meistens gefunden.",
-  paris: "Ein ganz besonderer Ort wartet auf dich: Henris Bäckerei in Paris. Ein Jahr lang habe ich dort gearbeitet. Hilf Camille, sie wieder zum Duften zu bringen!"
+  paris: "Ein ganz besonderer Ort wartet auf dich: Henris Bäckerei in Paris. Ein Jahr lang habe ich dort gearbeitet. Hilf Camille, sie wieder zum Duften zu bringen!",
+  naeh: "Hinter der Treppe ist eine kleine Tür. Dahinter liegt meine Nähstube. Hier habe ich Kleider für die ganze Familie genäht.",
+  strand: "Jeden Sommer sind Opa und ich ans Meer gefahren. Dort gibt es ein kleines Strandcafé, das seit Jahren leer steht. Erweck es wieder zum Leben!",
+  mansarde: "Über Henris Bäckerei gibt es eine kleine Dachwohnung. 1965 habe ich dort gewohnt – jetzt wohnt Camille dort. Hilf ihr, es gemütlich zu machen!"
 };
 
 /* ================= Sammelalbum ================= */
@@ -1140,6 +1173,9 @@ const PETS = {
            { id: "g-bunny", x: 150, y: 264, w: 40, name: "Hoppel", msgs: ["Hoppel hoppelt", "Hoppel wackelt mit den Ohren"] }],
   wintergarten: [{ id: "c-bird", x: 300, y: 104, w: 28, name: "Pieps", msgs: ["Pieps trällert ein Lied", "Tschiep!", "Pieps putzt sich die Federn"] }],
   paris: [{ id: "p-dog", x: 292, y: 276, w: 36, name: "Fifi", msgs: ["Fifi wedelt mit dem Schwanz", "Wuff!", "Fifi hätte gern ein Croissant"] }],
+  naeh: [{ id: "n-hamster", x: 196, y: 280, w: 30, name: "Knopf", msgs: ["Knopf putzt sich", "Knopf stopft sich die Backen voll", "Fiep!"] }],
+  strand: [{ id: "s-crab", x: 372, y: 282, w: 30, name: "Kalle", msgs: ["Kalle läuft seitwärts", "Klack, klack!", "Kalle winkt mit der Schere"] }],
+  mansarde: [{ id: "m-cat", x: 244, y: 158, w: 34, name: "Minou", msgs: ["Minou schnurrt", "Miau!", "Minou schaut zum Eiffelturm"] }],
   fruehling: [{ id: "s-lamb", x: 336, y: 254, w: 44, name: "Flocke", msgs: ["Määäh!", "Flocke hüpft vor Freude", "Flocke knabbert am Gras"] }],
   herbst: [{ id: "h-hedgehog", x: 228, y: 282, w: 36, name: "Stachel", msgs: ["Stachel schnüffelt im Laub", "Stachel rollt sich ein", "Grunz!"] }],
   winter: [{ id: "w-snowman", x: 348, y: 228, w: 48, name: "Schneemann", msgs: ["Der Schneemann winkt", "Brrr, ist das kalt!"] }]
@@ -1147,7 +1183,7 @@ const PETS = {
 const PET_COINS = 10;
 
 /* ================= Tages- und Jahreszeit ================= */
-const OUTDOOR = { terrasse: true, garten: true, paris: true };
+const OUTDOOR = { terrasse: true, garten: true, paris: true, strand: true };
 const TOD_NAMES = { morgen: "Morgen", tag: "Tag", abend: "Abend", nacht: "Nacht" };
 const SEASON_NAMES = { fruehling: "Frühling", sommer: "Sommer", herbst: "Herbst", winter: "Winter" };
 const GREET = { morgen: "Guten Morgen!", tag: "Schön, dass du da bist!", abend: "Guten Abend!", nacht: "Noch wach?" };
@@ -1169,6 +1205,9 @@ const LIGHTS = {
   dachboden: o => [[200, 76, 110, o("d-clean")], [200, 150, 46, true]],
   garten: o => [[51, 127, 22, o("g-house")], [88, 127, 22, o("g-house")]],
   wintergarten: o => [[214, 238, 46, o("c-table")], [300, 100, 34, o("c-bird")], [146, 214, 60, o("c-wicker")]],
+  naeh: o => [[112, 128, 60, o("n-lamp")], [200, 90, 60, o("n-clean")]],
+  strand: o => [[320, 172, 60, o("s-kiosk")], [130, 92, 70, o("s-lights")], [361, 64, 20, true]],
+  mansarde: o => [[200, 96, 90, o("m-lights")], [200, 244, 30, o("m-table")], [150, 270, 26, o("m-records")]],
   paris: o => [[82, 198, 70, o("p-clean")], [318, 198, 70, o("p-clean")], [200, 190, 40, o("p-clean")], [148, 194, 26, o("p-lamp")], [252, 194, 26, o("p-lamp")]]
 };
 function ambienceSVG(id, o) {
@@ -2431,6 +2470,204 @@ paris: {
     { id: "p-dog", n: "Pudel Fifi", d: "Wartet auf Croissant-Enden", c: 6, e: "🐩", p: [[292, 292, 36, "b"]] }
   ]
 },
+/* ======================= OMAS NÄHSTUBE ======================= */
+naeh: {
+  dirt: [["🕸️", 2, 2, 34], ["🕸️", 360, 2, 32], ["📦", 30, 250, 40], ["📦", 330, 256, 36], ["📦", 70, 262, 30]],
+  svg: o => {
+    const clean = o("n-clean"), night = todNow() === "nacht";
+    const wall = clean ? "#f6e3df" : "#c9bcb3";
+    return `
+  <defs>${FXDEFS}
+    <linearGradient id="nsFloor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b9824f"/><stop offset="1" stop-color="#d9a26a"/></linearGradient>
+    <linearGradient id="nsSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${night ? "#22305a" : "#a9d4ee"}"/><stop offset="1" stop-color="${night ? "#3a4a7a" : "#e9f5f0"}"/></linearGradient>
+    <linearGradient id="nsWood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c99a64"/><stop offset="1" stop-color="#a87440"/></linearGradient>
+    <radialGradient id="nsLamp" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffe7a8" stop-opacity=".8"/><stop offset="1" stop-color="#ffe7a8" stop-opacity="0"/></radialGradient>
+  </defs>
+  <!-- Tapete mit kleinen Blüten -->
+  <rect width="400" height="232" fill="${wall}"/>
+  ${R(60).map(i => `<circle cx="${(i % 12) * 34 + (Math.floor(i / 12) % 2) * 17 + 8}" cy="${Math.floor(i / 12) * 34 + 18}" r="2.6" fill="${clean ? "#e8a9b6" : "#a89a92"}" opacity=".7"/>`).join("")}
+  <!-- Fenster mit Blick in den Garten -->
+  <rect x="24" y="28" width="96" height="120" rx="4" fill="url(#nsSky)"/>
+  <path d="M24 120 Q50 104 72 116 Q96 102 120 114 V148 H24 Z" fill="#8fbf7a"/><circle cx="96" cy="58" r="${night ? 7 : 10}" fill="${night ? "#fff6d0" : "#fff3b0"}"/>
+  ${clean ? "" : `<rect x="24" y="28" width="96" height="120" fill="#8a7a6a" opacity=".45"/>`}
+  <rect x="20" y="24" width="104" height="128" rx="5" fill="none" stroke="#fbf7f2" stroke-width="7"/><line x1="72" y1="28" x2="72" y2="148" stroke="#fbf7f2" stroke-width="4"/><line x1="24" y1="88" x2="120" y2="88" stroke="#fbf7f2" stroke-width="4"/>
+  <rect x="14" y="150" width="116" height="7" rx="2" fill="#fbf7f2"/>
+  ${clean ? `<path d="M14 20 H62 Q50 80 44 150 L14 150 Z" fill="#f2a6b8"/><path d="M130 20 H82 Q94 80 100 150 L130 150 Z" fill="#f2a6b8"/>
+    ${R(8).map(i => `<rect x="${16 + (i % 2) * 22}" y="${26 + i * 16}" width="10" height="10" fill="#fff" opacity=".35"/><rect x="${106 - (i % 2) * 20}" y="${26 + i * 16}" width="10" height="10" fill="#fff" opacity=".35"/>`).join("")}
+    <rect x="8" y="16" width="128" height="6" rx="3" fill="#a87440"/>` : ""}
+  <!-- Holzvertäfelung -->
+  <rect y="176" width="400" height="56" fill="${clean ? "#e9d2b4" : "#b3a28c"}"/>${R(10).map(i => `<rect x="${6 + i * 40}" y="184" width="32" height="40" rx="2" fill="none" stroke="${clean ? "#d3b48e" : "#9a8a74"}" stroke-width="1.5"/>`).join("")}
+  <rect y="172" width="400" height="6" fill="${clean ? "#d3b48e" : "#9a8a74"}"/>
+  <!-- Stoffregal -->
+  ${o("n-fabric") ? `<rect x="292" y="18" width="98" height="152" rx="3" fill="url(#nsWood)"/><rect x="298" y="24" width="86" height="140" fill="#8a5a2e" opacity=".5"/>
+    ${[66, 114, 160].map(y => `<rect x="292" y="${y}" width="98" height="6" fill="#b98a54"/>`).join("")}
+    ${[["#e8798f", "#f6c1cc"], ["#7fb2e0", "#cfe3f6"], ["#8fbf8a", "#d6ecd0"], ["#e2b04a", "#f6dfa6"], ["#b48ad8", "#e3d2f2"], ["#e8798f", "#fff"], ["#3d8a65", "#a9d6bd"], ["#d97b4f", "#f4c3a6"], ["#7fb2e0", "#fff"]].map(([a, b], i) => {
+      const x = 300 + (i % 3) * 28, y = [40, 88, 134][Math.floor(i / 3)];
+      return `<rect x="${x}" y="${y}" width="24" height="26" rx="5" fill="${a}"/>${R(3).map(k => `<rect x="${x + 2}" y="${y + 5 + k * 7}" width="20" height="2.5" fill="${b}" opacity=".8"/>`).join("")}<ellipse cx="${x + 12}" cy="${y + 13}" rx="3" ry="11" fill="#000" opacity=".08"/>`; }).join("")}` : ""}
+  <!-- Wandbord mit Knopfgläsern -->
+  ${o("n-jars") ? `<rect x="146" y="112" width="120" height="6" rx="2" fill="#a87440"/><path d="M156 118 l6 10 M256 118 l-6 10" stroke="#8a5a2e" stroke-width="3"/>` : ""}
+  <!-- Hutständer an der Wand -->
+  ${o("n-hats") ? `${[160, 206, 252].map(x => `<circle cx="${x}" cy="52" r="3" fill="#a87440"/>`).join("")}` : ""}
+  <!-- Boden -->
+  <rect y="232" width="400" height="68" fill="url(#nsFloor)"/>${floorLines(232, 200, 120, "#9a6a3e", 32)}
+  <rect y="232" width="400" height="6" fill="#000" opacity=".12" filter="url(#softF)"/>
+  ${clean ? `<ellipse cx="200" cy="276" rx="130" ry="20" fill="#d9506f" opacity=".85"/><ellipse cx="200" cy="276" rx="112" ry="15" fill="none" stroke="#f6c1cc" stroke-width="3"/><ellipse cx="200" cy="276" rx="90" ry="11" fill="none" stroke="#f6c1cc" stroke-width="2"/>` : ""}
+  <!-- Stehlampe -->
+  ${o("n-lamp") ? `${night ? `<circle cx="112" cy="128" r="60" fill="url(#nsLamp)"/>` : ""}${shd(112, 286, 16, 3, .3)}<line x1="112" y1="140" x2="112" y2="284" stroke="#3a2a1a" stroke-width="3"/><ellipse cx="112" cy="286" rx="14" ry="3" fill="#3a2a1a"/>
+    <path d="M96 140 L102 112 H122 L128 140 Z" fill="#f6dfa6" stroke="#c99a3c" stroke-width="1.5"/>` : ""}
+  <!-- Ohrensessel mit Patchworkdecke -->
+  ${o("n-chair") ? `${shd(62, 290, 40, 5, .35)}
+    <path d="M28 206 Q28 176 62 176 Q96 176 96 206 V262 H28 Z" fill="#6a8fbf"/>
+    ${R(12).map(i => `<rect x="${30 + (i % 4) * 16}" y="${178 + Math.floor(i / 4) * 16}" width="16" height="16" fill="${["#e8798f", "#f6dfa6", "#8fbf8a", "#b48ad8"][(i + Math.floor(i / 4)) % 4]}" opacity=".9"/>`).join("")}
+    ${seat(0)}
+    <rect x="22" y="226" width="80" height="22" rx="8" fill="#4f74a8"/><rect x="18" y="214" width="16" height="44" rx="7" fill="#5b82b8"/><rect x="90" y="214" width="16" height="44" rx="7" fill="#5b82b8"/>
+    <path d="M30 258 v26 M94 258 v26" stroke="#5a3a1a" stroke-width="4" stroke-linecap="round"/>` : ""}
+  <!-- Nähtisch mit Nähmaschine -->
+  ${o("n-table") ? `${shd(206, 290, 80, 6, .35)}
+    <rect x="132" y="206" width="148" height="10" rx="2" fill="url(#nsWood)"/><rect x="140" y="216" width="132" height="24" fill="#a87440"/><rect x="200" y="222" width="20" height="6" rx="2" fill="#e2b04a"/>
+    <path d="M144 240 v46 M268 240 v46" stroke="#8a5a2e" stroke-width="6"/><path d="M150 268 h112" stroke="#8a5a2e" stroke-width="3"/>
+    <path d="M160 206 V176 Q160 168 168 168 H226 Q234 168 234 176 V186 H178 V206 Z" fill="#1e1e22"/><rect x="226" y="186" width="10" height="20" fill="#1e1e22"/>
+    <path d="M168 176 H224" stroke="#e2b04a" stroke-width="1.5"/><text x="194" y="182" text-anchor="middle" font-family="Caveat, cursive" font-size="9" fill="#e2b04a">Hilde</text>
+    <circle cx="176" cy="196" r="6" fill="#3a3a3e" stroke="#e2b04a" stroke-width="1"/><rect x="152" y="202" width="90" height="5" rx="2" fill="#2a2a2e"/>` : ""}
+  ${PAPER}`;
+  },
+  fixed: [],
+  ups: [
+    { id: "n-clean", n: "Nähstube aufräumen", d: "Kisten weg, Teppich raus", c: 2, e: "🧹" },
+    { id: "n-table", n: "Nähtisch", d: "Mit Omas alter Nähmaschine", c: 4, e: "🧵", p: [[256, 206, 20, "b"], [140, 206, 16, "b"], [268, 196, 18]], pe: ["🧵", "🪡", "✂️"] },
+    { id: "n-fabric", n: "Stoffregal", d: "Bunte Stoffe für jedes Projekt", c: 4, e: "🧶" },
+    { id: "n-form", n: "Schneiderpuppe", d: "Trägt Omas Sommerkleid", c: 4, e: "👗", p: [[336, 292, 66, "b"]], pe: ["👗"] },
+    { id: "n-chair", n: "Sessel mit Patchworkdecke", d: "Hundert bunte Flicken", c: 5, e: "🛋️" },
+    { id: "n-lamp", n: "Stehlampe", d: "Licht für feine Stiche", c: 4, e: "💡" },
+    { id: "n-jars", n: "Knopfgläser", d: "Tausend Knöpfe, sortiert nach Farbe", c: 4, e: "🫙", p: [[170, 112, 22, "b"], [206, 112, 22, "b"], [242, 112, 22, "b"]] },
+    { id: "n-hats", n: "Hüte am Haken", d: "Für jeden Anlass einer", c: 5, e: "👒", p: [[160, 70, 30], [206, 70, 30], [252, 70, 30]], pe: ["👒", "🎩", "🧣"] },
+    { id: "n-yarn", n: "Wollkorb", d: "Mit Strickzeug für lange Abende", c: 5, e: "🧺", p: [[282, 294, 36, "b"], [274, 268, 18], [292, 266, 18]], pe: ["🧺", "🧶", "🧶"] },
+    { id: "n-hamster", n: "Hamster Knopf", d: "Sammelt heimlich Garnrollen", c: 6, e: "🐹", p: [[196, 292, 26, "b"]] }
+  ]
+},
+/* ======================= STRANDCAFÉ ======================= */
+strand: {
+  dirt: [["📦", 40, 250, 40], ["📦", 300, 258, 34], ["🍂", 180, 276, 22], ["🍂", 240, 284, 20], ["🕸️", 352, 96, 30]],
+  svg: o => {
+    const clean = o("s-clean"), tod = todNow(), night = tod === "nacht", eve = tod === "abend";
+    return `
+  <defs>${FXDEFS}
+    <linearGradient id="stSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${night ? "#1c2a52" : eve ? "#f39a6a" : "#7fc4ec"}"/><stop offset="1" stop-color="${night ? "#38497a" : eve ? "#fbd3a0" : "#d9f0fa"}"/></linearGradient>
+    <linearGradient id="stSea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${night ? "#203a5a" : "#3a9fc4"}"/><stop offset="1" stop-color="${night ? "#2c5070" : "#7fd0e0"}"/></linearGradient>
+    <linearGradient id="stSand" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2dca8"/><stop offset="1" stop-color="#e6c88a"/></linearGradient>
+    <linearGradient id="stDeck" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c48a52"/><stop offset="1" stop-color="#a8703c"/></linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#stSky)"/>
+  <circle cx="${eve ? 300 : 70}" cy="${eve ? 112 : 44}" r="${night ? 9 : 20}" fill="${night ? "#fff6d0" : "#fff3b0"}" opacity=".95"/>
+  ${night ? R(16).map(i => `<circle cx="${(i * 71) % 400}" cy="${(i * 37) % 100 + 6}" r="1" fill="#fff"/>`).join("") : `<g opacity=".9"><ellipse cx="160" cy="40" rx="26" ry="7" fill="#fff"/><ellipse cx="176" cy="35" rx="14" ry="7" fill="#fff"/><ellipse cx="330" cy="58" rx="22" ry="6" fill="#fff"/></g>`}
+  <!-- Meer mit Leuchtturm -->
+  <rect y="118" width="400" height="62" fill="url(#stSea)"/>
+  ${R(14).map(i => `<path d="M${i * 30 - 10} ${132 + (i % 3) * 14} q8 -4 16 0" stroke="#fff" stroke-width="1.4" fill="none" opacity=".6"/>`).join("")}
+  <path d="M350 118 L356 68 H366 L372 118 Z" fill="#fff"/><path d="M352 100 H370 L369 92 H353 Z M354 84 H368 L367 76 H355 Z" fill="#d9506f"/><rect x="354" y="60" width="14" height="9" fill="${night ? "#ffe39a" : "#fdf6d8"}"/><path d="M352 60 L361 50 L370 60 Z" fill="#d9506f"/>
+  ${night ? `<path d="M361 64 L240 40 L240 86 Z" fill="#ffe39a" opacity=".18"/>` : ""}
+  <!-- Strand -->
+  <path d="M0 176 Q100 166 200 174 Q300 182 400 170 V300 H0 Z" fill="url(#stSand)"/>
+  <path d="M0 178 Q100 168 200 176 Q300 184 400 172" stroke="#fff" stroke-width="3" fill="none" opacity=".8"/>
+  ${R(30).map(i => `<circle cx="${(i * 53) % 400}" cy="${190 + (i * 29) % 100}" r="1.2" fill="#c9a86a" opacity=".6"/>`).join("")}
+  ${clean ? "" : `<rect y="170" width="400" height="130" fill="#8a7a5a" opacity=".3"/>${R(6).map(i => `<path d="M${30 + i * 64} ${236 + (i % 3) * 18} q10 -12 20 0 q10 -12 20 0" stroke="#4a6a3a" stroke-width="3" fill="none" opacity=".7"/>`).join("")}`}
+  <!-- Holzterrasse -->
+  ${o("s-deck") ? `<path d="M0 224 H250 L262 300 H0 Z" fill="url(#stDeck)"/>${R(8).map(i => `<line x1="0" y1="${232 + i * 10}" x2="${251 + i * 1.5}" y2="${232 + i * 10}" stroke="#8a5a2e" stroke-width="1.2"/>`).join("")}
+    <rect x="0" y="220" width="252" height="6" fill="#d9a26a"/>` : ""}
+  <!-- Strandkiosk -->
+  ${o("s-kiosk") ? `${shd(320, 250, 70, 6, .3)}
+    <rect x="262" y="128" width="116" height="118" fill="#f7f1e4"/>${R(8).map(i => `<rect x="${262 + i * 14.5}" y="128" width="2" height="118" fill="#d9cdb4"/>`).join("")}
+    <rect x="270" y="150" width="100" height="46" fill="#3a6a8a"/><rect x="270" y="150" width="100" height="46" fill="#fff" opacity=".12"/>
+    <rect x="262" y="194" width="116" height="10" fill="#c48a52"/>
+    <path d="M252 132 L262 100 H378 L388 132 Z" fill="#3b6fa8"/>${R(8).map(i => `<path d="M${262 + i * 14.5} 100 h7 L${252 + (i + .5) * 17} 132 H${252 + i * 17} Z" fill="#fff"/>`).join("")}
+    ${R(9).map(i => `<path d="M${252 + i * 15.1} 132 q7.5 8 15.1 0" fill="${i % 2 ? "#fff" : "#3b6fa8"}"/>`).join("")}
+    <rect x="280" y="86" width="80" height="16" rx="3" fill="#fff" stroke="#3b6fa8" stroke-width="1.5"/><text x="320" y="98" text-anchor="middle" font-family="Grandstander, sans-serif" font-weight="800" font-size="9.5" fill="#3b6fa8">STRANDCAFÉ</text>`
+    : `<rect x="262" y="128" width="116" height="118" fill="#a89a84"/><path d="M262 128 l116 118 M378 128 l-116 118" stroke="#7a6a54" stroke-width="5"/>`}
+  <!-- Lichterkette -->
+  ${o("s-lights") ? `<path d="M0 70 Q130 110 262 104" stroke="#3a3a36" stroke-width="1.2" fill="none"/>${R(11).map(i => { const t = i / 10, x = t * 262, y = (1 - t) * (1 - t) * 70 + 2 * (1 - t) * t * 110 + t * t * 104; return `<circle cx="${x.toFixed(1)}" cy="${(y + 4).toFixed(1)}" r="3.4" fill="${["#f6d33c", "#e8798f", "#7fd0e0", "#8fbf8a"][i % 4]}"/>${night || eve ? `<circle cx="${x.toFixed(1)}" cy="${(y + 4).toFixed(1)}" r="9" fill="${["#f6d33c", "#e8798f", "#7fd0e0", "#8fbf8a"][i % 4]}" opacity=".3"/>` : ""}`; }).join("")}` : ""}
+  <!-- Eiswagen -->
+  ${o("s-ice") ? `${shd(230, 292, 36, 4, .3)}<rect x="200" y="236" width="60" height="38" rx="6" fill="#fbf3e4" stroke="#e8798f" stroke-width="2"/>${R(5).map(i => `<rect x="${204 + i * 11}" y="252" width="6" height="18" rx="2" fill="${i % 2 ? "#f6c1cc" : "#cfe8f6"}"/>`).join("")}
+    <circle cx="212" cy="280" r="9" fill="#3a3a36"/><circle cx="212" cy="280" r="4" fill="#cfc6b4"/><circle cx="248" cy="280" r="9" fill="#3a3a36"/><circle cx="248" cy="280" r="4" fill="#cfc6b4"/>
+    <line x1="230" y1="236" x2="230" y2="196" stroke="#8a8478" stroke-width="2"/><path d="M204 200 Q230 180 256 200 Z" fill="#e8798f"/><path d="M216 200 Q230 186 244 200" fill="#fbf3e4"/>` : ""}
+  <!-- Liegestühle -->
+  ${o("s-chairs") ? [70, 166].map((x, i) => `${shd(x, 288, 34, 4, .3)}
+    <path d="M${x - 26} 286 L${x + 18} 206 M${x + 26} 286 L${x - 10} 240" stroke="#8a5a2e" stroke-width="4" stroke-linecap="round"/>
+    <path d="M${x + 16} 210 L${x + 26} 214 L${x - 4} 272 L${x - 18} 268 Z" fill="${i ? "#e8798f" : "#7fb2e0"}"/>
+    ${R(4).map(k => `<path d="M${x + 13 - k * 7} ${222 + k * 13} l9 3" stroke="#fff" stroke-width="3.5"/>`).join("")}
+    ${seat(i)}`).join("") : ""}
+  ${clean ? "" : PAPER}`;
+  },
+  fixed: [],
+  ups: [
+    { id: "s-clean", n: "Strand säubern", d: "Seegras und Kisten weg", c: 2, e: "🧹" },
+    { id: "s-deck", n: "Holzterrasse", d: "Warm unter nackten Füßen", c: 4, e: "🪵" },
+    { id: "s-kiosk", n: "Strandkiosk", d: "Blau-weiß gestreift", c: 5, e: "🏖️", p: [[290, 194, 22, "b"], [314, 194, 22, "b"], [340, 194, 22, "b"]], pe: ["🍹", "🥥", "🍦"] },
+    { id: "s-chairs", n: "Liegestühle", d: "Für ein Nickerchen am Meer", c: 4, e: "🪑" },
+    { id: "s-umbrella", n: "Sonnenschirme", d: "Schatten für heiße Tage", c: 4, e: "⛱️", p: [[40, 242, 64, "b"], [212, 236, 60, "b"]] },
+    { id: "s-ice", n: "Eiswagen", d: "Mit fünf Sorten", c: 5, e: "🍦", p: [[214, 236, 18, "b"], [230, 236, 18, "b"], [246, 236, 18, "b"]], pe: ["🍦", "🍨", "🍦"] },
+    { id: "s-lights", n: "Lichterkette", d: "Für laue Sommernächte", c: 4, e: "🏮" },
+    { id: "s-boat", n: "Boote", d: "Ein Ruderboot und ein Segelboot", c: 5, e: "⛵", p: [[120, 156, 42], [60, 140, 28]], pe: ["🛶", "⛵"] },
+    { id: "s-castle", n: "Sandburg", d: "Mit Muscheln verziert", c: 5, e: "🏰", p: [[318, 290, 40, "b"], [292, 290, 16, "b"], [346, 292, 14, "b"]], pe: ["🏰", "🐚", "🐚"] },
+    { id: "s-crab", n: "Krabbe Kalle", d: "Läuft immer seitwärts", c: 6, e: "🦀", p: [[372, 292, 26, "b"]] }
+  ]
+},
+/* ======================= CAMILLES DACHWOHNUNG IN PARIS ======================= */
+mansarde: {
+  dirt: [["🕸️", 2, 30, 34], ["🕸️", 364, 30, 32], ["📦", 40, 250, 40], ["📦", 320, 252, 40], ["📦", 286, 266, 30]],
+  svg: o => {
+    const clean = o("m-clean"), tod = todNow(), night = tod === "nacht" || tod === "abend";
+    return `
+  <defs>${FXDEFS}
+    <linearGradient id="mnSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${night ? "#1c2350" : "#f6b98a"}"/><stop offset="1" stop-color="${night ? "#4a3a6a" : "#fde0bc"}"/></linearGradient>
+    <linearGradient id="mnWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${clean ? "#f3ead8" : "#bdb3a2"}"/><stop offset="1" stop-color="${clean ? "#e8dcc2" : "#a89e8c"}"/></linearGradient>
+    <linearGradient id="mnFloor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9a6a42"/><stop offset="1" stop-color="#b98252"/></linearGradient>
+    <radialGradient id="mnGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffe2a0" stop-opacity=".7"/><stop offset="1" stop-color="#ffe2a0" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="400" height="236" fill="url(#mnWall)"/>
+  <!-- Dachschrägen mit Balken -->
+  <path d="M0 0 H70 L0 120 Z" fill="${clean ? "#d9c7a6" : "#9a8e7a"}"/><path d="M400 0 H330 L400 120 Z" fill="${clean ? "#d9c7a6" : "#9a8e7a"}"/>
+  <path d="M70 0 L0 120 M330 0 L400 120" stroke="#7a4f2a" stroke-width="10"/>${[30, 60, 90].map(y => `<path d="M0 ${y} L${70 - y * .58} ${y}" stroke="#8a5a2e" stroke-width="4" opacity=".5"/><path d="M400 ${y} L${330 + y * .58} ${y}" stroke="#8a5a2e" stroke-width="4" opacity=".5"/>`).join("")}
+  <!-- Großes Dachfenster mit Blick über Paris -->
+  <path d="M120 170 V60 Q120 18 200 18 Q280 18 280 60 V170 Z" fill="url(#mnSky)"/>
+  ${night ? R(18).map(i => `<circle cx="${130 + (i * 37) % 140}" cy="${30 + (i * 23) % 60}" r="1" fill="#fff"/>`).join("") + `<circle cx="252" cy="44" r="8" fill="#fff6d0"/>` : `<circle cx="150" cy="60" r="12" fill="#fff3c0" opacity=".9"/>`}
+  <path d="M120 170 V132 L134 132 L134 120 L148 120 L148 138 L164 138 L164 116 L180 116 L180 134 L196 134 L196 124 L214 124 L214 140 L232 140 L232 118 L250 118 L250 136 L266 136 L266 126 L280 126 V170 Z" fill="${night ? "#3a3550" : "#c9a990"}"/>
+  ${R(14).map(i => `<rect x="${124 + i * 11}" y="${142 + (i % 3) * 8}" width="4" height="6" fill="${night ? "#ffd98a" : "#8a6a5a"}" opacity="${night ? .9 : .5}"/>`).join("")}
+  <path d="M220 134 L226 52 L232 134 Z M222 106 H230 M223.5 84 H228.5" stroke="${night ? "#ffd98a" : "#7a5a50"}" stroke-width="2" fill="none"/><path d="M217 134 Q226 120 235 134" stroke="${night ? "#ffd98a" : "#7a5a50"}" stroke-width="2.4" fill="none"/>
+  ${o("m-window") ? "" : `<path d="M120 170 V60 Q120 18 200 18 Q280 18 280 60 V170 Z" fill="#9a8e7a" opacity=".75"/><rect x="140" y="80" width="56" height="40" fill="#e8e0cc" transform="rotate(-8 168 100)"/><rect x="204" y="96" width="50" height="36" fill="#ddd4be" transform="rotate(6 229 114)"/>`}
+  <path d="M120 170 V60 Q120 18 200 18 Q280 18 280 60 V170" fill="none" stroke="#f7f1e4" stroke-width="7"/><line x1="200" y1="18" x2="200" y2="170" stroke="#f7f1e4" stroke-width="4"/><line x1="120" y1="96" x2="280" y2="96" stroke="#f7f1e4" stroke-width="4"/>
+  <rect x="112" y="168" width="176" height="9" rx="2" fill="#f7f1e4"/>
+  <!-- Lichterkette entlang der Schräge -->
+  ${o("m-lights") ? [[0, 120, 70, 0], [400, 120, 330, 0]].map(([x1, y1, x2, y2]) => `<line x1="${x1}" y1="${y1 + 8}" x2="${x2}" y2="${y2 + 8}" stroke="#3a3a36" stroke-width="1"/>${R(7).map(i => { const t = (i + .5) / 7, x = x1 + (x2 - x1) * t, y = y1 + (y2 - y1) * t + 11; return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3" fill="#ffd98a"/>${night ? `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="9" fill="#ffd98a" opacity=".3"/>` : ""}`; }).join("")}`).join("") : ""}
+  <!-- Bücherregal rechts -->
+  ${o("m-books") ? `<rect x="300" y="128" width="88" height="104" rx="2" fill="#8a5a2e"/>${[156, 190, 224].map(y => `<rect x="300" y="${y}" width="88" height="5" fill="#a87440"/>`).join("")}` : ""}
+  <!-- Boden -->
+  <rect y="232" width="400" height="68" fill="url(#mnFloor)"/>${floorLines(232, 200, 140, "#7a4f2a", 30)}
+  <rect y="232" width="400" height="6" fill="#000" opacity=".15" filter="url(#softF)"/>
+  ${clean ? `<rect x="110" y="250" width="180" height="40" rx="4" fill="#3b6fa8" opacity=".9"/><rect x="118" y="256" width="164" height="28" rx="3" fill="none" stroke="#e2b04a" stroke-width="2"/>` : ""}
+  <!-- Staffelei -->
+  ${o("m-easel") ? `${shd(60, 290, 30, 4, .3)}<path d="M40 290 L58 160 L78 290 M58 160 V292" stroke="#8a5a2e" stroke-width="4" stroke-linecap="round"/><rect x="34" y="176" width="52" height="44" fill="#fff" stroke="#c48a52" stroke-width="3"/>
+    <rect x="37" y="179" width="46" height="38" fill="#f6c69a"/><path d="M37 209 Q60 196 83 206 V217 H37 Z" fill="#8fbf7a"/><path d="M58 207 L61 184 L64 207 Z" stroke="#5a5a66" stroke-width="1.4" fill="none"/><rect x="34" y="220" width="52" height="5" fill="#8a5a2e"/>` : ""}
+  <!-- Sofa -->
+  ${o("m-sofa") ? `${shd(330, 292, 60, 5, .35)}<rect x="270" y="236" width="122" height="36" rx="10" fill="#d9506f"/>${seat(0)}<rect x="262" y="252" width="138" height="28" rx="10" fill="#c8455f"/><rect x="258" y="238" width="18" height="44" rx="8" fill="#e0607a"/><rect x="386" y="238" width="18" height="44" rx="8" fill="#e0607a"/>
+    <path d="M270 280 v10 M392 280 v10" stroke="#5a3a1a" stroke-width="4" stroke-linecap="round"/>` : ""}
+  <!-- Tischchen am Fenster -->
+  ${o("m-table") ? `${shd(200, 292, 26, 4, .3)}<ellipse cx="200" cy="244" rx="28" ry="7" fill="#f4efe6" stroke="#cfc3ad"/><rect x="198" y="246" width="4" height="42" fill="#2b2b28"/><ellipse cx="200" cy="290" rx="12" ry="3" fill="#2b2b28"/>` : ""}
+  ${night && clean ? `<circle cx="200" cy="120" r="140" fill="url(#mnGlow)" opacity=".35"/>` : ""}
+  ${PAPER}`;
+  },
+  fixed: [],
+  ups: [
+    { id: "m-clean", n: "Wohnung aufräumen", d: "Kisten raus, Teppich rein", c: 2, e: "🧹" },
+    { id: "m-window", n: "Dachfenster putzen", d: "Blick bis zum Eiffelturm", c: 3, e: "🪟" },
+    { id: "m-table", n: "Bistrotischchen", d: "Frühstück mit Aussicht", c: 4, e: "☕", p: [[188, 242, 20, "b"], [212, 242, 18, "b"]], pe: ["☕", "🥐"] },
+    { id: "m-sofa", n: "Rotes Sofa", d: "Vom Flohmarkt in Saint-Ouen", c: 5, e: "🛋️" },
+    { id: "m-easel", n: "Staffelei", d: "Camille malt die Dächer", c: 4, e: "🎨", p: [[88, 286, 26, "b"]] },
+    { id: "m-books", n: "Bücherregal", d: "Romane und Kochbücher", c: 4, e: "📚", p: [[322, 156, 26, "b"], [356, 156, 24, "b"], [322, 190, 24, "b"], [362, 190, 22, "b"], [340, 224, 26, "b"]], pe: ["📚", "📚", "📖", "🕯️", "📻"] },
+    { id: "m-plants", n: "Pflanzen", d: "Auf der Fensterbank und am Boden", c: 4, e: "🪴", p: [[136, 170, 22, "b"], [262, 170, 22, "b"], [100, 292, 36, "b"]], pe: ["🌷", "🌼", "🪴"] },
+    { id: "m-lights", n: "Lichterkette", d: "An den Dachbalken", c: 5, e: "✨" },
+    { id: "m-records", n: "Plattenspieler", d: "Spielt französische Chansons", c: 5, e: "🎶", p: [[150, 290, 30, "b"], [162, 250, 18]], pe: ["📻", "🎶"] },
+    { id: "m-cat", n: "Katze Minou", d: "Schläft auf der Fensterbank", c: 6, e: "🐈‍⬛", p: [[244, 172, 34, "b"]] }
+  ]
+},
 /* ======================= FRÜHLINGSMARKT (Saison-Event) ======================= */
 fruehling: {
   dirt: [["📦", 58, 266, 30], ["📦", 318, 270, 28], ["🕸️", 160, 150, 24]],
@@ -2708,10 +2945,13 @@ const SCENE_ORDER = [
   { id: "dachboden", n: "Dachboden" },
   { id: "garten", n: "Rosengarten" },
   { id: "wintergarten", n: "Wintergarten" },
-  { id: "paris", n: "Henris Bäckerei" }
+  { id: "paris", n: "Henris Bäckerei" },
+  { id: "naeh", n: "Omas Nähstube" },
+  { id: "strand", n: "Strandcafé" },
+  { id: "mansarde", n: "Camilles Dachwohnung" }
 ];
 
-const ROOM_PREV = ["", "den Laden", "die Café-Terrasse", "die Backstube", "den Dachboden", "den Rosengarten", "den Wintergarten"];
+const ROOM_PREV = ["", "den Laden", "die Café-Terrasse", "die Backstube", "den Dachboden", "den Rosengarten", "den Wintergarten", "Henris Bäckerei", "die Nähstube", "das Strandcafé"];
 const ROOMS = SCENE_ORDER.map((r, i) => ({ ...r, ups: SCENES[r.id].ups, lockText: i ? `Richte zuerst ${ROOM_PREV[i]} komplett ein.` : "" }));
 const roomDone = r => r.ups.every(u => save.owned.includes(u.id));
 const roomUnlocked = r => { const i = ROOMS.indexOf(r); return i <= 0 || roomDone(ROOMS[i - 1]); };
@@ -3057,7 +3297,7 @@ Object.assign(EN, {
   "Für jeden Erfolg gibt es eine Belohnung. Tippe auf „Holen“, sobald einer geschafft ist.": "Every achievement comes with a reward. Tap “Claim” once you've earned one.",
   // Startseite, Tagesbonus, Einstellungen, Shop
   "Einstellungen": "Settings", "Sortiere Omas Trödel, bediene die Gäste, richte dein Café ein.": "Sort Grandma's trinkets, serve the guests, furnish your café.",
-  "⭐ {} frei": "⭐ {} free", "Album": "Album", "Shop (Demo)": "Shop (demo)", "Prototyp 2.2 · Werbung und Käufe sind nur simuliert": "Prototype 1.2 · Ads and purchases are only simulated",
+  "⭐ {} frei": "⭐ {} free", "Album": "Album", "Shop (Demo)": "Shop (demo)", "Prototyp 2.3 · Werbung und Käufe sind nur simuliert": "Prototype 1.2 · Ads and purchases are only simulated",
   "Tag {}": "Day {}", "Tagesbonus": "Daily bonus", "Komm jeden Tag wieder. Am 7. Tag gibt es einen Extra-Stern.": "Come back every day. On day 7 you get an extra star.",
   "{} 🪙 abholen": "Collect {} 🪙", "+{} 🪙{}. Bis morgen!": "+{} 🪙{}. See you tomorrow!", " und 1 ⭐": " and 1 ⭐",
   "Sprache": "Language", "Musik": "Music", "Umgebungsgeräusche": "Ambient sounds", "Soundeffekte": "Sound effects", "Vibration": "Vibration",
@@ -3083,7 +3323,7 @@ const clone = o => JSON.parse(JSON.stringify(o));
 
 /* ================= Grafiken (Fluent Emoji 3D, MIT-Lizenz) ================= */
 // Ersetzt jedes Emoji im Text automatisch durch das passende Bild, damit es auf jedem Handy gleich aussieht.
-const EMO = {"☕":"img/2615.webp","🕰️":"img/1f570-fe0f.webp","🏺":"img/1f3fa.webp","📚":"img/1f4da.webp","🕯️":"img/1f56f-fe0f.webp","🧸":"img/1f9f8.webp","🎩":"img/1f3a9.webp","🫖":"img/1fad6.webp","🧁":"img/1f9c1.webp","🍰":"img/1f370.webp","🥐":"img/1f950.webp","🍪":"img/1f36a.webp","📻":"img/1f4fb.webp","🗝️":"img/1f5dd-fe0f.webp","🪆":"img/1fa86.webp","🎻":"img/1f3bb.webp","🧣":"img/1f9e3.webp","🧤":"img/1f9e4.webp","🎄":"img/1f384.webp","⛄":"img/26c4.webp","🛷":"img/1f6f7.webp","🔔":"img/1f514.webp","🦌":"img/1f98c.webp","🌟":"img/1f31f.webp","👵":"img/1f475.webp","👴":"img/1f474.webp","🧑‍🎨":"img/1f9d1-200d-1f3a8.webp","👩‍🍳":"img/1f469-200d-1f373.webp","🧔":"img/1f9d4.webp","👨‍🦳":"img/1f468-200d-1f9b3.webp","👩‍🦱":"img/1f469-200d-1f9b1.webp","🧓":"img/1f9d3.webp","🧑‍🦰":"img/1f9d1-200d-1f9b0.webp","🧐":"img/1f9d0.webp","🧑‍💼":"img/1f9d1-200d-1f4bc.webp","👧":"img/1f467.webp","🕵️":"img/1f575-fe0f.webp","🤵":"img/1f935.webp","💬":"img/1f4ac.webp","❤️":"img/2764-fe0f.webp","🪙":"img/1fa99.webp","🏆":"img/1f3c6.webp","⭐":"img/2b50.webp","🔒":"img/1f512.webp","🎀":"img/1f380.webp","❄️":"img/2744-fe0f.webp","👨‍🦱":"img/1f468-200d-1f9b1.webp","👩‍🦳":"img/1f469-200d-1f9b3.webp","💑":"img/1f491.webp","💍":"img/1f48d.webp","👦":"img/1f466.webp","👨‍⚕️":"img/1f468-200d-2695-fe0f.webp","🕸️":"img/1f578-fe0f.webp","📦":"img/1f4e6.webp","🧹":"img/1f9f9.webp","🎂":"img/1f382.webp","💡":"img/1f4a1.webp","🖼️":"img/1f5bc-fe0f.webp","🪴":"img/1fab4.webp","🛋️":"img/1f6cb-fe0f.webp","🐈":"img/1f408.webp","💐":"img/1f490.webp","🍂":"img/1f342.webp","⛱️":"img/26f1-fe0f.webp","🪑":"img/1fa91.webp","🌷":"img/1f337.webp","🏮":"img/1f3ee.webp","🪧":"img/1faa7.webp","🍦":"img/1f366.webp","🚲":"img/1f6b2.webp","⛲":"img/26f2.webp","🐕":"img/1f415.webp","🔥":"img/1f525.webp","🥖":"img/1f956.webp","🥣":"img/1f963.webp","🥧":"img/1f967.webp","🍓":"img/1f353.webp","🍯":"img/1f36f.webp","🫙":"img/1fad9.webp","🍵":"img/1f375.webp","🐁":"img/1f401.webp","🧳":"img/1f9f3.webp","🗺️":"img/1f5fa-fe0f.webp","🎠":"img/1f3a0.webp","🪞":"img/1fa9e.webp","🧵":"img/1f9f5.webp","🧶":"img/1f9f6.webp","🔭":"img/1f52d.webp","🎶":"img/1f3b6.webp","🦉":"img/1f989.webp","🌿":"img/1f33f.webp","🏡":"img/1f3e1.webp","🌳":"img/1f333.webp","🌹":"img/1f339.webp","🌻":"img/1f33b.webp","🐝":"img/1f41d.webp","🦆":"img/1f986.webp","🐇":"img/1f407.webp","🦋":"img/1f98b.webp","🧺":"img/1f9fa.webp","💝":"img/1f49d.webp","🍷":"img/1f377.webp","📷":"img/1f4f7.webp","✨":"img/2728.webp","💔":"img/1f494.webp","🤍":"img/1f90d.webp","↩️":"img/21a9-fe0f.webp","🔍":"img/1f50d.webp","🔀":"img/1f500.webp","☀️":"img/2600-fe0f.webp","⚙️":"img/2699-fe0f.webp","🚫":"img/1f6ab.webp","🎁":"img/1f381.webp","👛":"img/1f45b.webp","💌":"img/1f48c.webp","📖":"img/1f4d6.webp","⏳":"img/23f3.webp","🎨":"img/1f3a8.webp","👇":"img/1f447.webp","👆":"img/1f446.webp","🧩":"img/1f9e9.webp","🏅":"img/1f3c5.webp","🧭":"img/1f9ed.webp","🎺":"img/1f3ba.webp","🖋️":"img/1f58b-fe0f.webp","👓":"img/1f453.webp","🌴":"img/1f334.webp","🌸":"img/1f338.webp","🌵":"img/1f335.webp","🍋":"img/1f34b.webp","🐤":"img/1f424.webp","👀":"img/1f440.webp","📊":"img/1f4ca.webp","🎃":"img/1f383.webp","📲":"img/1f4f2.webp","🎉":"img/1f389.webp","💰":"img/1f4b0.webp","🐣":"img/1f423.webp","🥚":"img/1f95a.webp","🐰":"img/1f430.webp","🌼":"img/1f33c.webp","🍫":"img/1f36b.webp","🪺":"img/1faba.webp","🍬":"img/1f36c.webp","🍎":"img/1f34e.webp","🍐":"img/1f350.webp","🍄":"img/1f344.webp","🌰":"img/1f330.webp","🌽":"img/1f33d.webp","🍇":"img/1f347.webp","👑":"img/1f451.webp","🐑":"img/1f411.webp","🌾":"img/1f33e.webp","🧃":"img/1f9c3.webp","👒":"img/1f452.webp","🦔":"img/1f994.webp","⚡":"img/26a1.webp","⏱️":"img/23f1-fe0f.webp","📅":"img/1f4c5.webp","🌍":"img/1f30d.webp","📜":"img/1f4dc.webp","🧰":"img/1f9f0.webp","🔑":"img/1f511.webp","❔":"img/2754.webp","🗼":"img/1f5fc.webp","🪗":"img/1fa97.webp","🥞":"img/1f95e.webp","🧀":"img/1f9c0.webp","♨️":"img/2668-fe0f.webp","🍞":"img/1f35e.webp","🥨":"img/1f968.webp","🍩":"img/1f369.webp","🍮":"img/1f36e.webp","🐩":"img/1f429.webp","🐚":"img/1f41a.webp","🚧":"img/1f6a7.webp","📬":"img/1f4ec.webp","💾":"img/1f4be.webp","❓":"img/2753.webp","📔":"img/1f4d4.webp","🐞":"img/1f41e.webp","🫐":"img/1fad0.webp","📤":"img/1f4e4.webp","📋":"img/1f4cb.webp","👣":"img/1f463.webp","🎵":"img/1f3b5.webp","⛪":"img/26ea.webp","⛵":"img/26f5.webp","🌧️":"img/1f327-fe0f.webp","✉️":"img/2709-fe0f.webp","😉":"img/1f609.webp","👉":"img/1f449.webp","🐦":"img/1f426.webp","🪁":"img/1fa81.webp","💞":"img/1f49e.webp","🍏":"img/1f34f.webp","🥂":"img/1f942.webp"};
+const EMO = {"☕":"img/2615.webp","🕰️":"img/1f570-fe0f.webp","🏺":"img/1f3fa.webp","📚":"img/1f4da.webp","🕯️":"img/1f56f-fe0f.webp","🧸":"img/1f9f8.webp","🎩":"img/1f3a9.webp","🫖":"img/1fad6.webp","🧁":"img/1f9c1.webp","🍰":"img/1f370.webp","🥐":"img/1f950.webp","🍪":"img/1f36a.webp","📻":"img/1f4fb.webp","🗝️":"img/1f5dd-fe0f.webp","🪆":"img/1fa86.webp","🎻":"img/1f3bb.webp","🧣":"img/1f9e3.webp","🧤":"img/1f9e4.webp","🎄":"img/1f384.webp","⛄":"img/26c4.webp","🛷":"img/1f6f7.webp","🔔":"img/1f514.webp","🦌":"img/1f98c.webp","🌟":"img/1f31f.webp","👵":"img/1f475.webp","👴":"img/1f474.webp","🧑‍🎨":"img/1f9d1-200d-1f3a8.webp","👩‍🍳":"img/1f469-200d-1f373.webp","🧔":"img/1f9d4.webp","👨‍🦳":"img/1f468-200d-1f9b3.webp","👩‍🦱":"img/1f469-200d-1f9b1.webp","🧓":"img/1f9d3.webp","🧑‍🦰":"img/1f9d1-200d-1f9b0.webp","🧐":"img/1f9d0.webp","🧑‍💼":"img/1f9d1-200d-1f4bc.webp","👧":"img/1f467.webp","🕵️":"img/1f575-fe0f.webp","🤵":"img/1f935.webp","💬":"img/1f4ac.webp","❤️":"img/2764-fe0f.webp","🪙":"img/1fa99.webp","🏆":"img/1f3c6.webp","⭐":"img/2b50.webp","🔒":"img/1f512.webp","🎀":"img/1f380.webp","❄️":"img/2744-fe0f.webp","👨‍🦱":"img/1f468-200d-1f9b1.webp","👩‍🦳":"img/1f469-200d-1f9b3.webp","💑":"img/1f491.webp","💍":"img/1f48d.webp","👦":"img/1f466.webp","👨‍⚕️":"img/1f468-200d-2695-fe0f.webp","🕸️":"img/1f578-fe0f.webp","📦":"img/1f4e6.webp","🧹":"img/1f9f9.webp","🎂":"img/1f382.webp","💡":"img/1f4a1.webp","🖼️":"img/1f5bc-fe0f.webp","🪴":"img/1fab4.webp","🛋️":"img/1f6cb-fe0f.webp","🐈":"img/1f408.webp","💐":"img/1f490.webp","🍂":"img/1f342.webp","⛱️":"img/26f1-fe0f.webp","🪑":"img/1fa91.webp","🌷":"img/1f337.webp","🏮":"img/1f3ee.webp","🪧":"img/1faa7.webp","🍦":"img/1f366.webp","🚲":"img/1f6b2.webp","⛲":"img/26f2.webp","🐕":"img/1f415.webp","🔥":"img/1f525.webp","🥖":"img/1f956.webp","🥣":"img/1f963.webp","🥧":"img/1f967.webp","🍓":"img/1f353.webp","🍯":"img/1f36f.webp","🫙":"img/1fad9.webp","🍵":"img/1f375.webp","🐁":"img/1f401.webp","🧳":"img/1f9f3.webp","🗺️":"img/1f5fa-fe0f.webp","🎠":"img/1f3a0.webp","🪞":"img/1fa9e.webp","🧵":"img/1f9f5.webp","🧶":"img/1f9f6.webp","🔭":"img/1f52d.webp","🎶":"img/1f3b6.webp","🦉":"img/1f989.webp","🌿":"img/1f33f.webp","🏡":"img/1f3e1.webp","🌳":"img/1f333.webp","🌹":"img/1f339.webp","🌻":"img/1f33b.webp","🐝":"img/1f41d.webp","🦆":"img/1f986.webp","🐇":"img/1f407.webp","🦋":"img/1f98b.webp","🧺":"img/1f9fa.webp","💝":"img/1f49d.webp","🍷":"img/1f377.webp","📷":"img/1f4f7.webp","✨":"img/2728.webp","💔":"img/1f494.webp","🤍":"img/1f90d.webp","↩️":"img/21a9-fe0f.webp","🔍":"img/1f50d.webp","🔀":"img/1f500.webp","☀️":"img/2600-fe0f.webp","⚙️":"img/2699-fe0f.webp","🚫":"img/1f6ab.webp","🎁":"img/1f381.webp","👛":"img/1f45b.webp","💌":"img/1f48c.webp","📖":"img/1f4d6.webp","⏳":"img/23f3.webp","🎨":"img/1f3a8.webp","👇":"img/1f447.webp","👆":"img/1f446.webp","🧩":"img/1f9e9.webp","🏅":"img/1f3c5.webp","🧭":"img/1f9ed.webp","🎺":"img/1f3ba.webp","🖋️":"img/1f58b-fe0f.webp","👓":"img/1f453.webp","🌴":"img/1f334.webp","🌸":"img/1f338.webp","🌵":"img/1f335.webp","🍋":"img/1f34b.webp","🐤":"img/1f424.webp","👀":"img/1f440.webp","📊":"img/1f4ca.webp","🎃":"img/1f383.webp","📲":"img/1f4f2.webp","🎉":"img/1f389.webp","💰":"img/1f4b0.webp","🐣":"img/1f423.webp","🥚":"img/1f95a.webp","🐰":"img/1f430.webp","🌼":"img/1f33c.webp","🍫":"img/1f36b.webp","🪺":"img/1faba.webp","🍬":"img/1f36c.webp","🍎":"img/1f34e.webp","🍐":"img/1f350.webp","🍄":"img/1f344.webp","🌰":"img/1f330.webp","🌽":"img/1f33d.webp","🍇":"img/1f347.webp","👑":"img/1f451.webp","🐑":"img/1f411.webp","🌾":"img/1f33e.webp","🧃":"img/1f9c3.webp","👒":"img/1f452.webp","🦔":"img/1f994.webp","⚡":"img/26a1.webp","⏱️":"img/23f1-fe0f.webp","📅":"img/1f4c5.webp","🌍":"img/1f30d.webp","📜":"img/1f4dc.webp","🧰":"img/1f9f0.webp","🔑":"img/1f511.webp","❔":"img/2754.webp","🗼":"img/1f5fc.webp","🪗":"img/1fa97.webp","🥞":"img/1f95e.webp","🧀":"img/1f9c0.webp","♨️":"img/2668-fe0f.webp","🍞":"img/1f35e.webp","🥨":"img/1f968.webp","🍩":"img/1f369.webp","🍮":"img/1f36e.webp","🐩":"img/1f429.webp","🐚":"img/1f41a.webp","🚧":"img/1f6a7.webp","📬":"img/1f4ec.webp","💾":"img/1f4be.webp","❓":"img/2753.webp","📔":"img/1f4d4.webp","🐞":"img/1f41e.webp","🫐":"img/1fad0.webp","📤":"img/1f4e4.webp","📋":"img/1f4cb.webp","👣":"img/1f463.webp","🎵":"img/1f3b5.webp","⛪":"img/26ea.webp","⛵":"img/26f5.webp","🌧️":"img/1f327-fe0f.webp","✉️":"img/2709-fe0f.webp","😉":"img/1f609.webp","👉":"img/1f449.webp","🐦":"img/1f426.webp","🪁":"img/1fa81.webp","💞":"img/1f49e.webp","🍏":"img/1f34f.webp","🥂":"img/1f942.webp","🪡":"img/1faa1.webp","✂️":"img/2702-fe0f.webp","👗":"img/1f457.webp","🐹":"img/1f439.webp","🪵":"img/1fab5.webp","🏖️":"img/1f3d6-fe0f.webp","🍹":"img/1f379.webp","🥥":"img/1f965.webp","🍨":"img/1f368.webp","🛶":"img/1f6f6.webp","🏰":"img/1f3f0.webp","🦀":"img/1f980.webp","🪟":"img/1fa9f.webp","🐈‍⬛":"img/1f408-200d-2b1b.webp"};
 const EMO_RE = new RegExp(Object.keys(EMO).sort((a, b) => b.length - a.length)
   .map(k => k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|"), "gu");
 // Schneller Vorfilter: Emoji liegen alle oberhalb von U+2000 – normaler Text wird gar nicht erst durchsucht
@@ -3294,6 +3534,16 @@ function setAmbience(id) {
     ambLoop(c, out, 420, .4, .012, "lowpass");                                        // leises Raumrauschen
     if (has("c-bird") && !night) ambEvery(3000, 8000, () => { for (let i = 0; i < 5; i++) ablip(c, out, 3200 + Math.random() * 1400, .07, .012, "sine", 600, i * .09); }); // Pieps trällert
     ambEvery(5000, 11000, () => ablip(c, out, 1100 + Math.random() * 300, .1, .012, "sine", 500)); // Tropfen beim Gießen
+  } else if (id === "naeh") {
+    ambEvery(1000, 1000, () => ablip(c, out, 2000, .02, .005, "square"));               // Wanduhr
+    ambLoop(c, out, 360, .5, .01, "lowpass");
+    if (has("n-table")) ambEvery(10000, 20000, () => { for (let i = 0; i < 10; i++) ablip(c, out, 170, .03, .02, "square", 0, i * .06); }); // Nähmaschine
+  } else if (id === "strand") {
+    ambLoop(c, out, 700, .7, .05, "lowpass");                                         // Wellen
+    night ? ambEvery(900, 1800, () => crickets(c, out)) : ambEvery(3000, 7000, () => chirp(c, out));
+  } else if (id === "mansarde") {
+    ambLoop(c, out, 520, .4, .012, "lowpass");
+    night ? ambEvery(900, 1800, () => crickets(c, out)) : ambEvery(3500, 8000, () => chirp(c, out));
   } else if (id === "paris") {
     ambLoop(c, out, 600, .5, .014, "lowpass");                                        // Straßengeräusche
     night ? ambEvery(800, 1700, () => crickets(c, out)) : ambEvery(2500, 6500, () => chirp(c, out));
@@ -4811,7 +5061,10 @@ const SEATS = {
   terrasse: [{ need: "t-chairs", x: 186, y: 207, w: 30 }, { need: "t-chairs", x: 260, y: 207, w: 30 }],
   garten: [{ need: "g-picnic", x: 68, y: 258, w: 30 }],
   wintergarten: [{ need: "c-wicker", x: 146, y: 206, w: 28 }],
-  paris: [{ need: "p-tables", x: 28, y: 238, w: 26 }, { need: "p-tables", x: 372, y: 238, w: 26 }]
+  paris: [{ need: "p-tables", x: 28, y: 238, w: 26 }, { need: "p-tables", x: 372, y: 238, w: 26 }],
+  naeh: [{ need: "n-chair", x: 62, y: 196, w: 28 }],
+  strand: [{ need: "s-chairs", x: 62, y: 222, w: 26 }, { need: "s-chairs", x: 158, y: 222, w: 26 }],
+  mansarde: [{ need: "m-sofa", x: 312, y: 226, w: 28 }]
 };
 const CHATTER = ["Herrlich gemütlich hier!", "Noch ein Tässchen, bitte!", "Wie bei Oma Hilde früher.", "Der Kuchen ist ein Gedicht!",
   "Ich komme morgen wieder.", "Hier vergisst man die Zeit.", "Was für ein schöner Ort!", "Das Törtchen war himmlisch."];
@@ -4885,6 +5138,122 @@ LEVEL_TIPS[50] = "Neu: In Omas Truhe sind weitere Schätze aufgetaucht – Kamer
 const CHAPTERS = ["Der verstaubte Laden", "Neue Nachbarn", "Sonntagskuchen", "Omas Geheimnisse", "Hinter verschlossenen Türen", "Schätze aus der Truhe", "Die große Feier", "Durch die Jahreszeiten", "Ein Brief aus Paris", "Die Bäckerei am Montmartre", "Henris Tagebuch", "Zwei Läden, ein Herz"];
 // So weit reicht das Spiel: 10 Level pro fertigem Kapitel. Neue Kapitel kommen per Update dazu (Anleitung: docs/neues-kapitel.md).
 // Die Geschichte reicht bis STORY_END. Danach geht das Spiel endlos weiter (Café-Alltag, langsam schwerer).
+Object.assign(EN, {
+  "Omas Nähstube": "Grandma's sewing room",
+  "Strandcafé": "Beach café",
+  "Camilles Dachwohnung": "Camille's attic flat",
+  "die Nähstube": "the sewing room",
+  "das Strandcafé": "the beach café",
+  "Knopf": "Button",
+  "Knopf putzt sich": "Button is grooming himself",
+  "Knopf stopft sich die Backen voll": "Button stuffs his cheeks",
+  "Fiep!": "Squeak!",
+  "Kalle": "Kalle",
+  "Kalle läuft seitwärts": "Kalle walks sideways",
+  "Klack, klack!": "Clack, clack!",
+  "Kalle winkt mit der Schere": "Kalle waves his claw",
+  "Minou": "Minou",
+  "Minou schnurrt": "Minou purrs",
+  "Miau!": "Meow!",
+  "Minou schaut zum Eiffelturm": "Minou gazes at the Eiffel Tower",
+  "In dieser Stube habe ich jeden Winterabend genäht. Unter den Kisten liegt noch mein Lieblingsteppich.": "I sewed in this room every winter evening. My favourite rug is still under the boxes.",
+  "Die Nähmaschine war mein Hochzeitsgeschenk. Opa hat meinen Namen in Gold daraufgemalt.": "The sewing machine was my wedding present. Grandpa painted my name on it in gold.",
+  "Jeder Stoff hat eine Geschichte: Der gelbe war ein Sommerkleid, der blaue ein Faschingskostüm für deine Mutter.": "Every fabric has a story: the yellow one was a summer dress, the blue one a carnival costume for your mother.",
+  "Das blaue Kleid habe ich zum Tanztee im Kurhaus getragen. Opa hat mich den ganzen Abend nicht losgelassen.": "I wore the blue dress to the tea dance at the spa hall. Grandpa didn't let go of me all evening.",
+  "Hundert Flicken, hundert Erinnerungen. In jedem Viereck steckt ein altes Lieblingsstück.": "A hundred patches, a hundred memories. Every square holds an old favourite piece.",
+  "Für feine Stiche braucht man gutes Licht – und eine Tasse Tee daneben.": "Fine stitches need good light – and a cup of tea beside you.",
+  "Knöpfe sortieren hat mich immer beruhigt. Deine Mutter hat es als Kind geliebt.": "Sorting buttons always calmed me down. Your mother loved it as a child.",
+  "Ein Hut für jeden Anlass: einer für die Kirche, einer für den Markt und einer für Opas Geburtstag.": "A hat for every occasion: one for church, one for the market and one for Grandpa's birthday.",
+  "Ich habe jedem in der Familie einen Schal gestrickt. Deiner war rot – weißt du das noch?": "I knitted a scarf for everyone in the family. Yours was red – do you remember?",
+  "Knopf hat einmal eine ganze Garnrolle in seinem Häuschen versteckt. Ich habe sie erst nach Wochen gefunden.": "Button once hid a whole reel of thread in his little house. I only found it weeks later.",
+  "Der Strand war früher so sauber, dass wir barfuß bis zum Leuchtturm gelaufen sind.": "The beach used to be so clean that we walked barefoot all the way to the lighthouse.",
+  "Auf diesen Planken hat Opa mir das Tanzen beigebracht. Ohne Musik, nur mit dem Rauschen der Wellen.": "Grandpa taught me to dance on these planks. Without music, just the sound of the waves.",
+  "Im Kiosk gab es die beste Limonade der Küste. Das Rezept war geheim – ich habe es trotzdem herausgefunden.": "The kiosk had the best lemonade on the coast. The recipe was a secret – I worked it out anyway.",
+  "Opa ist im Liegestuhl immer nach fünf Minuten eingeschlafen. Ich habe ihm dann einen Hut aufs Gesicht gelegt.": "Grandpa always fell asleep in his deckchair after five minutes. Then I'd put a hat over his face.",
+  "Rot-weiß gestreift, damit wir unseren Platz von weitem wiederfinden.": "Red and white stripes, so we could find our spot from far away.",
+  "Erdbeer und Vanille – jeden Tag dasselbe. Opa hat nie etwas anderes probiert.": "Strawberry and vanilla – the same every day. Grandpa never tried anything else.",
+  "Abends haben die Lichter am Strand geleuchtet wie Glühwürmchen.": "In the evening the lights on the beach glowed like fireflies.",
+  "Mit dem Ruderboot sind wir einmal bis zur Sandbank gefahren. Zurück mussten wir schieben.": "We once rowed all the way to the sandbank. We had to push the boat back.",
+  "Deine Mutter hat hier ihre erste Sandburg gebaut. Mit einem Tor aus Muscheln.": "Your mother built her first sandcastle here. With a gate made of shells.",
+  "Kalle wohnte unter dem Steg. Er hat jeden Sommer auf uns gewartet. Glaube ich jedenfalls.": "Kalle lived under the jetty. He waited for us every summer. At least I think so.",
+  "1965 habe ich in diesem winzigen Zimmer gewohnt. Morgens roch es nach frischem Brot von unten.": "In 1965 I lived in this tiny room. In the mornings it smelled of fresh bread from downstairs.",
+  "Aus diesem Fenster habe ich jeden Abend den Eiffelturm angeschaut. Er hat mir nie gute Nacht gesagt, aber ich ihm.": "Every evening I looked at the Eiffel Tower from this window. It never said goodnight to me, but I did to it.",
+  "Henri hat mir jeden Morgen ein Croissant hochgebracht. Er behauptete, es sei übrig geblieben.": "Every morning Henri brought me up a croissant. He claimed it was left over.",
+  "Ein rotes Sofa vom Flohmarkt – ich hatte genau so eins. Das Leben ist ein Kreis.": "A red sofa from the flea market – I had one just like it. Life goes round in circles.",
+  "Camille malt die Dächer von Paris. Ich habe nur Kuchen verziert – mit Zuckerguss.": "Camille paints the rooftops of Paris. I only ever decorated cakes – with icing.",
+  "Hier habe ich Französisch gelernt, mit einem Kochbuch und viel Geduld.": "This is where I learned French, with a cookbook and a lot of patience.",
+  "Auf der Fensterbank wuchs Basilikum. Henri hat es heimlich für seine Brote stibitzt.": "Basil grew on the windowsill. Henri secretly pinched it for his bread.",
+  "Lichterketten an den Balken – so wird jede kleine Kammer ein Zuhause.": "Fairy lights on the beams – that's how any little room becomes a home.",
+  "Abends lief Édith Piaf. Die Nachbarn haben mitgesungen, durch die Wand.": "In the evenings Édith Piaf was playing. The neighbours sang along, through the wall.",
+  "Minou ist Fifis beste Freundin. Die beiden treffen sich jeden Morgen vor der Bäckerei.": "Minou is Fifi's best friend. The two of them meet outside the bakery every morning.",
+  "Hinter der Treppe ist eine kleine Tür. Dahinter liegt meine Nähstube. Hier habe ich Kleider für die ganze Familie genäht.": "Behind the stairs there's a little door. Behind it is my sewing room. This is where I made clothes for the whole family.",
+  "Jeden Sommer sind Opa und ich ans Meer gefahren. Dort gibt es ein kleines Strandcafé, das seit Jahren leer steht. Erweck es wieder zum Leben!": "Every summer Grandpa and I went to the seaside. There's a little beach café there that has stood empty for years. Bring it back to life!",
+  "Über Henris Bäckerei gibt es eine kleine Dachwohnung. 1965 habe ich dort gewohnt – jetzt wohnt Camille dort. Hilf ihr, es gemütlich zu machen!": "Above Henri's bakery there's a little attic flat. I lived there in 1965 – now Camille lives there. Help her make it cosy!",
+  "Meine Nähstube ist wieder bunt! Setz dich in den Sessel, nimm dir ein Strickzeug und hör dem Regen zu. Genau so mochte ich es.": "My sewing room is colourful again! Sit in the armchair, pick up some knitting and listen to the rain. That's exactly how I liked it.",
+  "Das Strandcafé ist wieder offen! Hör mal – die Wellen, die Möwen, das Lachen. So klingt der Sommer.": "The beach café is open again! Listen – the waves, the gulls, the laughter. That's what summer sounds like.",
+  "Camilles Dachwohnung ist wunderschön geworden. Wenn sie abends aus dem Fenster schaut, sieht sie denselben Eiffelturm wie ich damals.": "Camille's attic flat has turned out beautifully. When she looks out of the window in the evening, she sees the same Eiffel Tower I saw back then.",
+  "Nähstube aufräumen": "Tidy the sewing room",
+  "Kisten weg, Teppich raus": "Boxes out, rug down",
+  "Nähtisch": "Sewing table",
+  "Mit Omas alter Nähmaschine": "With Grandma's old sewing machine",
+  "Stoffregal": "Fabric shelf",
+  "Bunte Stoffe für jedes Projekt": "Colourful fabrics for every project",
+  "Schneiderpuppe": "Dress form",
+  "Trägt Omas Sommerkleid": "Wearing Grandma's summer dress",
+  "Sessel mit Patchworkdecke": "Armchair with patchwork quilt",
+  "Hundert bunte Flicken": "A hundred colourful patches",
+  "Stehlampe": "Floor lamp",
+  "Licht für feine Stiche": "Light for fine stitches",
+  "Knopfgläser": "Button jars",
+  "Tausend Knöpfe, sortiert nach Farbe": "A thousand buttons, sorted by colour",
+  "Hüte am Haken": "Hats on hooks",
+  "Für jeden Anlass einer": "One for every occasion",
+  "Wollkorb": "Wool basket",
+  "Mit Strickzeug für lange Abende": "With knitting for long evenings",
+  "Hamster Knopf": "Button the hamster",
+  "Sammelt heimlich Garnrollen": "Secretly collects reels of thread",
+  "Strand säubern": "Clean the beach",
+  "Seegras und Kisten weg": "Seaweed and boxes gone",
+  "Holzterrasse": "Wooden deck",
+  "Warm unter nackten Füßen": "Warm under bare feet",
+  "Strandkiosk": "Beach kiosk",
+  "Blau-weiß gestreift": "Blue and white stripes",
+  "Liegestühle": "Deckchairs",
+  "Für ein Nickerchen am Meer": "For a nap by the sea",
+  "Sonnenschirme": "Parasols",
+  "Schatten für heiße Tage": "Shade for hot days",
+  "Eiswagen": "Ice-cream cart",
+  "Mit fünf Sorten": "With five flavours",
+  "Lichterkette": "Fairy lights",
+  "Für laue Sommernächte": "For balmy summer nights",
+  "Boote": "Boats",
+  "Ein Ruderboot und ein Segelboot": "A rowing boat and a sailing boat",
+  "Sandburg": "Sandcastle",
+  "Mit Muscheln verziert": "Decorated with shells",
+  "Krabbe Kalle": "Kalle the crab",
+  "Läuft immer seitwärts": "Always walks sideways",
+  "Wohnung aufräumen": "Tidy the flat",
+  "Kisten raus, Teppich rein": "Boxes out, rug in",
+  "Dachfenster putzen": "Clean the skylight",
+  "Blick bis zum Eiffelturm": "A view all the way to the Eiffel Tower",
+  "Bistrotischchen": "Little bistro table",
+  "Frühstück mit Aussicht": "Breakfast with a view",
+  "Rotes Sofa": "Red sofa",
+  "Vom Flohmarkt in Saint-Ouen": "From the flea market in Saint-Ouen",
+  "Staffelei": "Easel",
+  "Camille malt die Dächer": "Camille paints the rooftops",
+  "Bücherregal": "Bookshelf",
+  "Romane und Kochbücher": "Novels and cookbooks",
+  "Pflanzen": "Plants",
+  "Auf der Fensterbank und am Boden": "On the windowsill and the floor",
+  "An den Dachbalken": "On the roof beams",
+  "Plattenspieler": "Record player",
+  "Spielt französische Chansons": "Plays French chansons",
+  "Katze Minou": "Minou the cat",
+  "Schläft auf der Fensterbank": "Sleeps on the windowsill",
+  "🧵 Drei neue Räume zum Einrichten: Omas Nähstube, das Strandcafé und Camilles Dachwohnung in Paris.": "🧵 Three new rooms to furnish: Grandma's sewing room, the beach café and Camille's attic flat in Paris.",
+  "🐹 Neue Tiere: Hamster Knopf, Krabbe Kalle und Katze Minou.": "🐹 New animals: Button the hamster, Kalle the crab and Minou the cat."
+});
 const STORY_END = CHAPTERS.length * 10;
 const MAX_LEVEL = Infinity;
 Object.assign(EN, {
@@ -5277,7 +5646,7 @@ Object.assign(EN, {
   "iPhone/iPad: Tippe in Safari unten auf „Teilen“ und dann auf „Zum Home-Bildschirm“.": "iPhone/iPad: In Safari, tap “Share” at the bottom and then “Add to Home Screen”.",
   "Android: Tippe in Chrome oben rechts auf ⋮ und dann auf „App installieren“ oder „Zum Startbildschirm hinzufügen“.": "Android: In Chrome, tap ⋮ at the top right and then “Install app” or “Add to Home screen”.",
   "Danach hat das Spiel ein eigenes Symbol, startet im Vollbild und läuft auch ohne Internet.": "Then the game gets its own icon, starts in full screen and works without internet too.",
-  "Prototyp 2.2 · Werbung und Käufe sind nur simuliert": "Prototype 1.3 · Ads and purchases are only simulated",
+  "Prototyp 2.3 · Werbung und Käufe sind nur simuliert": "Prototype 1.3 · Ads and purchases are only simulated",
   "{} gehört dir! Die neuen Farben findest du beim Einrichten.": "{} is yours! You'll find the new colours when furnishing."
 });
 
@@ -5398,9 +5767,10 @@ function openWeek() {
 }
 
 /* ================= Was ist neu? ================= */
-const VERSION = "2.2";
+const VERSION = "2.3";
 const vnum = v => v.split(".").map(Number).reduce((a, x) => a * 1000 + x, 0);
 const CHANGES = [
+  { v: "2.3", items: ["🧵 Drei neue Räume zum Einrichten: Omas Nähstube, das Strandcafé und Camilles Dachwohnung in Paris.", "🐹 Neue Tiere: Hamster Knopf, Krabbe Kalle und Katze Minou."] },
   { v: "2.2", items: ["📖 Drei neue Kapitel: Die Paris-Geschichte geht weiter – bis Level 120.", "☕ Danach geht das Spiel endlos weiter: jeden Tag neue Gäste, langsam kniffliger.", "🥞 Drei neue Rezepte: Crêpes, Tarte Tatin und Schoko-Croissants."] },
   { v: "2.1", items: ["🏆 Familien-Rätsel: Jede Woche spielen alle dasselbe Rätsel. Wer braucht die wenigsten Züge? Ergebnis mit einem Tipp teilen.", "🎵 Jeder Raum hat jetzt seine eigene Musik – in Paris spielt ein Akkordeon.", "💌 Postkarten aus Paris: In jedem Paris-Level findest du eine Karte von Henri.", "⭐ Sternejagd: Hol dir in alten Leveln alle 3 Sterne – mit Belohnung. Unter „Mehr“.", "📅 Der Tagesbonus ist jetzt ein Wochenkalender mit Türchen – am 7. Tag gibt es eine besondere Deko."] },
   { v: "2.0", items: ["🗼 Kapitel 9: „Ein Brief aus Paris“ – eine neue Geschichte beginnt.", "🥖 Neuer Raum: Henris Bäckerei in Paris.", "♨️ Neues Hindernis: Ofenfrisch.", "🥐 Neue Gegenstände: Baguette, Eiffelturm, Akkordeon, Crêpes, Käse und Farbpalette.", "🐚 Neues Rezept: Henris Madeleines."] },
@@ -5534,7 +5904,7 @@ Object.assign(EN, {
   "🌍 Englische Version": "🌍 English version", "🧩 Tagesrätsel": "🧩 Daily puzzle", "🏅 Erfolge": "🏅 Achievements",
   "🕸️ Neue Hindernisse ab Level 25": "🕸️ New obstacles from level 25", "🐈 Gäste und Tiere in den Räumen": "🐈 Guests and animals in the rooms",
   "Eine neue Version ist da. Starte das Spiel neu, um sie zu sehen.": "A new version is available. Restart the game to see it.",
-  "Prototyp 2.2 · Werbung und Käufe sind nur simuliert": "Prototype 2.2 · Ads and purchases are only simulated",
+  "Prototyp 2.3 · Werbung und Käufe sind nur simuliert": "Prototype 2.3 · Ads and purchases are only simulated",
   "🗝️ Omas Geheimnis: Am Ende jedes Kapitels wartet ein Hinweis auf dich. Was hat Oma versteckt?": "🗝️ Grandma's secret: a clue awaits you at the end of every chapter. What did Grandma hide?"
 });
 
@@ -5614,7 +5984,7 @@ function openMore() {
       <button class="btn alt" id="mNews">✨ ${tx("Was ist neu?")}</button>
       <button class="btn alt" id="mSet">⚙️ ${tx("Einstellungen")}</button>
     </div>
-    <p style="font-size:12px">${tx("Prototyp 2.2 · Werbung und Käufe sind nur simuliert")}</p>
+    <p style="font-size:12px">${tx("Prototyp 2.3 · Werbung und Käufe sind nur simuliert")}</p>
     <button class="btn" id="mClose">${tx("Schließen")}</button>
   </div>`);
   o.querySelector("#mAch").onclick = () => { closeOverlay(); renderAch(); };
@@ -6248,7 +6618,7 @@ Object.assign(EN, {
 });
 
 /* ================= Musik je Raum ================= */
-const ROOM_THEMES = { laden: "main", terrasse: "terrace", backstube: "bakery", dachboden: "attic", garten: "garden", wintergarten: "conserv", paris: "paris" };
+const ROOM_THEMES = { laden: "main", terrasse: "terrace", backstube: "bakery", dachboden: "attic", garten: "garden", wintergarten: "conserv", paris: "paris", naeh: "sewing", strand: "beach", mansarde: "paris" };
 Object.assign(THEMES, {
   // Akkordeon-Walzer (Musette) für Paris
   paris: { bpm: 150, waltz: true, wave: "square", musette: true,
@@ -6268,6 +6638,12 @@ Object.assign(THEMES, {
   bakery: { bpm: 72, wave: "triangle",
     chords: [[50, 57, 62, 66], [47, 54, 59, 62], [43, 55, 59, 62], [45, 57, 61, 64]],
     melody: [74, null, 78, 76, 74, null, 71, null, 71, 74, 79, 78, 76, null, null, null] },
+  sewing: { bpm: 84, wave: "triangle",
+    chords: [[41, 53, 57, 60], [38, 50, 57, 62], [46, 53, 58, 62], [48, 52, 55, 60]],
+    melody: [72, 74, 72, 69, 70, null, 69, 67, 65, 67, 69, 70, 72, null, null, null] },
+  beach: { bpm: 108, wave: "triangle",
+    chords: [[48, 55, 60, 64], [45, 57, 60, 64], [41, 57, 60, 65], [43, 55, 59, 62]],
+    melody: [76, 79, 79, 76, 77, 76, 74, null, 72, 74, 76, 72, 74, null, null, null] },
   conserv: { bpm: 58, wave: "sine",
     chords: [[48, 60, 64, 71], [41, 57, 60, 64], [45, 57, 60, 64], [43, 55, 59, 62]],
     melody: [76, null, null, 79, 77, null, 72, null, 72, null, 76, 74, 74, null, null, null] }
@@ -6282,7 +6658,10 @@ const ROOM_DONE_LETTERS = {
   dachboden: "All meine Erinnerungen haben wieder ihren Platz. Danke, dass du sie so behutsam ausgepackt hast.",
   garten: "Mein Rosengarten blüht! Wenn du an einem Sommerabend hier sitzt, bin ich ganz nah bei dir.",
   wintergarten: "Jetzt ist alles fertig. Jeder Raum erzählt wieder eine Geschichte – und die schönste davon ist deine.",
-  paris: "Die Boulangerie Henri duftet wieder! Ich sehe Henri vor mir, wie er in der Tür steht und jedem „Bonjour!“ zuruft. Danke, mein Schatz."
+  paris: "Die Boulangerie Henri duftet wieder! Ich sehe Henri vor mir, wie er in der Tür steht und jedem „Bonjour!“ zuruft. Danke, mein Schatz.",
+  naeh: "Meine Nähstube ist wieder bunt! Setz dich in den Sessel, nimm dir ein Strickzeug und hör dem Regen zu. Genau so mochte ich es.",
+  strand: "Das Strandcafé ist wieder offen! Hör mal – die Wellen, die Möwen, das Lachen. So klingt der Sommer.",
+  mansarde: "Camilles Dachwohnung ist wunderschön geworden. Wenn sie abends aus dem Fenster schaut, sieht sie denselben Eiffelturm wie ich damals."
 };
 function celebrateRoom(room, onDone) {
   save.roomsDone = (save.roomsDone || []).concat(room.id);
@@ -6471,7 +6850,7 @@ function openSettings() {
     <button class="btn alt" id="tSeason">${tx("Jahreszeit:")} ${save.seasonOverride ? tx(SEASON_NAMES[save.seasonOverride]) : TX`automatisch (${tx(SEASON_NAMES[seasonNow()])})`}</button>
     <button class="btn alt" id="tReset">${tx("Fortschritt löschen")}</button>
     <button class="btn" id="tClose">${tx("Fertig")}</button>
-    <p style="font-size:12px">${tx("Prototyp 2.2 · Werbung und Käufe sind nur simuliert")}<br>${tx("Grafiken: Fluent Emoji von Microsoft (MIT-Lizenz)")}</p>
+    <p style="font-size:12px">${tx("Prototyp 2.3 · Werbung und Käufe sind nur simuliert")}<br>${tx("Grafiken: Fluent Emoji von Microsoft (MIT-Lizenz)")}</p>
   </div>`);
   o.querySelectorAll("[data-lang]").forEach(b => b.onclick = () => { if (b.dataset.lang === LANG) return; setLang(b.dataset.lang); closeOverlay(); renderHome(); openSettings(); });
   o.querySelector("#tMusic").onclick = e => { save.music = !save.music; persist(); e.currentTarget.setAttribute("aria-checked", save.music); save.music ? musicStart() : musicStop(); };
